@@ -6,7 +6,7 @@ module.exports = {
   name: 'config',
   childOf: 'playercard',
   category: 'Account', 
-  help: 'Configura la tarjeta de jugador@', 
+  help: 'Configure the player card', 
   args: '',
   requirements: [
     'account.exist'

@@ -4,7 +4,7 @@ module.exports = {
   name: 'setbg',
   childOf: 'playercard',
   category: 'Account',
-  help: 'Configura el fondo de la tarjeta de jugador',
+  help: 'Set the background of the player card',
   args: '',
   requirements: [{
     validate: (msg, args, client, command, req) => args[2] || false,

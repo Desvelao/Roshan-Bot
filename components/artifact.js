@@ -1,11 +1,11 @@
 const { Component } = require('aghanim')
 // const ArtifactManager = require('../helpers/artifact')
-const { Request } = require('erisjs-utils')
 const modifiers = require('../containers/artifact_cards_modifiers.json')
 const { encode , decode } = require('artifact-api')
 const Canvas = require('../classes/paintjimp/canvas')
 const jimp = require('jimp')
 const steamprice = require('steam-price-api')
+const { default: axios } = require('axios')
 
 //PRICEAPI https://steamcommunity.com/market/search/render/?appid=583950&norender=1&count=500
 
@@ -51,8 +51,8 @@ class Artifact extends Component {
         this.sets = []
         this.cards = []
         const areCards = ['Hero','Creep','Spell','Improvement','Item']
-        return Promise.all(this.setsIDs.map(id => Request.getJSON(this.apiURL + id)
-            .then(response => Request.getJSON((response.cdn_root + response.url).replace('\\','')))))
+        return Promise.all(this.setsIDs.map(id => axios.get(this.apiURL + id)
+            .then(({data}) => axios.get((data.cdn_root + data.url).replace('\\','')))))
             .then(responses => {
                 responses.forEach(response => {
                     // Set signature into references field
@@ -612,11 +612,9 @@ class Artifact extends Component {
         })
     }
     gameInfo(){
-        return Request.getJSON(this.gameInfoUrl).then(data => {
-            return {
-                currentplayers : data.response.player_count
-            }
-        })
+        return axios.get(this.gameInfoUrl).then(({data}) => ({
+            currentplayers : data.response.player_count
+        }))
     }
 }
 
@@ -627,15 +625,6 @@ Artifact.colors = {
     RED : 'Red',
     YELLOW : "Yellow"
 }
-
-// Artifact.hexColors = {
-//     Blue: 0x2f7492ff,
-//     Black: 0x736e80ff,
-//     Green: 0x479036ff,
-//     Red: 0xc2352dff,
-//     Yellow: 10980914,
-//     White: 0x0000ffff
-// }
 
 Artifact.hexColors = {
     Blue: 0x255C74ff,

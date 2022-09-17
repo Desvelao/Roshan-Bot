@@ -1,9 +1,10 @@
 module.exports = {
   name: 'giveaway',
   category: 'General',
-  help: 'Realiza un sorteo en Discord',
-  args: '[rol]',
   rolesCanUse: 'aegis',
+  requirements: [
+    'guild.only'
+  ],
   run: async function (msg, args, client, command){
     const guild = msg.channel.guild
     const re = /<@&([\d^>]+)>/g

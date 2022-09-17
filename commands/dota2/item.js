@@ -3,7 +3,7 @@ const enumItems = require('../../enums/items')
 module.exports = {
     name: 'item', 
     category: 'Dota 2',
-    help: 'Muestra información de un objeto de Dota 2',
+    help: 'Show information about a Dota 2 item',
     args: '',
     run: async function (msg, args, client, command) {
         const item = enumItems.getValueByName(args.from(1))

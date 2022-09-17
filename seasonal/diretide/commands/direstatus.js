@@ -1,5 +1,5 @@
 const { Command } = require('aghanim')
-const { Datee , Request} = require('erisjs-utils')
+const { Datee } = require('erisjs-utils')
 
 module.exports = new Command('direstatus',{
   category : 'Diretide', help : '', args : '', ownerOnly : true},

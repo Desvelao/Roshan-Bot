@@ -5,7 +5,7 @@ const off = 'off'
 module.exports = {
   name: 'server',
   category: 'Server',
-  help: 'Muestra la configuración del servidor',
+  help: 'Show the guild configuration',
   args: '',
   requirements: [
     {

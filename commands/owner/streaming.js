@@ -1,8 +1,8 @@
 module.exports = {
   name: 'streaming',
   category : 'Owner',
-  help : 'Modifica el estado del bot a Streaming',
-  args : '<link twitch> [mensaje]',
+  help : 'Set the "Streaming" status',
+  args : '<link twitch> [message]',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     if(!args[1] || !args[1].startsWith('https://www.twitch.tv/')){return};

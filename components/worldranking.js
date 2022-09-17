@@ -1,6 +1,5 @@
 const { Component } = require('aghanim')
-const CustomComponent = require('../classes/custom-component.js')
-const { Request } = require('erisjs-utils')
+const axios = require('axios')
 
 module.exports = class WorldRankingApi extends Component{
     constructor(client, options) {
@@ -16,10 +15,10 @@ module.exports = class WorldRankingApi extends Component{
         }
     }
     url(division){
-        return this.urls.base + this.urls[division]
+        return this.urls.base + this.urls[division] + '&leaderboard=0'
     }
     get(division){
-        return Request.getJSON(this.url(division))
+        return axios.get(this.url(division)).then(({data}) => data)
     }
     searchPlayerInWorld(query){
         return new Promise((resolve, reject) => {
@@ -33,10 +32,6 @@ module.exports = class WorldRankingApi extends Component{
         })
     }
     promises(){
-        const promises = [];
-        for (let i = 0; i < this.divisions.length; i++) {
-            promises.push(Request.getJSON(this.url(this.divisions[i])))
-        }
-        return Promise.all(promises)
+        return Promise.all(this.divisions.map((division) => this.get(division)))
     }
 }

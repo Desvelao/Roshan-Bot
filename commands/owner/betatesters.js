@@ -2,7 +2,7 @@ module.exports = {
   name: ['beta'],
   category : 'Owner',
   help : 'Betatesters',
-  args : '[<add/remove> <mención>]',
+  args : '[<add/remove> <user_mention>]',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     if(['add','remove'].includes(args[1]) && args.length > 2){

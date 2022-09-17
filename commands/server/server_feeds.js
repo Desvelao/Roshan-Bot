@@ -5,7 +5,7 @@ module.exports = {
   name: 'feeds',
   childOf: 'server',
   category: 'Server',
-  help: 'Configuración de feeds',
+  help: 'Feeds configuration',
   args: '<on,off,[channel]>',
   requirements: [
     {

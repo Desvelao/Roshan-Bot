@@ -3,10 +3,10 @@ const { Classes, Markdown } = require('erisjs-utils')
 module.exports = {
   name: ['competitive','comp'],
   category: 'Dota 2',
-  help: 'Últimos resultados de partidas competitivas',
+  help: 'Last results of competitive games',
   args: '',
   run: async function (msg, args, client, command){
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     return client.components.Opendota.competitive()
       .then(results => {
         const spacesBoard = ['19f', '2f', '19f', '17f', '11f']

@@ -1,7 +1,6 @@
 module.exports = {
   name: 'roll',
   category: 'General',
-  help: 'Rollea entre dos números',
   args: '[min/max] [max]',
   run: async function (msg, args, client, command){
     let min, max, random;

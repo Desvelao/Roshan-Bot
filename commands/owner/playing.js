@@ -1,8 +1,8 @@
 module.exports = {
   name:'playing',
   category : 'Owner',
-  help : 'Establece el mensaje de Jugando a',
-  args : '<mensaje>',
+  help : 'Set the message of "Playing to"',
+  args : '<message>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     if(args.length < 2){

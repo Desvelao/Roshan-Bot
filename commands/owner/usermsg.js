@@ -1,6 +1,8 @@
 module.exports = {
   name: 'usermsg',
-  category : 'Owner', help : 'Mensaje a usuari@', args : '<id> [mensaje]',
+  category: 'Owner',
+  help: 'Send a message to an user',
+  args: '<id> [message]',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     const id = args[1];

@@ -1,5 +1,3 @@
-// const util = require('erisjs-utils')
-
 class FireSetCache extends Set{
   constructor(db,data = []){
     super(data)

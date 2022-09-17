@@ -1,6 +1,6 @@
 const { Component } = require('aghanim')
-const CustomComponent = require('../classes/custom-component.js')
-const { Markdown, Request } = require('erisjs-utils');
+const { Markdown } = require('erisjs-utils')
+const axios = require('axios')
 
 module.exports = class RedditApi extends Component {
   constructor(client, options) {
@@ -8,20 +8,12 @@ module.exports = class RedditApi extends Component {
   }
   posts(mode, limit, subreddit) {
     const url = toJSONURL(subreddits[subreddit] + mode);
-    return new Promise((resolve, reject) => {
-      Request.getJSON(url).then(result => {
-        resolve(postsToList(result, limit))
-      }).catch(err => reject(err))
-    })
+    return axios.get(url).then(({data}) => postsToList(data, limit))
   }
   post(id) {
     //https://www.reddit.com/by_id/t3_33hw9x.json
     const url = toJSONURL(BY_ID_URL + 't3_' + id);
-    return new Promise((resolve, reject) => {
-      Request.getJSON(url).then(result => {
-        resolve(postInfo(result))
-      }).catch(err => reject(err))
-    })
+    return axios.get(url).then(({data}) => postInfo(data))
   }
 }
 

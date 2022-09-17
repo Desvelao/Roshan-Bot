@@ -5,11 +5,11 @@ const enumMedal = require('../../enums/medals')
 module.exports = {
   name: ['player','p'],
   category : 'Dota 2',
-  help : 'Información sobre un/a jugador/a',
-  args : '[mención/dotaID/pro]',
+  help : 'Information about a player',
+  args : '[mention/dotaID/pro]',
   requirements: ["is.dota.player"],
   run: async function(msg, args, client, command){
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     const [player, results] = await Promise.all([
       args.profile,
       client.components.Opendota.player(args.profile.data.dota)

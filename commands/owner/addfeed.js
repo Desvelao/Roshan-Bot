@@ -3,8 +3,8 @@ const { Datee } = require('erisjs-utils')
 module.exports = {
   name: 'addfeed',
   category : 'Owner',
-  help : 'Añade un feed',
-  args : '"título" "descripción" "link"',
+  help : 'Add a feed feed',
+  args : '"title" "description" "link"',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     if(!args.length){return}

@@ -3,7 +3,7 @@ const { Datee } = require('erisjs-utils')
 module.exports = {
   name: 'deleteacc',
   category : 'Owner',
-  help : 'Elimina cuenta de Roshan',
+  help : 'Delete a Roshan account',
   args : '<discordID>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){

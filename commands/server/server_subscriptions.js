@@ -4,7 +4,7 @@ module.exports = {
   name: ['subscriptions','subs'],
   childOf: 'server',
   category: 'Server',
-  help: 'Subscripciones disponibles',
+  help: 'Available subscriptions',
   args: '',
   requirements: [
     {

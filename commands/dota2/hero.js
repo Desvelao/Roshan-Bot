@@ -3,7 +3,7 @@ const enumHeroes = require('../../enums/heroes')
 module.exports = {
     name: 'hero',
     category: 'Dota 2',
-    help: 'Muestra información de dota',
+    help: 'Show information about Dota 2',
     args: '',
     run: async function (msg, args, client, command) {
         const hero = enumHeroes.getValueByAlias(args.from(1))

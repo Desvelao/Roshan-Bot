@@ -3,8 +3,8 @@ const { Command } = require('aghanim')
 module.exports = {
   name: 'setlang',
   category : 'Account',
-  help : 'Estable el idioma de la cuenta',
-  args : '<idioma>',
+  help : 'Set the language',
+  args : '<language>',
   requirements: [
     'account.exist',
     {

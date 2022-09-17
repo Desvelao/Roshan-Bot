@@ -37,7 +37,7 @@ function main(){
         const url = `${APIURL}${items[item].img}`.replace(/(\?t=.*)/,'')
         return { filename: path.basename(url).replace(/\?3/g, '').replace('_lg', ''), url, dest: path.join(destination, folderItems) }
     }).filter(filterDownload(itemsOwned)))
-    
+
     if(assets.length > 0){
         console.log(`>> ${assets.length} assets found`)
         console.log('---------------------------')
@@ -51,20 +51,6 @@ function main(){
     }
 }
 
-function downloadAsset(dest){
-    return function({filename, url},index){
-        const destPath = path.join(cwd,dest)
-        console.log('Filename:', filename)
-        console.log('To:', destPath)
-        console.log('URL:', url)
-        return jimp.read(url)
-            .then(data => data.quality(100)
-            .write(path.join(destPath, filename)))
-            .then(() => console.log('Downloaded:',path.join(dest,filename)))
-            .catch(err => console.log('ERROR in',url,err))
-    }
-}
-
 function reducePromiseTemp(time){
     return function(array){
         return array.reduce((promise, { filename, url , dest }) => {
@@ -73,8 +59,6 @@ function reducePromiseTemp(time){
                     setTimeout(() => {
                         const destPath = path.join(cwd, dest)
                         console.log(`Filename: <${filename}> to [${destPath}] in |${url}|`)
-                        // res({ success: [], fail: [] })
-                        // console.log('Results',results)
                         jimp.read(url)
                             .then(data => data.quality(100).write(path.join(destPath, filename)))
                             .then(() => { console.log('-> Downloaded:', path.join(dest, filename)); results.success.push({ dest, filename, url }); res(results)})
@@ -96,19 +80,3 @@ function filterDownload(files){
 }
 
 main()
-// .reduce((promise, player) => {
-//     return promise.then(results => new Promise(res => {
-//         console.log(`Update leaderboard to ${player.dota_id}`)
-//         setTimeout(() => this.client.components.Opendota.player_steam(player.dota_id).then(dataArray => {
-//             const [data] = dataArray;
-//             player.data = data; res([...results, player])
-//         }), 2000)
-//     }))
-// }, Promise.resolve([]))
-// const files = fs.readdirSync(src)
-// files.forEach((file, index) => {
-//     const filename = path.basename(file, '.png')
-//     console.log(path.join(src, file))
-//     console.log(path.join(dest, file))
-//     jimp.read(path.join(src, file)).then(data => data.quality(100).write(path.join(dest, `${filename}.jpg`)))
-// })

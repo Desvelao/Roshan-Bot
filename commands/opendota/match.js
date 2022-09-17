@@ -7,11 +7,11 @@ const enumSkill = require('../../enums/skill')
 module.exports = {
   name: ['match','game'],
   category: 'Dota 2',
-  help: 'Estadísticas de una partida',
+  help: 'Game stats',
   args: '<id>',
   run: async function(msg, args, client, command){
     if(!args[1]){return}
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     return client.components.Opendota.match(args[1])
       .then(results => {
         if (results[0].error) { return }
@@ -50,6 +50,6 @@ module.exports = {
           _match_field1_name: (results[0].dire_team ? results[0].dire_team.name : msg.author.locale('dota2.dire')) + ' - ' + results[0].dire_score,
           _match_field1_value: dire.render()
         })
-      }).catch(err => { return msg.reply('error.opendotarequest') })
+      }).catch(err => { console.log(err);return msg.reply('error.opendotarequest') })
   }
 }

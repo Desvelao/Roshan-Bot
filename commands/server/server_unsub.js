@@ -5,8 +5,8 @@ module.exports = {
   name: ['unsubscribe','unsub'],
   childOf: 'server',
   category: 'Server',
-  help: 'Desuscribción de feeds',
-  args: '<feeds separados por un espacio>',
+  help: 'Unsubscribe from feeds',
+  args: '<feeds separated by spaces>',
   requirements: [
     {
       type: 'member.has.role',

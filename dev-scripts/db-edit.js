@@ -1,5 +1,5 @@
 const {firebase, db} = require('./firebase.js')
-const { Request } = require('erisjs-utils')
+const axios = require('axios')
 
 // db.child('profiles').once('value').then(snap => {
 //   if(snap.exists()){
@@ -36,9 +36,8 @@ db.child('profiles').once('value').then(snap => {
 const requestTs = function(profiles){
   return profiles.reduce((promise, player) => {
     return promise.then(results => new Promise(res => {
-      setTimeout(() => Request.getJSON(`https://api.opendota.com/api/players/${player.dotaID}`).then(data => {
-        console.log(`Requequest for ${player.discordID}`)
-        // console.log(data)
+      setTimeout(() => axios.get(`https://api.opendota.com/api/players/${player.dotaID}`).then(({data}) => {
+        console.log(`Request for ${player.discordID}`)
         db.child(`profiles/${player.discordID}`).update({ dota: player.dotaID, steam: data.profile.steamid})
         res([])
       }), 1500)

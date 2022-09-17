@@ -2,7 +2,9 @@ const { Classes } = require('erisjs-utils')
 
 module.exports = {
   name: 'servers',
-  category : 'Owner', help : 'Información de los servidores', args : '',
+  category : 'Owner',
+  help : 'Guilds information',
+  args : '',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     let table = new Classes.Table(['ID','N','F','Server','Members','Owner'],['18','1','1','20r','7c','15'],'.');

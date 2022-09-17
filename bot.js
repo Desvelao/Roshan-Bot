@@ -8,7 +8,8 @@ Object.defineProperty(bot, "isProduction", {
 	get: () => process.env.NODE_ENV === "production"
 })
 
-//Define categories for commands
+// Add categories
+// Define categories for commands
 const categoryCommands = [
 	{ name: 'General', description: 'Ayuda de general'},
 	{ name: 'Dota 2', description: 'Ayuda de Dota 2'},
@@ -37,15 +38,15 @@ commandsDirs.forEach(dir =>
 	bot.addCommandDir(path.join(__dirname, dir))
 )
 
-
 function filterCommands(cmd,query,owner){
 	if(query === 'owner'){
 		return owner
 	}
-	return !cmd.hide
+	return cmd.enable && !cmd.hide
 }
 
 // Adding help command
+
 bot.addCommand(new Aghanim.Command('help',{}, async function(msg, args, client, command){
 	const categories = client.categories.map(c => c.name.toLowerCase())
 	const query = args.from(1).toLowerCase()
@@ -53,25 +54,25 @@ bot.addCommand(new Aghanim.Command('help',{}, async function(msg, args, client, 
 	if(query === 'owner' && !owner){return}
 	let helpMessage = msg.author.locale('help.message') +'\n\n'
 	if(categories.includes(query)){
-	const cmds = client.getCommandsOfCategories(query).sort((a, b) => a.name > b.name ? 1 : -1)
-	const prefix = client.prefix
-	if(!cmds){helpMessage += client.categories.filter(c => !c.hide).map(c => `**${c.name}** \`${client.prefix}help ${c.name.toLowerCase()}\` - ${msg.author.locale('cat_' + c.name.toLowerCase() + '_help')}`).join('\n') + '\n\n' + msg.author.locale('help.messageaftercategories')}
-	else{
-		helpMessage += cmds.filter(c => filterCommands(c,query,owner)).map(c => {
-			const cmd_args = msg.author.locale('cmd_' + c.name + '_args')
-			const cmd_help = msg.author.locale('cmd_' + c.name + '_help')
-			// const langCmd = client.components.Locale.getCmd(c.name,msg)
-			return `\`${prefix}${c.name}${cmd_args ? ' ' + cmd_args : ''}\` - ${cmd_help || c.help}${c.aliases && c.aliases.length ? `. Alias: ${c.aliases.map(alias => `\`${alias}\``).join(', ' )}` : ''}${c.childs.length ? '\n' + c.childs.filter(s => filterCommands(s,query,owner)).map(s => {
-				const cmd_args = msg.author.locale('cmd_' + c.name + '_' + s.name + '_args')
-				const cmd_help = msg.author.locale('cmd_' + c.name + '_' + s.name + '_help')
-				// const langCmd = client.components.Locale.getCmd(c.name + '_' + s.name,msg)
-				return `  · \`${s.name}${cmd_args ? ' ' + cmd_args : ''}\` - ${cmd_help}${s.aliases && s.aliases.length ? `. Alias: ${s.aliases.map(alias => `\`${alias}\``).join(', ' )}` : ''}`}).join('\n') : ''}`
-			}).join('\n')
+		const cmds = client.getCommandsOfCategories(query).sort((a, b) => a.name > b.name ? 1 : -1)
+		const prefix = client.prefix
+		if(!cmds){helpMessage += client.categories.filter(c => !c.hide).map(c => `**${c.name}** \`${client.prefix}help ${c.name.toLowerCase()}\` - ${msg.author.locale('cat_' + c.name.toLowerCase() + '_help')}`).join('\n') + '\n\n' + msg.author.locale('help.messageaftercategories')}
+		else{
+			helpMessage += cmds.filter(c => filterCommands(c,query,owner)).map(c => {
+				const cmd_args = msg.author.locale('cmd_' + c.name + '_args')
+				const cmd_help = msg.author.locale('cmd_' + c.name + '_help')
+				// const langCmd = client.components.Locale.getCmd(c.name,msg)
+				return `\`${prefix}${c.name}${cmd_args ? ' ' + cmd_args : ''}\` - ${cmd_help || c.help}${c.aliases && c.aliases.length ? `. Alias: ${c.aliases.map(alias => `\`${alias}\``).join(', ' )}` : ''}${c.childs.length ? '\n' + c.childs.filter(s => filterCommands(s,query,owner)).map(s => {
+					const cmd_args = msg.author.locale('cmd_' + c.name + '_' + s.name + '_args')
+					const cmd_help = msg.author.locale('cmd_' + c.name + '_' + s.name + '_help')
+					// const langCmd = client.components.Locale.getCmd(c.name + '_' + s.name,msg)
+					return `  · \`${s.name}${cmd_args ? ' ' + cmd_args : ''}\` - ${cmd_help}${s.aliases && s.aliases.length ? `. Alias: ${s.aliases.map(alias => `\`${alias}\``).join(', ' )}` : ''}`}).join('\n') : ''}`
+				}).join('\n')
 		}
 	}else{
 		helpMessage += client.categories.filter(c => !c.hide).map(c => `**${c.name}** \`${client.prefix}help ${c.name.toLowerCase()}\` - ${msg.author.locale('cat_' + c.name.toLowerCase() + '_help')}`).join('\n') + '\n\n' + msg.author.locale('help.messageaftercategories')
 	}
-	return !client.setup.helpDM ? msg.reply(helpMessage) : msg.replyDM(helpMessage)
+	return client.setup.helpDM ? msg.replyDM(helpMessage) : msg.reply(helpMessage)
 
 }))
 

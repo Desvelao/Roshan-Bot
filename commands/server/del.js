@@ -1,8 +1,8 @@
 module.exports = {
   name: 'del',
   category: 'Server',
-  help: 'Elimina los últimos <mensajes>',
-  args: '<mensajes>',
+  help: 'Delete the last messages',
+  args: '<count>',
   requirements: [
     {
       type: 'member.has.role',

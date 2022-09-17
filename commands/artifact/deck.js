@@ -1,24 +1,28 @@
 const { Markdown } = require('erisjs-utils')
-const { doIfCondition } = require('../../helpers/functional.js')
+
+function doIfCondition(validate, cond_fn){
+    return new Promise((res,rej) => {
+        validate ? Promise.resolve(cond_fn()).then(res) : res()
+    })
+}
 
 module.exports = {
     name: 'deck',
     category: 'Artifact',
-    help: 'Genera un mazo desde un código',
-    args: '[código/nombre mazo]',
+    help: 'Generate a deck from a code',
+    args: '[code/deck name]',
     requirements: [
         {
             type: 'user.cooldown',
             time: 30,
-            esponse: (msg, args, client, command, req) => msg.author.locale('cmd.incooldown', {cd : args.reqUserCooldown.cooldown, username: args.reqUserCooldown.user})
+            response: (msg, args, client, command, req) => msg.author.locale('cmd.incooldown', {cd : args.reqUserCooldown.cooldown, username: args.reqUserCooldown.user})
         },
         {
             validate: (msg, args, client, commnad) => args[1] || false,
             response: (msg, args, client, command) => msg.author.locale('deck.error.needargorvalidcode')
         }
     ],
-    // cooldown: 30,
-    // cooldownMessage: (msg, args, command, cooldown) => msg.author.locale('cmd.incooldown'),
+    enable: false,
     run: async function (msg, args, client, command) {
         const deckCached = client.cache.decks.find(deck => deck.name.toLowerCase() === String(args.from(1)).toLowerCase())
         const code = deckCached ? deckCached._id : client.components.Artifact.isValidDeckCode(args[1])
@@ -36,7 +40,7 @@ module.exports = {
         if(deck){
             return embedResponse(msg, args, client, deck, embed)
         }else{
-            msg.channel.sendTyping()
+            client.sendChannelTyping(msg.channel.id)
             return client.components.Artifact.generateDeck(code, args[2] ? args.from(2) : null)
                 .then(result => {
                     // return this.components.Artifact.uploadDeckAndCache(result.buffer, code, result.data.name, msg.author.id)
@@ -61,5 +65,3 @@ function embedResponse(msg, args, bot, data, embed){
             _price: price ? `- Price ${price}€` : ''
         }))
 }
-
-//TODO langstring

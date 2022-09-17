@@ -1,5 +1,4 @@
 const { Command } = require('aghanim')
-const { Datee , Request} = require('erisjs-utils')
 
 module.exports = new Command('joindiretide',{
   category : 'Diretide', help : 'Join to Diretide (reset profile and enter a new Team)', args : ''},

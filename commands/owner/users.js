@@ -1,7 +1,7 @@
 module.exports = {
   name: 'users',
   category : 'Owner',
-  help : 'Cantidad de usuari@s registrados',
+  help : 'Count of registered users',
   args : '',
   requirements: ['owner.only'],
   run: async function(msg, args, client){

@@ -16,7 +16,10 @@ module.exports = () => ItemCard({
         cooldown: 0,
         refresh: 0,
         modifier: {
-            affect: ['hero'], rst: resistence, atk: attack, hp: hitpoints,
+            affect: ['hero'],
+            rst: resistence,
+            atk: attack,
+            hp: hitpoints,
             source: name,
             description
         },

@@ -3,7 +3,7 @@ const { Firebase } = require('erisjs-utils')
 module.exports = {
   name: 'backup',
   category : 'Owner',
-  help : 'Realiza una copia de seguridad',
+  help : 'Database backup',
   args : '',
   requirements: ['owner.only'],
   run: async function(msg, args, client){

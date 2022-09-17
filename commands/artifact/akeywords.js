@@ -1,8 +1,9 @@
 module.exports = {
   name: 'akey',
   category : 'Artifact',
-  help : 'Información sobre las palabras clave del juego',
-  args : '[palabra clave]',
+  help : 'Information about the game keywords',
+  args : '[keyword]',
+  enable: false,
   run: async function (msg, args, client, command){
     const query = args.from(1).toLowerCase()
     const keyword = client.components.Artifact.keywords.find(k => [k.name.toLowerCase(),...k.alias.map(a => a.toLowerCase())].includes(query))

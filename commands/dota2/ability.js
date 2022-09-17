@@ -3,7 +3,7 @@ const enumAbilities = require('../../enums/abilities')
 module.exports = {
     name: 'ability',
     category: 'Dota 2',
-    help: 'Muestra información de un objeto de Dota 2',
+    help: 'Show information about a Dota 2 ability',
     args: '',
     run: async function (msg, args, client, command) {
         const ability = enumAbilities.getValueByName(args.from(1))

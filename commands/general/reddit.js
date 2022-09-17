@@ -1,12 +1,10 @@
 module.exports = {
   name: 'reddit',
   category: 'General',
-  help: 'Información sobre reddit',
-  args: '<idpost,top,hot,new>',
   run: async function (msg, args, client, command){
     const query = args[1] || 'top'
     if(['top','hot','new'].indexOf(query.toLowerCase()) > -1){
-      msg.channel.sendTyping();
+      client.sendChannelTyping(msg.channel.id);
       return client.components.RedditApi.posts(query,5,'reddit').then(result => {
         return msg.reply({
           embed: {
@@ -21,7 +19,7 @@ module.exports = {
         return msg.reply('reddit.error.postsrequest')
       })
     }else{
-      msg.channel.sendTyping();
+      client.sendChannelTyping(msg.channel.id);
       return client.components.RedditApi.post(query).then(result => {
         return msg.reply({
           embed: {

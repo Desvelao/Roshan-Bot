@@ -1,8 +1,9 @@
 const { Command } = require('aghanim')
-const { Datee , Request} = require('erisjs-utils')
 
 module.exports = new Command('teams',{
-  category : 'Diretide', help : 'See teams status', args : ''},
+  category : 'Diretide',
+  help : 'See teams status',
+  args : ''},
   function(msg, args, command){
     const game = command.game
     const teams = game.cache.teams.getall()

@@ -15,7 +15,6 @@
     "eslint": "./node_modules/.bin/eslint bot.js",
     "heroku-postbuild": "npm i Desvelao/aghanim#dev",
     "test-heroku-postbuild": "npm install",
-    "pngtojpg": "node dev-scripts/pngtojpg.js pngtojpg pngtojpg/dest",
     "update-assets": "node dev-scripts/od-assets.js img",
     "update-assets-all": "node dev-scripts/od-assets.js img -all",
     "combine-medals-web": "node dev-scripts/combine-medals.js medal_",
@@ -32,7 +31,8 @@
   "dependencies": {
     "aghanim": "github:Desvelao/aghanim#dev",
     "artifact-api": "github:openartifact/artifact-api",
-    "dotaconstants": "^6.40.0",
+    "axios": "^0.27.2",
+    "dotaconstants": "7.13.0",
     "dotenv": "^8.2.0",
     "erisjs-utils": "github:desvelao/erisjs-utils#dev",
     "firebase-admin": "^5.11.0",

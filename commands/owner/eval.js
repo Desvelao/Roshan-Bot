@@ -2,8 +2,11 @@ const { inspect } = require('util')
 
 module.exports = {
   name: ['eval','e'],
-  category : 'Owner', help : '', args : '', hide : true,
-  ownerOnly : true,
+  category : 'Owner',
+  help : '',
+  args : '',
+  hide : true,
+  requirements: ['owner.only'],
   run: async function(msg, args, client){
     // let self = this
     if(!args[1]){return}

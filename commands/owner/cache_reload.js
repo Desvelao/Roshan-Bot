@@ -1,7 +1,7 @@
 module.exports = {
   name: 'cachereload',
   category : 'Owner',
-  help : 'Recarga la cache',
+  help : 'Reload the cache',
   args : '',
   requirements: ['owner.only'],
   run: async function(msg, args, client){

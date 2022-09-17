@@ -1,6 +1,6 @@
 module.exports = {
   name: ['discord','foso','devserver'],
-  category: 'General', help : 'Invitación al Discord de desarrollo de Roshan', args : '',
+  category: 'General',
   run: async function (msg, args, client, command){
     return msg.reply('discord.devserverinvite')
   }

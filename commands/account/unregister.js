@@ -1,7 +1,7 @@
 module.exports = {
   name: 'unregister',
   category : 'Account',
-  help : 'Elimina tu cuenta de Roshan',
+  help : "Delete your Roshan's account",
   args : '',
   requirements: ['account.exist'],
   run: async function (msg, args, client, command){

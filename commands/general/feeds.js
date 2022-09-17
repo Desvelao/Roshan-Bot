@@ -3,8 +3,6 @@ const { Datee, Markdown } = require('erisjs-utils')
 module.exports = {
   name: 'feeds',
   category: 'General',
-  help: 'Últimos feeds',
-  args: '<categoría>',
   run: async function (msg, args, client, command){
     const feeds = client.cache.feeds.order().slice(0,8)
     return msg.reply({

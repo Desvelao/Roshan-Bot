@@ -1,4 +1,4 @@
-const { Component, Eris } = require('aghanim')
+const { Eris } = require('aghanim')
 const CustomComponent = require('../classes/custom-component')
 const { Datee, Member } = require('erisjs-utils')
 const util = require('erisjs-utils')
@@ -26,7 +26,7 @@ module.exports = class Guild extends CustomComponent() {
                 this.get(guild.id).then(data => {
                     if(!data){
                         this.createProcess(guild).then(() => {
-                            this.client.logger.info(`**${guild.name}** servidor encontrado. Registrado en el bot.`)
+                            this.client.logger.info(`**${guild.name}** server found. Registered.`)
                         })
                     } 
                 })
@@ -66,7 +66,6 @@ module.exports = class Guild extends CustomComponent() {
     }
     schema(){
         return {
-            notifications: { channel: '', enable: true },
             feeds: { channel: '', enable: true, subs: '' },
             lang: ''
         }
@@ -77,7 +76,6 @@ module.exports = class Guild extends CustomComponent() {
     create(guildID){
         const schema = this.schema()
         const defaultChannel = util.Guild.getDefaultChannel(this.client.guilds.get(guildID), this.client, true).id
-        schema.notifications.channel = defaultChannel
         schema.feeds.channel = defaultChannel
         schema.lang = this.client.components.Locale.defaultLanguage
         return this.client.cache.servers.save(guildID,schema)
@@ -91,9 +89,9 @@ module.exports = class Guild extends CustomComponent() {
     createProcess(guild){
         this.client.createMessage(this.client.config.guild.notifications, {
             embed: {
-                title: 'Nuevo servidor',
-                description: "**Nombre:** `" + guild.name + "`\n**ID:** `" + guild.id + "`\n**Miembros:** `" + guild.memberCount
-                    + "`\n**Propietari@:** `" + guild.members.get(guild.ownerID).username + "`\n**Región:** `" + guild.region + "`\n**Creado:** `" + Datee.custom(guild.createdAt, 'D/M/Y h:m:s', true) + "`",
+                title: 'New guild',
+                description: "**Name:** `" + guild.name + "`\n**ID:** `" + guild.id + "`\n**Member:** `" + guild.memberCount
+                    + "`\n**Owner:** `" + guild.members.get(guild.ownerID).username + "`\n**Region:** `" + guild.region + "`\n**Created at:** `" + Datee.custom(guild.createdAt, 'D/M/Y h:m:s', true) + "`",
                 thumbnail: { url: guild.iconURL || this.client.user.avatarURL, height: 40, width: 40 },
                 footer: { text: guild.name + ' | ' + guild.id + ' | ' + Datee.custom(guild.joinedAt, 'D/M/Y h:m:s', true), icon_url: this.client.user.avatarURL },
                 color: this.client.config.color

@@ -3,8 +3,8 @@ const { Classes } = require('erisjs-utils')
 module.exports = {
   name: ['searchworldranking','swr'],
   category : 'Dota 2',
-  help : 'Busca a un jugador por nombre en la clasificación mundial',
-  args : '<búsqueda>',
+  help : 'Search a player by name in the world ranking',
+  args : '<search>',
   requirements: [
     {
       validate: (msg, args, client, command, req) => args[1] || false,
@@ -14,7 +14,7 @@ module.exports = {
   run: async function (msg, args, client, command){
     // if (!args[1]) { return msg.reply()}
     const query = args.from(1)
-    msg.channel.sendTyping();
+    client.sendChannelTyping(msg.channel.id);
     return client.components.WorldRankingApi.searchPlayerInWorld(query).then(r => {
       const table = new Classes.Table([msg.author.locale('region'), msg.author.locale('position')],null,['8','8r'],'\u2002')
       r.forEach(d => table.addRow([d.division,d.pos]))

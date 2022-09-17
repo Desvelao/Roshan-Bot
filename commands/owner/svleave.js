@@ -1,7 +1,7 @@
 module.exports = {
   name: 'svleave',
   category : 'Owner',
-  help : 'Roshan sale de un servidor',
+  help : 'Roshan leaves from a guild',
   args : '<serverID>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
@@ -9,6 +9,6 @@ module.exports = {
     if(!guild){return}
     client.leaveGuild(guild.id)
     msg.addReaction(client.config.emojis.default.accept)
-    client.logger.info('svleave: ' + `Guild abandonado: ${guild.id}`)
+    client.logger.info('svleave: ' + `Guild left: ${guild.id}`)
   }
 }

@@ -1,8 +1,9 @@
 module.exports = {
   name: 'sets', 
   category: 'Artifact',
-  help: 'Información sobre los sets',
-  args: '[nombre del set]',
+  help: 'Information about the sets',
+  args: '[set name]',
+  enable: false,
   run: async function (msg, args, client, command){
     if(args[1]){
       const query = args.from(1).toLowerCase()
@@ -31,7 +32,6 @@ function showinfo(msg, client){
     embed: {
       title: 'sets.info',
       description: '<_sets>',
-      // footer: { text: '<_cards> cards' }
       footer: { text: '%%sets.cards%%' }
     }
   },{

@@ -1,5 +1,4 @@
 const { Command } = require('aghanim')
-const { Datee , Request} = require('erisjs-utils')
 
 module.exports = new Command('send',{
   category : 'Diretide', help : 'Send candies to your team basket', args : '<candies>', cooldown : 3600*6,

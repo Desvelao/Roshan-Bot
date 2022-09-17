@@ -7,7 +7,7 @@ const enumSkill = require('../../enums/skill')
 module.exports = {
   name: ['match+','game+'],
   category: 'Dota 2',
-  help: 'Estadísticas de una partida. R+',
+  help: 'Game stats. R+',
   args: '<id>',
   requirements: [
     { 
@@ -18,7 +18,7 @@ module.exports = {
   ],
   run: async function (msg, args, client, command){
     if (!args[1]) { return }
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     return client.components.Opendota.match(args[1])
       .then(results => {
         if (results[0].error) { return }

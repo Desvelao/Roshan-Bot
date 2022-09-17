@@ -2,12 +2,12 @@ module.exports = {
   name: 'artifact',
   childOf: 'reddit',
   category: 'General',
-  help : 'Información sobre reddit',
+  help : 'Information about Artifact subreddit',
   args : '[idpost,top,hot,new]',
   run: async function (msg, args, client, command){
     const query = args[2] || 'top'
     if(['top','hot','new'].indexOf(query.toLowerCase()) > -1){
-      msg.channel.sendTyping()
+      client.sendChannelTyping(msg.channel.id)
       return client.components.RedditApi.posts(query,5,'artifact').then(result => {
         return msg.reply({
           embed : {
@@ -22,7 +22,7 @@ module.exports = {
         return msg.reply('reddit.error.postsrequest')
       })
     }else{
-      msg.channel.sendTyping();
+      client.sendChannelTyping(msg.channel.id);
       return client.components.RedditApi.post(query).then(result => {
         return msg.reply({
           embed: {

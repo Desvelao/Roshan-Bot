@@ -1,8 +1,8 @@
 const variables = [
   {id : 'bot', desc : 'Bot'},
-  {id : '_guild', desc : 'Servidor actual'},
-  {id : '_channel', desc : 'Canal actual'},
-  {id : '_user', desc : 'Autor mensaje'}
+  {id : '_guild', desc : 'Current guild'},
+  {id : '_channel', desc : 'Current channel'},
+  {id : '_user', desc : 'Author message'}
 ]
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     return msg.reply({embed : {
-      title : 'Eval - Ayuda',
+      title : 'Eval - Help',
       fields : [{name : 'Variables', value : variables.map(v => `**${v.id}** - ${v.desc}`).join('\n'), inline : false}],
       color : client.config.color
     }})

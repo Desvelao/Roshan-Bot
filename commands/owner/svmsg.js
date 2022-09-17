@@ -3,8 +3,8 @@ const { Guild } = require('erisjs-utils')
 module.exports = {
   name: 'svmsg',
   category : 'Owner',
-  help : 'Mensaje a servidor',
-  args : '<id> <mensaje>',
+  help : 'Send a message to a guild',
+  args : '<id> <message>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     if(!args[1]){return}
@@ -15,9 +15,7 @@ module.exports = {
     const message = args.from(2)
     const embed = {
       author : {name : `Server message: ${guild.name}`, icon_url : guild.iconURL},
-      // title : message.reason,
       description : message,
-      // thumbnail : {url : owner.avatarURL, height : 40, width : 40},
       footer : {text : client.user.username ,icon_url : client.user.avatarURL},
       color : client.config.colors.sendMsg.server
     }

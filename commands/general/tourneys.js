@@ -3,8 +3,6 @@ const util = require('erisjs-utils')
 module.exports = {
   name: 'tourneys',
   category: 'General',
-  help: 'Últimos torneos o muestra info sobre torneo',
-  args: '[nombre torneo]',
   run: async function(msg, args, client, command){
     if(!args[1]){
       let tourneys_playing = client.cache.tourneys.getPlaying()
@@ -20,7 +18,7 @@ module.exports = {
         fields.push({name: msg.author.locale('tourneys.next',{events : tourneys_next.length}), value : tourneys_next.map(t => `**${t._id}**${t.until ? ' \`' + util.Date.custom(parseInt(t.until)*1000,'D/M',true) + '\`' : ''}`).join(', '), inline : false})
       }
       fields.push({name : msg.author.locale('tourneys.suggestion'), value : client.config.links.web_addtourney, inline : false})
-      msg.reply({
+      return msg.reply({
         embed : {
           title : msg.author.locale('tourneys.title'),
           fields : fields,

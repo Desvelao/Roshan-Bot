@@ -1,8 +1,6 @@
 module.exports = {
   name: 'errors',
   category: 'General',
-  help: 'Corrección de errores',
-  args: '',
   run: async function (msg, args, client, command){
     return msg.reply({
       embed: {

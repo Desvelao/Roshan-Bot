@@ -3,7 +3,7 @@ const paintjimp = require('../../paintjimp')
 module.exports = {
   name: 'playercard',
   category: 'Account',
-  help: 'Muestra tu tarjeta de jugador',
+  help: 'Show the player card',
   args: '',
   requirements: [
     'account.exist',
@@ -15,7 +15,7 @@ module.exports = {
   ],
   run: async function (msg, args, client, command){
     const { account } = args
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     if(account.card.heroes.split('').length < 1){
       return client.components.Opendota.card_heroes(account.dota).then(results => {
         account.card.heroes = results[1].slice(0,3).map(h => h.hero_id).join(',')

@@ -1,5 +1,5 @@
 const { Component } = require('aghanim')
-const { Datee, Guild, Member } = require('erisjs-utils')
+const { Datee, Guild } = require('erisjs-utils')
 
 module.exports = class ServerEvents extends Component {
     constructor(client, options) {
@@ -7,15 +7,10 @@ module.exports = class ServerEvents extends Component {
     }
     messageReactionAdd(msg, emoji, userID, client){
         if (userID === this.client.owner.id && msg.channel.guild && msg.channel.guild.id === this.client.config.guild.id) {
-            if (emoji.name === this.client.config.emojis.default.notification) {
-                msg.channel.getMessage(msg.id).then(m => { this.client.components.Guild.messageAllGuilds(m, false, 'notifications') })
-            } else if (emoji.name === this.client.config.emojis.default.loudspeaker) {
-                msg.channel.getMessage(msg.id).then(m => { this.client.components.Guild.messageAllGuilds(m, true, 'notifications') })
-            } else if (emoji.name == this.client.config.emojis.default.feeds) {
+            if (emoji.name == this.client.config.emojis.default.feeds) {
                 msg.channel.getMessage(msg.id).then(m => { this.client.components.Guild.messageAllGuilds(m, false, 'feeds') })
             }
         } else if (userID === this.client.owner.id && emoji.name === this.client.config.emojis.default.trophy) {
-            // && msg.author.id === this.client.user.id && msg.embeds[0] && msg.embeds[0].title === 'Nuevo torneo'
             msg.channel.getMessage(msg.id).then(m => {
                 if (m.author.id === this.client.config.webhooks.fromapp && m.embeds[0] && m.embeds[0].title === 'Nuevo torneo') {
                     const embed = m.embeds[0]

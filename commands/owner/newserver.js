@@ -3,8 +3,8 @@ const { Datee } = require('erisjs-utils')
 module.exports = {
   name: 'newserver',
   category : 'Owner',
-  help : 'Añade nuevo servidor',
-  args : '<serverID>',
+  help : 'Add a new guild',
+  args : '<guildID>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     const guild = client.guilds.get(args[1])

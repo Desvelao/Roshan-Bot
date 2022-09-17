@@ -1,8 +1,8 @@
 module.exports = {
   name: 'id',
   category : 'Account',
-  help : 'Enlaces a Dotabuff, Steam, Twitch y Twitter',
-  args : '[mención]',
+  help : 'Links to Dotabuff and Steam',
+  args : '[mention]',
   requirements: ['account.existany'],
   run: async function(msg, args, client, command){
     return msg.reply({

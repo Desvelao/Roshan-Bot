@@ -3,8 +3,8 @@ const paintjimp = require('../../paintjimp')
 module.exports = {
   name: ['matches+','games+'],
   category : 'Dota 2',
-  help : 'Últimas partidas jugadas. R+',
-  args : '',
+  help : 'Last played games. R+',
+  args : '[mention/dotaID/pro]',
   requirements: [
     {
       type: "user.cooldown",
@@ -14,7 +14,7 @@ module.exports = {
     "is.dota.player"
   ],
   run: async function(msg, args, client, command){
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     const [player, results] = await Promise.all([
       args.profile,
       client.components.Opendota.player_matches(args.profile.data.dota)

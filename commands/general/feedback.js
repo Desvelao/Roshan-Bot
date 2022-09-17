@@ -1,12 +1,15 @@
 module.exports = {
   name: 'feedback',
   category: 'General',
-  help: 'Reporta un error o sugerencia',
-  args: '<mensaje>',
+  requirements: [
+    {
+      validate: (msg, args) => args.length > 4,
+      response: (msg, args) => msg.author.locale('feedback.minimum_words')
+    }
+  ],
   run: async function (msg, args, client, command){
-    if(args.length < 4){return}
     return client.createMessage(client.config.guild.bugs,{embed : {
-      title : 'feedback.title',
+      title : 'Feedback',
       description : args.after,
       footer : {text : msg.author.username, icon_url : msg.author.avatarURL},
       color : client.config.color}

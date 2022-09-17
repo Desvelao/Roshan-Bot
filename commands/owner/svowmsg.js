@@ -1,7 +1,7 @@
 module.exports = {
   name: 'svowmsg',
   category : 'Owner',
-  help : 'Mensage a propietario del servidor',
+  help : 'Send a message to the guild owner',
   args : '<guildID>',
   requirements: ['owner.only'],
   run: async function(msg, args, command){

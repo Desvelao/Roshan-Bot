@@ -6,9 +6,11 @@ module.exports = {
   category: 'General',
   help: 'Enlaces interesantes sobre el juego',
   args: '<categoría>',
+  enable: false, //TODO: it should be unavaliable of help command
+  hide: true,
   run: async function (msg, args, client, command){
     const query = args.after
-    if (!links[query]) { msg.reply('wrongCmdArg', { options: Object.keys(links).join(', '), cmd: args.until(1) })}
+    if (!links[query]) { return msg.reply('cmd.wrongarg', { options: Object.keys(links).join(', '), cmd: args.until(1) })}
     let textLinks = '';
     let textFields = [];
     let arrayFields = links[query].fields.reverse();

@@ -3,8 +3,8 @@ const enumFeeds = require('../../enums/feeds')
 module.exports = {
   name: 'serverconfig',
   category : 'Owner',
-  help : 'Muestra la configuración del servidor',
-  args : '<id/nombre servidor>',
+  help : 'Show the guild configuration la configuración del servidor',
+  args : '<id/guild name>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
     const serverID = args.from(1)

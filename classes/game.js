@@ -49,7 +49,3 @@ module.exports = class RoshanGame extends Events{
     return this.reply(this.config.logChannel,content,file)
   }
 }
-
-
-// bot.games = bot.games || {}
-// bot.games[game.id] =

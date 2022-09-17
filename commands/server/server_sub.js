@@ -5,8 +5,8 @@ module.exports = {
   name: ['subscribe','sub'],
   childOf: 'server',
   category: 'Server',
-  help: 'Subscripción de feeds',
-  args: '<feeds separados por un espacio>',
+  help: 'Subscribe to feeds',
+  args: '<feeds separated by spaces>',
   requirements: [
     {
       type: 'member.has.role',

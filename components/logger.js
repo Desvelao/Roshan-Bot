@@ -81,6 +81,5 @@ module.exports = {
 
 const toCode = (str) => {
     str = typeof str !== 'string' ? String(str) : str
-    console.log(str)
     return `\`\`\`${str.substring(0,1000)}\`\`\``
 }

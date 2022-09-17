@@ -27,7 +27,9 @@ module.exports = class Locale extends Component {
         })
         Eris.Message.prototype.reply = function(content, replacements = {}, file, user_discord_id){
             if (typeof file === 'string') { user_discord_id = file; file = undefined}
-            return this.channel.createMessage(reply(content, replacements, user_discord_id, this), file)
+            return this.channel.createMessage
+                ? this.channel.createMessage(reply(content, replacements, user_discord_id, this), file)
+                : self.client.createMessage(this.channel.id, reply(content, replacements, user_discord_id, this), file)
         }
         Eris.Message.prototype.replyDM = function (content, replacements, file, user_discord_id) {
             if (typeof file === 'string') { user_discord_id = file; file = undefined }

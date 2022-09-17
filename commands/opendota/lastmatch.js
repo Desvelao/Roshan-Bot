@@ -1,11 +1,11 @@
 module.exports = {
   name: ['lastmatch','lastgame'],
   category: 'Dota 2',
-  help: 'Última partida jugada',
-  args: '[mención/dotaID/pro]',
+  help: 'Last played game',
+  args: '[mention/dotaID/pro]',
   requirements: ["is.dota.player"],
   run: async function(msg, args, client, command){
-    msg.channel.sendTyping()
+    client.sendChannelTyping(msg.channel.id)
     const [ player, results ] = await Promise.all([
       args.profile,
       client.components.Opendota.player_lastmatch(args.profile.data.dota)

@@ -4,7 +4,7 @@ module.exports = {
   name: 'help', 
   childOf: 'playercard',
   category : 'Account',
-  help : 'Ayuda de la tarjeta de jugador@',
+  help : 'Player card help',
   args : '',
   run: async function (msg, args, client, command){
     return msg.replyDM({

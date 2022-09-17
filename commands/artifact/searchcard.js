@@ -2,8 +2,9 @@ const max = 1024
 module.exports = {
   name: ['searchcard','scard'],
   category : 'Artifact',
-  help : 'Busca cartas según texto',
-  args : '<texto>',
+  help : 'Search cards',
+  args : '<text>',
+  enable: false,
   run: async function (msg, args, client, command){
     const query = args.from(1)
     if(!query){return}

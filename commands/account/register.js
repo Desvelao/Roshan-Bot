@@ -1,7 +1,7 @@
 module.exports = {
   name: 'register',
   category : 'Account',
-  help : 'Registro en el bot',
+  help : 'Register player',
   args : '<dotaID>',
   requirements : [
     {

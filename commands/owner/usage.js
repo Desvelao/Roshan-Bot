@@ -5,7 +5,7 @@ const os = require('os')
 module.exports = {
   name: 'usage',
   category : 'Owner',
-  help : 'Uso del bot',
+  help : 'Bot usage stats',
   args : '',
   requirements: ['owner.only'],
   run: async function(msg, args, client){

@@ -3,7 +3,7 @@ const enumHeroes = require('../../enums/heroes')
 module.exports = {
   name: ['randompick','rp'],
   category : 'Dota 2',
-  help : 'Elige aleatoriamente un héroe',
+  help : 'Random pick a hero',
   args : '',
   run: async function (msg, args, client, command, command){
     let hero

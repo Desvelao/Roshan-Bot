@@ -1,8 +1,6 @@
 module.exports = {
     name: 'updates',
     category: 'DevServer',
-    help: '',
-    args: '',
     enable: false,
     requirements: ['pit.user'],
     run: async function (msg, args, client, command){

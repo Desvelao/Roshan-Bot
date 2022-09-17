@@ -8,9 +8,8 @@ class Square{
     this.h = h || 0
   }
   place(ref,mode,options){
-    // if(!ref){throw new Error('Referencia no encontrada')}
     if(!ref){
-      // console.log('Warning: Referencia no encontrada! => Ref = Self');
+      // console.log('Warning: Reference not found! => Ref = Self');
       ref = {x : this.x, y : this.y, w : this.w, h : this.h}
     }
     options = options || {x : 0, y : 0}

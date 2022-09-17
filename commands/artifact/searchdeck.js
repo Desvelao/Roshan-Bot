@@ -1,8 +1,9 @@
 module.exports = {
     name: ['searchdeck','sdeck'],
     category: 'Artifact',
-    help: 'Busca nombres de mazos por término de búsqueda',
-    args: '[búsqueda]',
+    help: 'Search decks by name',
+    args: '[deck name]',
+    enable: false,
     run: async function (msg, args, client, command) {
         if (!args[1]) { return msg.reply('searchdeck.error.needarg') }
         const search = args.from(1)

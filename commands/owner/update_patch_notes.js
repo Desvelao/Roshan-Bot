@@ -3,7 +3,7 @@ const { Command } = require('aghanim')
 module.exports = {
   name: 'updatepatchnotes',
   category : 'Owner',
-  help : 'Recarga el mensaje de r!new',
+  help : 'Reload the "r!new" message',
   args : '',
   requirements: ['owner.only'],
   run: async function(msg, args, client){

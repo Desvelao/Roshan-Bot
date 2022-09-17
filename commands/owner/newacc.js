@@ -1,10 +1,10 @@
-const { Datee, Request } = require('erisjs-utils')
-
 module.exports = {
   name: 'newacc',
-  category : 'Owner', help : 'Registro en el bot', args : '<discordID> <dotaID> [steamID] [twitchID] [twitterID]',
+  category : 'Owner',
+  help : 'Register in the bot',
+  args : '<discordID> <dotaID>',
   requirements: ['owner.only'],
   run: async function(msg, args, client){
-
+    // TODO
   }
 }

@@ -1,23 +1,26 @@
-const modes = ['e','g','l']
+const TOURNAMENT_MODE = {
+  ELIMINATION: 'elimination',
+  GROUPS: 'groups',
+  LIST: 'list'
+}
+
+const TOURNAMENT_MODES = Object.values(TOURNAMENT_MODE).sort()
 
 module.exports = {
   name: 'tournament',
   category: 'General',
-  help: 'Sorteo inicial para torneos',
-  args: '<modo: e,l,g[número grupos]> <opciones separadas por ,>',
   run: async function (msg, args, client, command){
     if(!args[1]){return}
-    const mode = args[1].slice(0,1);
-    if(modes.indexOf(mode) == -1){return msg.reply('tournament.error.modes')}
+    const mode = args[1];
+    if(!TOURNAMENT_MODES.includes(mode)){return msg.reply('tournament.error.modes')}
     const message = args.slice(2).join('')
     const list = message.split(',')
     for (var i = list.length - 1; i > -1 ; i--) {
       if(list[i].length < 1){list.splice(i,1);}
     }
-    if(mode == 'l' && list.length < 2){return msg.reply('tournament.error.minelements')}
     const limit = 4;
-    if(['e','g'].indexOf(mode) == -1 && list.length < limit){return msg.reply('tournament.error.limitelements',{limit})};
-    if(mode == 'e'){
+    if([TOURNAMENT_MODE.ELIMINATION,TOURNAMENT_MODE.GROUPS].indexOf(mode) == -1 && list.length < limit){return msg.reply('tournament.error.limitelements',{limit})};
+    if(mode == TOURNAMENT_MODE.ELIMINATION){
       var result = [];
       for (var i = list.length - 1; i > -1 ; i--) {
         var random = Math.floor(Math.random()*list.length);
@@ -30,10 +33,10 @@ module.exports = {
         if(result[i+1]){fields[0].value += '**' + result[i] + '** :crossed_swords:  **' + result[i+1] + '**\n';
         }else{fields[0].value += '**' + result[i] + '** :arrow_forward: \n'};
       }
-    }else if(mode == 'g'){
-      var numberGroups = parseInt(args[1].slice(1));
-      if(args[1].slice(1) == ''){numberGroups = 2};
+    }else if(mode == TOURNAMENT_MODE.GROUPS){
+      var numberGroups = parseInt(args[2]);
       if(typeof numberGroups !== 'number' || isNaN(numberGroups)){return msg.reply('tournament.error.groupsnum')}
+      const list = args.slice(3).join('').split(',')
       if (list.length < numberGroups * 2) { return msg.reply('tournament.error.groupsnumhigh')}
       var groups = [];
       for (var i = 0; i < numberGroups; i++) {
@@ -58,7 +61,9 @@ module.exports = {
           fields[i].value += groups[i][j] + '\n';
         }
       }
-    }if(mode == 'l'){
+    }else if(mode == TOURNAMENT_MODE.LIST){
+      const list = args.slice(2).join('').split(',')
+      if(list.length < 2){return msg.reply('tournament.error.minelements')}
       var result = [];
       for (var i = list.length - 1; i > -1 ; i--) {
         var random = Math.floor(Math.random()*list.length);

@@ -1,5 +1,5 @@
 const { Component } = require('aghanim')
-const { Request, Markdown } = require('erisjs-utils')
+const axios = require('axios')
 
 module.exports = class Opendota extends Component {
     constructor(client, options) {
@@ -52,40 +52,10 @@ module.exports = class Opendota extends Component {
             }
         })
     }
-    // FIXME: Maybe use new Poxy to intercept fetches before done (cache system?) for url profile? within time interval
-    // function fn(param) {
-    //     return new Promise((res, rej) => {
-    //         setTimeout(() => res(param + 'response'), 1000)
-    //     })
-    // }
-
-    // function createProxy(time) {
-    //     let cache = {}
-    //     return new Proxy(fn, {
-    //         apply(target, thisArg, args) {
-    //             const req = args[0]
-    //             console.log(cache[req], Date.now())
-    //             if (cache[req] && cache[req].time) {
-    //                 console.log(cache[req].time > Date.now() - time * 1000)
-    //             }
-    //             if (cache[req] && cache[req].time > Date.now() - time * 1000) {
-    //                 return Promise.resolve('Response cached: ' + cache[req].response)
-    //             } else {
-    //                 return target.apply(thisArg, args).then(response => {
-    //                     cache[req] = { response, time: Date.now() }
-    //                     return response
-    //                 })
-    //             }
-    //         }
-    //     })
-    // }
-    // const proxy = createProxy(1)
-    // proxy(1).then((res) => { console.log(res); proxy(1).then(console.log) })
-    // proxy(1).then(console.log)
     request(urls, id) {
-        return Request.getJSONMulti(urls.map(url => replace(url, '<id>', id)))
+        return Promise.all(urls.map(url => axios.get(url.replace('<id>', id))))
             .then(results => {
-                return this.incremental(results.length).then(() => results)
+                return this.incremental(results.length).then(() => results.map(({data}) => data))
             }
         )
     }
@@ -107,33 +77,6 @@ module.exports = class Opendota extends Component {
     needRegister(msg, account) {
         return !account.data.dota ? true : false
     }
-    // existsAuthor(msg){
-    //     return new Promise((res,rej) => {
-    //         const profile = this.baseProfile(msg.author.id)
-    //         if (this.needRegister(msg, profile)) { throw new UserError('opendota', 'bot.needregister') }
-    //         res(profile)
-    //     })
-    // }
-    // userID(msg, args) {
-    //     return new Promise((res, rej) => {
-    //         if (msg.mentions.length > 0) {
-    //             const profile = this.baseProfile(msg.mentions[0].id)
-    //             if (this.needRegister(msg, profile)) { throw new UserError('opendota', 'bot.Mentioned', { username: msg.channel.guild.members.get(msg.mentions[0].id).username }) }
-    //             res(profile)
-    //         } else if (args[1]) {
-    //             const number = parseInt(args[1])
-    //             if (!isNaN(number)) {
-    //                 res(this.baseProfile(undefined, number))
-    //             } else {
-    //                 this.getProPlayerID(args.from(1)).then(player => res(this.baseProfile(undefined, player.account_id))).catch(err => rej(new UserError('opendota', 'error.pronotfound', { pro: args.from(1)})))
-    //             }
-    //         } else {
-    //             const profile = this.baseProfile(msg.author.id)
-    //             if (this.needRegister(msg, profile)) { throw new UserError('opendota', 'needRegister') }
-    //             res(profile)
-    //         }
-    //     })
-    // }
     baseProfile(discordID, dotaID) {
         const cache = this.client.cache.profiles.get(discordID)
         const data = cache || this.client.components.Account.schema()
@@ -202,5 +145,3 @@ const urls = {
 }
 
 const decorator = (f, urls) => id => f(urls, id)
-
-const replace = (text, match, repl) => text.replace(match, repl)

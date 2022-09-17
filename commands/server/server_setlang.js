@@ -2,8 +2,8 @@ module.exports = {
   name: 'setlang', 
   childOf: 'server',
   category: 'Server',
-  help: 'Establece el idioma del servidor',
-  args: '<idioma>',
+  help: 'Set the server language',
+  args: '<language>',
   requirements: [
     {
       type: 'member.has.role',

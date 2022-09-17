@@ -1,5 +1,4 @@
 const { Command } = require('aghanim')
-const { Datee , Request} = require('erisjs-utils')
 
 module.exports = new Command('sugar',{
   category : 'Diretide', help : 'Attack to Roshan when he is SugarRush mode', args : '', cooldown : 5*60,

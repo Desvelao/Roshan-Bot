@@ -2,7 +2,7 @@ module.exports = {
   name: 'reset',
   childOf : 'server',
   category : 'Server',
-  help : 'Reinicia configuración del servidor',
+  help : 'Reset the guild configuration',
   args : '',
   requirements: [
     {

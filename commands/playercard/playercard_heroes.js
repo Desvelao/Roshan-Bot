@@ -9,7 +9,7 @@ module.exports = {
   name: 'heroes',
   childOf: 'playercard',
   category: 'Account',
-  help: 'Ayuda de las etiquetas de héroes',
+  help: 'Hero tags help',
   args: '',
   run: async function (msg, args, client, command){
     return msg.replyDM({
