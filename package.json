@@ -13,7 +13,7 @@
     "test": "./node_modules/.bin/jest",
     "dev": "NODE_ENV=development ./node_modules/.bin/nodemon bot.js",
     "eslint": "./node_modules/.bin/eslint bot.js",
-    "heroku-postbuild": "npm i Desvelao/aghanim#dev-tmp",
+    "heroku-postbuild-test": "npm i Desvelao/aghanim#dev-tmp",
     "test-heroku-postbuild": "npm install",
     "update-assets": "node dev-scripts/od-assets.js img",
     "update-assets-all": "node dev-scripts/od-assets.js img -all",
