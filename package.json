@@ -13,7 +13,7 @@
     "test": "./node_modules/.bin/jest",
     "dev": "NODE_ENV=development ./node_modules/.bin/nodemon bot.js",
     "eslint": "./node_modules/.bin/eslint bot.js",
-    "heroku-postbuild": "npm i Desvelao/aghanim#dev",
+    "heroku-postbuild": "npm i Desvelao/aghanim#dev-tmp",
     "test-heroku-postbuild": "npm install",
     "update-assets": "node dev-scripts/od-assets.js img",
     "update-assets-all": "node dev-scripts/od-assets.js img -all",
@@ -29,7 +29,7 @@
   "author": "Desvelao^^ <iamdesvelao@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "aghanim": "github:Desvelao/aghanim#dev",
+    "aghanim": "github:Desvelao/aghanim#dev-tmp",
     "artifact-api": "github:openartifact/artifact-api",
     "axios": "^0.27.2",
     "dotaconstants": "7.13.0",
