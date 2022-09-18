@@ -91,7 +91,7 @@ module.exports = class Guild extends CustomComponent() {
             embed: {
                 title: 'New guild',
                 description: "**Name:** `" + guild.name + "`\n**ID:** `" + guild.id + "`\n**Member:** `" + guild.memberCount
-                    + "`\n**Owner:** `" + guild.members.get(guild.ownerID).username + "`\n**Region:** `" + guild.region + "`\n**Created at:** `" + Datee.custom(guild.createdAt, 'D/M/Y h:m:s', true) + "`",
+                    + "`\n**Owner:** `" + (guild.members.get(guild.ownerID) || {}).username + "`\n**Region:** `" + guild.region + "`\n**Created at:** `" + Datee.custom(guild.createdAt, 'D/M/Y h:m:s', true) + "`",
                 thumbnail: { url: guild.iconURL || this.client.user.avatarURL, height: 40, width: 40 },
                 footer: { text: guild.name + ' | ' + guild.id + ' | ' + Datee.custom(guild.joinedAt, 'D/M/Y h:m:s', true), icon_url: this.client.user.avatarURL },
                 color: this.client.config.color
