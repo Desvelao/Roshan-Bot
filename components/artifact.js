@@ -493,7 +493,7 @@ class Artifact extends Component {
         return false
     }
     ready(){
-        this.update()
+        //this.update() // It doesn't work due to changes in the API
     }
     messageCreate(msg){
         this.parseMessage(msg, this.client.components.Locale)
