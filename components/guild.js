@@ -27,7 +27,7 @@ module.exports = class Guild extends CustomComponent() {
                     if(!data){
                         this.createProcess(guild).then(() => {
                             this.client.logger.info(`**${guild.name}** server found. Registered.`)
-                        })
+                        }).catch(err => {this.client.logger.error(`Error: ${err.message}`);this.client.emit('aghanim:error', err, this.client)})
                     } 
                 })
             })
@@ -122,7 +122,7 @@ module.exports = class Guild extends CustomComponent() {
         if (msg.attachments.length < 1) {
             servers.forEach(server => {
                 const cached = this.client.cache.servers.get(server.id)
-                if (!cached) { return this.createProcess(server).then(() => this.client.logger.info(`New guild: **${server.name}**`)).catch(err => this.client.logger.error(`Error creating config for **${server.name}** (${server.id})`)) }
+                if (!cached) { return this.createProcess(server).then(() => this.client.logger.info(`New guild: **${server.name}**`)).catch(err => {this.client.logger.error(`Error creating config for **${server.name}** (${server.id})`); this.client.emit('aghanim:error', err, this.client)}) }
                 if (!all && cached && !cached[mode].enable) { return };
                 const channel = cached ? cached[mode].channel : util.Guild.getDefaultChannel(server, this.client, true).id
                 if (mode === 'feeds' && !cached.feeds.subs.split(',').includes(author)) { return }
