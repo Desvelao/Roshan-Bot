@@ -48,24 +48,29 @@ module.exports = class Account extends CustomComponent() {
 		// Define custom requirements
 		this.client.addCommandRequirement({
 			type: 'account.exist',
-			validate: async (msg, args, client, command, req) => {
-			  const account = await client.components.Account.get(msg.author.id)
+			validate: async (context, client, command, req) => {
+			  const account = await client.components.Account.get(context.user.id)
 			  if(!account){return false}
-			  args.account = account
+			  !context.ctx && (context.ctx = {})
+			  context.ctx.account = account
 			  return true
 			},
-			response: (msg, args, client, command, req) => msg.author.locale("bot.needregister")
+			response: (context, client, command, req) => client.components.Locale.replyInteraction(context, 'bot.needregister')
 		  })
 
 		this.client.addCommandRequirement({
 			type: 'account.existany',
-			validate: async (msg, args, client, command, req) => {
-				args.user = msg.mentions.length ? msg.mentions[0] : msg.author
-				args.account = await client.components.Account.get(args.user.id)
-				if(!args.account){	
-					if (args.user.id === msg.author.id) {
-						await msg.reply("bot.needregister")
-						return null
+			validate: async (context, client, command, req) => {
+				!context.ctx && (context.ctx = {})
+				const userID = (context.data.options && context.data.options.length)
+				? (context.data.options.find(option => option.name === 'user_mention') || {}).value || (context.data.options.find(option => option.name === 'user_id') || {}).value
+				: context.user.id
+				context.ctx.account = await client.components.Account.get(userID)
+				context.ctx.user = client.users.get(userID);
+				if(!context.ctx.account){	
+					if (userID === context.user.id) {
+						await client.components.Locale.replyInteraction(context, 'bot.needregister')
+						return true
 					}
 					return false
 				}
@@ -76,28 +81,37 @@ module.exports = class Account extends CustomComponent() {
 
 		this.client.addCommandRequirement({
 			type: 'account.registered',
-			validate: async (msg, args, client, command, req) => {
-				return msg.author.registered
+			validate: async (context, client, command, req) => {
+				return context.user.registered
 			},
-			response: (msg, args, client, command, req) => msg.author.locale('bot.needregister')
+			response: (context, client, command, req) => client.components.Locale.replyInteraction(context, 'bot.needregister')
 		})
+
+		this.client.addCommandRequirement({
+			type: 'account.not.registered',
+			validate: async (context, client, command, req) => {
+				return !context.user.registered
+			},
+			response: (context, client, command, req) => client.components.Locale.replyInteraction(context, 'register.alreadyregistered')
+		})
+
 		this.client.addCommandRequirement({
 			type: 'account.supporter',
-			validate: async (msg, args, client, command, req) => {
-				return msg.author.supporter
+			validate: async (context, client, command, req) => {
+				return context.user.supporter
 			},
-			response: (msg, args, client, command, req) => msg.author.locale('roshan.supporter.need')
+			response: (context, client, command, req) => client.components.Locale.replyInteraction(context, 'roshan.supporter.need')
 		})
 		this.client.addCommandRequirement({
 			type: 'pit.user',
-			validate: async (msg, args, client, command, req) => {
-				return msg.channel.guild && msg.channel.guild.id === client.server.id
+			validate: async (context, client, command, req) => {
+				return context.channel.guild && context.channel.guild.id === client.server.id
 			}
 		})
 		this.client.addCommandRequirement({
 			type: 'pit.channel.commands',
-			validate: async (msg, args, client, command, req) => {
-				return msg.channel.id === client.config.guild.commands
+			validate: async (context, client, command, req) => {
+				return context.channel.id === client.config.guild.commands
 			}
 		})
 	}
@@ -132,69 +146,60 @@ module.exports = class Account extends CustomComponent() {
 			.then(() => this.deleteAccountLeaderboard(discordID))
 			.then(() => this.client.logger.info('userDelLeaderboard: ' + `${discordID}`))
 	}
-	createProcess(discordID, dotaID, msg){
-		const guildName = msg.channel.guild ? msg.channel.guild.name : 'DM'
-		const guildID = msg.channel.guild ? msg.channel.guild.id : msg.channel.id
-		return this.client.components.Opendota.account(dotaID).then(([data]) => {
-			if(!data.profile){throw new Error('Profile not found')}
-			return this.client.createMessage(this.client.config.guild.accounts,{
-				embed :{
-					title: this.client.components.Locale.replacer('registerAccountTitle', { id: msg.author.id }),
-					description: this.client.components.Locale.replacer('registerAccountDesc', { guildName, guildID, dotaID: dotaID, steamID: data.profile.steamid}),
-					//thumbnail : {url : config.icon, height : 40, width : 40},
-					footer: { text: msg.author.username + ' | ' + msg.author.id + ' | ' + Datee.custom(msg.timestamp, 'D/M/Y h:m:s'), icon_url: msg.author.avatarURL },
-					color: this.client.config.colors.account.register
-			}}).then((m) => {
-				msg.addReaction(this.client.config.emojis.default.envelopeIncoming)
-				return this.create(discordID,dotaID,data.profile.steamid,data).then(() => {
-					this.client.logger.info(`New account: **${msg.author.username}** (${msg.author.id})`)
-					return msg.replyDM({
-						embed: {
-							title: 'roshan.welcometo',
-							description: 'roshan.infoabout',
-							fields: [
-								{ name: 'register.dataurregistry', value: 'register.dataurregistryaccount', inline: false},
-								{ name: 'register.tyforurregistry', value: 'register.helpregistrydesc', inline: false}
-							],
-							thumbnail: { url: '<_user_avatar>' }
-						}
-					}, { dotaID: dotaID, steamID: data.profile.steamid, _user_avatar: msg.author.avatarURL})
-						.then(() => m.addReactionSuccess())
-				})
-			})
-		})
-	}
-	deleteProcess(discordID, msg){
-		const guildName = msg.channel.guild ? msg.channel.guild.name : 'DM'
-		const guildID = msg.channel.guild ? msg.channel.guild.id : msg.channel.id
-		return this.client.createMessage(this.client.config.guild.accounts, {
+	async createProcess(discordID, dotaID, context){
+		const guildName = context.channel.guild ? context.channel.guild.name : 'DM'
+		const guildID = context.channel.guild ? context.channel.guild.id : context.channel.id
+		const [data] = await this.client.components.Opendota.account(dotaID)
+		if(!data.profile){throw new Error('Profile not found')}
+		const messageNotificationServer = await this.client.createMessage(this.client.config.guild.accounts,{
+			embed :{
+				title: this.client.components.Locale._replaceContent('registerAccountTitle', 'en', { id: context.user.id }),
+				description: this.client.components.Locale._replaceContent('registerAccountDesc', 'en', { guildName, guildID, dotaID: dotaID, steamID: data.profile.steamid}),
+				footer: { text: context.user.username + ' | ' + context.user.id, icon_url: context.user.avatarURL },
+				color: this.client.config.colors.account.register
+		}})
+		await this.create(discordID, dotaID, data.profile.steamid, data)
+		this.client.logger.info(`New account: **${context.user.username}** (${context.user.id})`)
+		await this.client.components.Locale.replyInteraction(context, {
 			embed: {
-				title: this.client.components.Locale.replacer('unregisterAccountTitle', { id: msg.author.id }),
-				description: this.client.components.Locale.replacer('unregisterAccountDesc', { guildName, guildID }),
-				//thumbnail : {url : msg.author.avatarURL, height : 40, width : 40},
-				footer: { text: msg.author.username + ' | ' + msg.author.id + ' | ' + Datee.custom(msg.timestamp, 'D/M/Y h:m:s'), icon_url: msg.author.avatarURL },
+				title: 'roshan.welcometo',
+				description: 'roshan.infoabout',
+				fields: [
+					{ name: 'register.dataurregistry', value: 'register.dataurregistryaccount', inline: false},
+					{ name: 'register.tyforurregistry', value: 'register.helpregistrydesc', inline: false}
+				],
+				thumbnail: { url: context.user.avatarURL }
+			}
+		}, { dotaID: dotaID, steamID: data.profile.steamid})
+		await messageNotificationServer.addReactionSuccess()
+	}
+	async deleteProcess(discordID, context){
+		const guildName = context.channel.guild ? context.channel.guild.name : 'DM'
+		const guildID = context.channel.guild ? context.channel.guild.id : context.channel.id
+		const messageNotificationServer =  await this.client.createMessage(this.client.config.guild.accounts, {
+			embed: {
+				title: this.client.components.Locale._replaceContent('unregisterAccountTitle', 'en', { user_account_id: context.user.id }),
+				description: this.client.components.Locale._replaceContent('unregisterAccountDesc', 'en', { guildName, guildID }),
+				footer: { text: context.user.username + ' | ' + context.user.id, icon_url: context.user.avatarURL },
 				color: this.client.config.colors.account.delete
 			}
-		}).then((m) => {
-			msg.addReaction(this.client.config.emojis.default.envelopeIncoming)
-			return this.delete(discordID).then(() => {
-				// TODO: Remove Leaderboard
-				this.client.logger.info(`Account deleted: **${msg.author.username}** (${msg.author.id})`)
-				return msg.reply('account.deleted')
-					.then(() => m.addReactionSuccess())
-			})
 		})
+		await this.delete(discordID)
+		this.client.logger.info(`Account deleted: **${context.user.username}** (${context.user.id})`)
+		await this.client.components.Locale.replyInteraction(context, 'account.deleted')
+		await messageNotificationServer.addReactionSuccess()
+		
 	}
 	updateAccountLeaderboard(discordID, dotaID, data) {
 		if (data) {
 			const player = this.client.users.get(discordID)
 			const rank = odutil.getMedal(data, 'raw')
 			const update = {
-					username: player.username || data.profile.personaname,
-					nick: data.profile.personaname || '',
-					avatar: player.avatarURL || data.profile.avatarmedium,
-					rank: rank.rank,
-					leaderboard: rank.leaderboard
+				username: player.username || data.profile.personaname,
+				nick: data.profile.personaname || '',
+				avatar: player.avatarURL || data.profile.avatarmedium,
+				rank: rank.rank,
+				leaderboard: rank.leaderboard
 			}
 			return Promise.all([
 				this.client.db.child(`leaderboard/ranking/${discordID}`).update(update),

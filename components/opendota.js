@@ -19,36 +19,40 @@ module.exports = class Opendota extends Component {
         })
         this.client.addCommandRequirement({
             type: 'is.dota.player',
-            validate: async (msg, args, client, command, req) => {
-                if (msg.mentions.length > 0) {
-                    args.profile = this.baseProfile(msg.mentions[0].id)
-                    if (this.needRegister(msg, args.profile)) {
-                        args.message = msg.author.locale('bot.needregistermentioned', { username: msg.channel.guild.members.get(msg.mentions[0].id).username })
+            validate: async (context, client, command, req) => {
+                !context.ctx && (context.ctx = {})
+                if (context.data.options && context.data.options.find(option => option.name === 'user_mention')) {
+                    const [userID] = context.data.resolved.users.keys()
+                    const user = context.data.resolved.users.get(userID)
+                    context.ctx.profile = this.baseProfile(user.id)
+                    if (this.needRegister(context.ctx.profile)) {
+                        context.ctx.message = client.components.Locale._replaceContent('bot.needregistermentioned', context.user.account.lang, { username: user.username })
                         return false
                     }
-                } else if (args[1]) {
-                    const number = parseInt(args[1])
-                    if (!isNaN(number)) {
-                        args.profile = this.baseProfile(undefined, number)
+                } else if (context.data.options && context.data.options.find(option => option.name === 'user_id')) {
+                    const userID = context.data.options.find(option => option.name === 'user_id').value
+                    const userIDAsNumber = parseInt(userID)
+                    if (!isNaN(userIDAsNumber)) {
+                        context.ctx.profile = this.baseProfile(undefined, userIDAsNumber)
                     } else {
                         try{
-                            args.profile = await this.getProPlayerID(args.from(1)).then(player => this.baseProfile(undefined, player.account_id))
+                            context.ctx.profile = await this.getProPlayerID(userID).then(player => this.baseProfile(undefined, player.account_id))
                         }catch(err){
-                            args.message = msg.author.locale('error.pronotfound', { pro: args.from(1)})
+                            context.ctx.message = client.components.Locale._replaceContent('error.pronotfound', context.user.account.lang, { pro: userID})
                             return false
                         }   
                     }
                 } else {
-                    args.profile = this.baseProfile(msg.author.id)
-                    if (this.needRegister(msg, args.profile)) {
-                        args.message = msg.author.locale('needRegister')
+                    context.ctx.profile = this.baseProfile(context.user.id)
+                    if (this.needRegister(context.ctx.profile)) {
+                        context.ctx.message = client.components.Locale._replaceContent('needRegister', context.user.account.lang)
                         return false
                     }
                 }
                 return true
             },
-            response: (msg, args, client, command, req) => {
-                return args.message
+            response: (context, client, command, req) => {
+                return context.ctx.message
             }
         })
     }
@@ -74,7 +78,7 @@ module.exports = class Opendota extends Component {
         this._calls += add || 0
         return this.save(this._calls)
     }
-    needRegister(msg, account) {
+    needRegister(account) {
         return !account.data.dota ? true : false
     }
     baseProfile(discordID, dotaID) {
