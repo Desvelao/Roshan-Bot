@@ -19,7 +19,8 @@
     "update-assets": "node dev-scripts/od-assets.js img",
     "update-assets-all": "node dev-scripts/od-assets.js img -all",
     "combine-medals-web": "node dev-scripts/combine-medals.js medal_",
-    "combine-medals": "node dev-scripts/combine-medals.js"
+    "combine-medals": "node dev-scripts/combine-medals.js",
+    "update-locale": "node dev-scripts/generate-locale.js"
   },
   "keywords": [
     "Roshan",
