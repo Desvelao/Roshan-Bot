@@ -35,20 +35,20 @@ module.exports = {
 	],
   run: async function (interaction, client, command){
     // TODO: request is failing to get the data
-    const mode = interaction.data.options.find(option => option.name === 'mode')
+    const mode = interaction.data.options && interaction.data.options.find(option => option.name === 'mode')
+    const postID = interaction.data.options && interaction.data.options.find(option => option.name === 'post_id')
     if(mode){
       return client.components.RedditApi.posts(mode.value,5,'reddit').then(result => {
         return interaction.createMessage({
           embed: {
-            author: { name: `reddit - ${mode.value}`, /*icon_url: '<image_reddit_dota2>'*/ },
+            author: { name: `r/reddit - ${mode.value}`, /*icon_url: '<image_reddit_dota2>'*/ },
             description: result
           }
         })
       }).catch(err => {
         return client.components.Locale.replyInteraction(interaction, 'reddit.error.postsrequest')
       })
-    }else{
-      const postID = interaction.data.options.find(option => option.name === 'post_id')
+    }else if(postID){
       return client.components.RedditApi.post(postID.value).then(result => {
         return interaction.createMessage({
           embed: {
@@ -59,6 +59,18 @@ module.exports = {
         })
       }).catch(err => {
         return client.components.Locale.replyInteraction(interaction, 'reddit.error.postrequest')
+      })
+    }else{
+      const mode = 'top'
+      return client.components.RedditApi.posts(mode,5,'reddit').then(result => {
+        return interaction.createMessage({
+          embed: {
+            author: { name: `r/reddit - ${mode}`, /*icon_url: '<image_reddit_dota2>'*/ },
+            description: result
+          }
+        })
+      }).catch(err => {
+        return client.components.Locale.replyInteraction(interaction, 'reddit.error.postsrequest')
       })
     }
   }

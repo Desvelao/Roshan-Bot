@@ -12,10 +12,10 @@ module.exports = {
 			type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
 			required: true,
 			choices: [ //The possible choices for the options
-				{// TODO: comment or remove while Artifact is not enabled
-					name: "artifact",
-					value: "Artifact"
-				},
+				// {// TODO: comment or remove while Artifact is not enabled
+				// 	name: "artifact",
+				// 	value: "Artifact"
+				// },
 				{
 					name: "dota2",
 					value: "Dota 2"
@@ -24,8 +24,8 @@ module.exports = {
 		}
 	],
 	run: async function (interaction, client, command){
-		const game_name = interaction.data.options.find(option => option.name === 'game_name').value
-		if(game_name === 'Artifact'){
+		const game_name = interaction.data.options.find(option => option.name === 'game_name').name
+		if(game_name === 'artifact'){
 			const info = await client.components.Artifact.gameInfo()
 			return client.components.Locale.replyInteraction(interaction, 'game.currentplayers', { count: info.currentplayers, game :'Artifact'})
 		}else{

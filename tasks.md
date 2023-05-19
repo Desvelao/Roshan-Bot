@@ -1,0 +1,118 @@
+- Interaction commands
+  - [] account
+    - [] display
+      - [x] me
+      - [] user_id (fail due to user cache)
+				- [x] exists
+				- [x] not exists
+      - [x] user_mention
+				- [x] exists
+				- [x] not exists
+  - [] id
+    - [] display
+      - [x] me
+      - [] user_id (fail due to user cache)
+				- [x] exists
+				- [x] not exists
+      - [x] user_mention
+				- [x] exists
+				- [x] not exists
+	- [x] account_set_language
+    - [x] display
+		! language is changed after
+	- [x] register
+    - [x] display
+			- [x] exists
+			- [] not exists
+	- [x] unregister
+    - [x] display
+	- [ ] ability (depends on upgrading package)
+	- [ ] hero (depends on upgrading package)
+	- [ ] item (depends on upgrading package)
+	- [x] patch
+	- [ ] randompick (depends on upgrading package)
+	- [x] reddit_dota
+	- [x] search_worldranking
+	- [x] worldranking
+	- [ ] 1v1rules
+	- [x] about
+	- [ ] botupdates
+	- [x] discord
+	- [x] donate
+	- [x] errors
+	- [ ] feedback
+	- [x] feeds
+	- [x] gameinfo
+	- [ ] getstarted
+	- [ ] giveaway
+	- [x] invite
+	- [x] leaderboard
+	- [ ] links
+	- [ ] rankup
+	- [x] reddit
+	- [ ] roll
+	- [x] thanks
+	- [ ] tournament
+	- [ ] tourneys
+	- [x] web
+	- [x] competitive
+	- [ ] lastmatch
+		- [ ] me
+		- [ ] user_id
+		  - [ ] exists
+			- [ ] no exists
+		- [ ] user_mention
+			- [ ] exists
+			- [ ] no exists
+	- [ ] match
+	- [ ] matches
+		- [ ] me
+		- [ ] user_id
+		  - [ ] exists
+			- [ ] no exists
+		- [ ] user_mention
+			- [ ] exists
+			- [ ] no exists
+	- [ ] player
+		- [ ] me
+		- [ ] user_id
+		  - [ ] exists
+			- [ ] no exists
+		- [ ] user_mention
+			- [ ] exists
+			- [ ] no exists
+	- [x] search_player
+	- [x] search_pro
+	- [ ] steam
+		- [ ] me
+		- [ ] user_id
+		  - [ ] exists
+			- [ ] no exists
+		- [ ] user_mention
+			- [ ] exists
+			- [ ] no exists
+	- [ ] withfriends
+		- [ ] me
+		- [ ] user_id
+		  - [ ] exists
+			- [ ] no exists
+		- [ ] user_mention
+			- [ ] exists
+			- [ ] no exists
+	- [ ] withpros
+		- [ ] me
+		- [ ] user_id
+		  - [ ] exists
+			- [ ] no exists
+		- [ ] user_mention
+			- [ ] exists
+			- [ ] no exists
+	- [ ] playercard
+	- [ ] playercard_config
+	- [ ] playercard_help
+	- [ ] playercard_heroes
+	- [ ] playercard_setbg
+
+- Upgrade packages
+	- [ ] dotacontants
+

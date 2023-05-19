@@ -214,6 +214,7 @@ module.exports = class Locale extends Component {
             return this.findAndReplace(content, extra, lang)
         } else {
             Object.keys(content).forEach(key => {
+                if(key === 'file'){return}
                 if (typeof content[key] === 'string') {
                     content[key] = this.findAndReplace(content[key], extra, lang)
                 } else if (typeof content[key] === 'object') {
@@ -240,7 +241,8 @@ module.exports = class Locale extends Component {
             ...replacements,
             ...this.enhanceReplacements,
         }
-        return interaction.createMessage(this._replaceContent(content, interaction.user.account.lang, enhancedReplacements))
+        const message = this._replaceContent(content, interaction.user.account.lang, enhancedReplacements)
+        return interaction.createMessage(message)
     }
     _replaceContent(content, language, replacements){
         if (typeof content === 'string') {

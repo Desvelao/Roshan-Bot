@@ -2,7 +2,7 @@ const Aghanim = require('aghanim')
 const { Classes } = require('erisjs-utils')
 
 module.exports = {
-  name: 'searchworldranking',
+  name: 'search_worldranking',
   category: 'Dota 2',
   description: 'Search a player by name in the world ranking',
   options: [
@@ -20,15 +20,15 @@ module.exports = {
       r.forEach(d => table.addRow([d.division,d.pos]))
       return client.components.Locale.replyInteraction(interaction, {
         embed: {
-          title: 'searchworldranking.searchplayer',
-          description: 'searchworldranking.resultssearchquery'
+          title: 'search_worldranking.searchplayer',
+          description: 'search_worldranking.resultssearchquery'
         }
       }, {
         query,
         results: table.render()
       })
     }).catch(err => {
-      return client.components.Locale.replyInteraction(interaction, 'searchworldranking.errorfind', {query})
+      return client.components.Locale.replyInteraction(interaction, 'search_worldranking.errorfind', {query})
     })
   }
 }

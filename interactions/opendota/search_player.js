@@ -4,7 +4,7 @@ const odutil = require('../../helpers/opendota-utils')
 const axios = require('axios')
 
 module.exports = {
-  name: 'searchplayer',
+  name: 'search_player',
   category: 'Dota 2',
   description: 'Search a player',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
@@ -34,9 +34,9 @@ module.exports = {
           .map(({data: {profile}}) => `**${client.components.Bot.parseText(odutil.nameOrNick(profile),'nf')}** ${Markdown.link(client.config.links.profile.dotabuff+profile.account_id,'DB')}/${Markdown.link(profile.profileurl,'S')}`).join(', ');
         return client.components.Locale.replyInteraction(interaction, {
           embed: {
-            title: 'searchplayer.title',
-            description: 'searchplayer.description',
-            footer: {text : 'searchplayer.footer', icon_url : '{{{bot_avatar}}}'}
+            title: 'search_player.title',
+            description: 'search_player.description',
+            footer: {text : 'search_player.footer', icon_url : '{{{bot_avatar}}}'}
           }
         },{
           query,

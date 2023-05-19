@@ -153,8 +153,8 @@ module.exports = class Account extends CustomComponent() {
 		if(!data.profile){throw new Error('Profile not found')}
 		const messageNotificationServer = await this.client.createMessage(this.client.config.guild.accounts,{
 			embed :{
-				title: this.client.components.Locale._replaceContent('registerAccountTitle', 'en', { id: context.user.id }),
-				description: this.client.components.Locale._replaceContent('registerAccountDesc', 'en', { guildName, guildID, dotaID: dotaID, steamID: data.profile.steamid}),
+				title: this.client.components.Locale._replaceContent('registerAccountTitle', 'en', { user_account_id: context.user.id }),
+				description: this.client.components.Locale._replaceContent('registerAccountDesc', 'en', { guild_name: guildName, guild_id: guildID, user_account_dotaID: dotaID, user_account_steam: data.profile.steamid}),
 				footer: { text: context.user.username + ' | ' + context.user.id, icon_url: context.user.avatarURL },
 				color: this.client.config.colors.account.register
 		}})
@@ -170,7 +170,7 @@ module.exports = class Account extends CustomComponent() {
 				],
 				thumbnail: { url: context.user.avatarURL }
 			}
-		}, { dotaID: dotaID, steamID: data.profile.steamid})
+		}, { user_account_dota: dotaID, user_account_steam: data.profile.steamid})
 		await messageNotificationServer.addReactionSuccess()
 	}
 	async deleteProcess(discordID, context){

@@ -17,6 +17,7 @@ module.exports = {
     'account.not.registered'
   ],
   run: async function (interaction, client, command){
-    return client.components.Account.createProcess(interaction.user.id, interaction.user.account.dota, interaction)
+    const dotaID = interaction.data.options.find(option => option.name === 'dota_id').value
+    return client.components.Account.createProcess(interaction.user.id, dotaID, interaction)
   }
 }

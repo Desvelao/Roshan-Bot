@@ -7,7 +7,6 @@ module.exports = {
   description: 'Last results of competitive games',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   run: async function (interaction, client, command){
-    console.log('HEDAS')
     return client.components.Opendota.competitive()
       .then(results => {
         const spacesBoard = ['15f', '2f', '15f', '17f', '11f']

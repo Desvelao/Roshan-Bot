@@ -259,6 +259,7 @@ const HEROES_ALIAS = {
   "129": ["mars"],
   "135": ["dawn"],
   "137": ["primal", "beast"],
+  "138": ["muerta"],
 }
 
 const { heroes, hero_abilities, abilities } = require('dotaconstants')

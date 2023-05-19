@@ -3,7 +3,7 @@ const { Markdown } = require('erisjs-utils')
 const odutil = require('../../helpers/opendota-utils')
 
 module.exports = {
-  name: 'searchpro',
+  name: 'search_pro',
   category: 'Dota 2',
   description: 'Search pro player',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
@@ -22,9 +22,9 @@ module.exports = {
         const results = players.map((player) => `**${client.components.Bot.parseText(odutil.nameOrNick(player),'nf')}** ${Markdown.link(client.config.links.profile.dotabuff+player.account_id,'DB')}/${Markdown.link(player.profileurl,'S')}`).join(', ');
         return client.components.Locale.replyInteraction(interaction, {
           embed: {
-            title: 'searchpro.title',
-            description: 'searchpro.description',
-            footer: { text: 'searchpro.footer', icon_url: '{{{bot_avatar}}}' }
+            title: 'search_pro.title',
+            description: 'search_pro.description',
+            footer: { text: 'search_pro.footer', icon_url: '{{{bot_avatar}}}' }
           }
         }, {
           query,

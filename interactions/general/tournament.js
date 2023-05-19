@@ -101,11 +101,7 @@ module.exports = {
         list.splice(random,1);
       }
       var fields = [];
-      fields[0] = {name : interaction.user.locale('tournament.list'), value : '', inline : false};
-      for (var i = 0; i < result.length; i++) {
-        fields[0].value += result[i] + ', ';
-      }
-      fields[0].value = fields[0].value.slice(0,-2);
+      fields[0] = {name : 'tournament.list', value : results.join(', '), inline : false};
     }
     return client.components.Locale.replyInteraction(interaction, {
       embed: { title: interaction.user.locale('tournament.tourney') + ' - (' + (interaction.user.nick || interaction.user.username) + ')', fields : fields, color : client.config.color}
