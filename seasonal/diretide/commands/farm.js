@@ -10,7 +10,6 @@ module.exports = new Command('farm',{
 
     const calc = game.actions.calcReqRew(user,game.config.setup.farm.require,game.config.setup.farm.rewards)
     calc.total.stats.farm += calc.rewards.candies
-    // return console.log(calc);
 
     return Promise.all([
       game.cache.users.save(user._id,calc.total)

@@ -5,6 +5,10 @@ module.exports = {
 	category: 'General',
 	description: 'Game information',
 	type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
+	scope: {
+        type: 'guild',
+        guildIDs: [process.env.DEV_SERVER_ID]
+    },
 	options: [
 		{
 			name: 'game_name',

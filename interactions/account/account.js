@@ -1,11 +1,6 @@
 const Aghanim = require('aghanim')
 
 module.exports = {
-  optionsRest: {
-    dev: {
-      forceUpdate: false
-    }
-  },
   name: 'account',
   category : 'Account',
   description : 'Show your account info',
@@ -25,6 +20,10 @@ module.exports = {
 		}
 	],
   requirements: ['account.existany'],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function(interaction, client, command){
     return client.components.Locale.replyInteraction(interaction, {embed: {
       title: 'account.title',

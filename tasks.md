@@ -26,93 +26,101 @@
 			- [] not exists
 	- [x] unregister
     - [x] display
-	- [ ] ability (depends on upgrading package)
-	- [ ] hero (depends on upgrading package)
-	- [ ] item (depends on upgrading package)
+	- [x] ability (depends on upgrading package)
+	- [x] hero (depends on upgrading package)
+	- [x] item (depends on upgrading package)
 	- [x] patch
-	- [ ] randompick (depends on upgrading package)
+	- [x] randompick (depends on upgrading package)
 	- [x] reddit_dota
 	- [x] search_worldranking
 	- [x] worldranking
-	- [ ] 1v1rules
+	- [x] 1v1rules
 	- [x] about
-	- [ ] botupdates
 	- [x] discord
 	- [x] donate
 	- [x] errors
-	- [ ] feedback
 	- [x] feeds
 	- [x] gameinfo
-	- [ ] getstarted
 	- [ ] giveaway
 	- [x] invite
 	- [x] leaderboard
-	- [ ] links
-	- [ ] rankup
+	- [x] rankup
 	- [x] reddit
-	- [ ] roll
+	- [x] roll
 	- [x] thanks
 	- [ ] tournament
 	- [ ] tourneys
+	- [x] whatisnew
 	- [x] web
 	- [x] competitive
 	- [ ] lastmatch
-		- [ ] me
+		- [x] me
 		- [ ] user_id
-		  - [ ] exists
-			- [ ] no exists
+		  - [x] exists
+		  - [ ] no exists
 		- [ ] user_mention
-			- [ ] exists
+			- [x] exists
 			- [ ] no exists
-	- [ ] match
+	- [x] match
+		- [x] exists_id
+		- [ ] no_exists_id
 	- [ ] matches
-		- [ ] me
-		- [ ] user_id
-		  - [ ] exists
-			- [ ] no exists
-		- [ ] user_mention
-			- [ ] exists
-			- [ ] no exists
+		- [x] me
+		- [ ] dota_player_id
+		  - [x] exists_id
+		  - [ ] exists_username (failed using user name due to the interaction response time: 3 seconds)
+		  - [ ] no_exists_id
+		- [x] user_mention
+			- [x] exists
+			- [x] no exists
 	- [ ] player
-		- [ ] me
-		- [ ] user_id
-		  - [ ] exists
-			- [ ] no exists
-		- [ ] user_mention
-			- [ ] exists
-			- [ ] no exists
+		- [x] me
+		- [ ] dota_player_id
+			- [x] exists_id
+		  - [ ] exists_username (failed using user name due to the interaction response time: 3 seconds)
+		  - [ ] no_exists_id
+		- [x] user_mention
+			- [x] exists
+			- [x] no exists
 	- [x] search_player
 	- [x] search_pro
 	- [ ] steam
-		- [ ] me
-		- [ ] user_id
-		  - [ ] exists
-			- [ ] no exists
-		- [ ] user_mention
-			- [ ] exists
-			- [ ] no exists
+		- [x] me
+		- [ ] dota_player_id
+		  - [x] exists_id
+		  - [ ] exists_username (failed using user name due to the interaction response time: 3 seconds)
+		  - [ ] no_exists_id
+		- [x] user_mention
+			- [x] exists
+			- [x] no exists
 	- [ ] withfriends
-		- [ ] me
-		- [ ] user_id
-		  - [ ] exists
-			- [ ] no exists
-		- [ ] user_mention
-			- [ ] exists
-			- [ ] no exists
+		- [x] me
+		- [ ] dota_player_id
+		  - [x] exists_id
+		  - [ ] exists_username (failed using user name due to the interaction response time: 3 seconds)
+		  - [ ] no_exists_id
+		- [x] user_mention
+			- [x] exists
+			- [x] no exists
 	- [ ] withpros
-		- [ ] me
-		- [ ] user_id
-		  - [ ] exists
-			- [ ] no exists
-		- [ ] user_mention
-			- [ ] exists
-			- [ ] no exists
-	- [ ] playercard
-	- [ ] playercard_config
-	- [ ] playercard_help
-	- [ ] playercard_heroes
-	- [ ] playercard_setbg
+		- [x] me
+		- [ ] dota_player_id
+		  - [x] exists_id
+		  - [ ] exists_username (failed using user name due to the interaction response time: 3 seconds)
+		  - [ ] no_exists_id
+		- [x] user_mention
+			- [x] exists
+			- [x] no exists
+	- [x] playercard
+	- [x] playercard_config
+		- [ ] add help and available options
 
-- Upgrade packages
-	- [ ] dotacontants
-
+- [ ] Clean dev guild commands
+- [ ] Remove commands from locale
+  - [ ] links
+  - [ ] getstarted
+  - [ ] feedback
+- [ ] Locale
+  - [ ] `cmdincooldown`
+    - [ ] change <> to {{{}}}
+  - [ ] playercard

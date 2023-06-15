@@ -14,8 +14,16 @@ module.exports = {
 			required: true
 		}
 	],
+    customOptions: {
+        defer: true
+    },
+    scope: {
+        type: 'guild',
+        guildIDs: [process.env.DEV_SERVER_ID]
+    },
     run: async function (interaction, client, command) {
         const ability = enumAbilities.getValueByName(interaction.data.options.find(option => option.name === 'ability').value)
+        console.log({ ability, url: enumAbilities.apiURL + ability.img })
         if (!ability) { return client.components.Locale.replyInteraction(interaction, 'ability.notfound')}
         const attributes = ability.attrib.map(attribute => {
             return attribute.header + ' ' + (Array.isArray(attribute.value) ? attribute.value.join(', ') : attribute.value)

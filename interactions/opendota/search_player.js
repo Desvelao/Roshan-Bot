@@ -16,6 +16,13 @@ module.exports = {
 			required: true
 		}
 	],
+  customOptions: {
+    defer: true
+  },
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function(interaction, client, command){
     const query = interaction.data.options.find(option => option.name === 'query').value
     return client.components.Opendota.getPlayersDotaName(query).then((players) => {

@@ -9,8 +9,6 @@ const STARSPATH = 'stars'
 const BASEPATH = 'base'
 const PREFIXMEDAL = process.argv[2] || ''
 
-console.log('Prefix Medal:', PREFIXMEDAL)
-
 const rootpath = (...p) => path.join(ROOTPATH,...p)
 
 const combineImages = function(basepath, starspath){
@@ -31,11 +29,9 @@ const combineImages = function(basepath, starspath){
 
 const cleanFilename = filename => path.basename(filename).replace('.png','').replace('rank_star_','')
 
-console.log(rootpath(BASEPATH) + '/*.png')
 const bases = glob.sync(rootpath(BASEPATH + '/*.png') )
 const stars = glob.sync(rootpath(STARSPATH + '/*.png'))
 
-console.log(bases,stars)
 bases.forEach(base => {
     stars.forEach(star => {
         const filename = PREFIXMEDAL + cleanFilename(base) + '_' + cleanFilename(star) + '.png'

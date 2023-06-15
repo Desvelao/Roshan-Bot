@@ -29,9 +29,6 @@ util.steam.idToSteamID = function(id32){
   }
   var total = result.join('')
   return total
-  /*for (var i = id64.length - 1 ; i > 0; i--) {
-    console.log(i + ':' + id64[i]);
-  }*/
 }
 
 util.steam.idToDotaID = function(id64){
@@ -51,9 +48,6 @@ util.steam.idToDotaID = function(id64){
   }
   var total = parseInt(result.join('')).toString();
   return total
-  /*for (var i = id64.length - 1 ; i > 0; i--) {
-    console.log(i + ':' + id64[i]);
-  }*/
 }
 
 // *************************** DOTA MODULE **********************

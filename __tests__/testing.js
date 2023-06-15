@@ -2,8 +2,6 @@ const firebase = require('../helpers/firebase')
 
 
 
-// console.log(mocksdk)
-
 jest.mock('../helpers/firebase', () => {
     const firebasemock = require('firebase-mock');
 

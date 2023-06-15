@@ -6,6 +6,13 @@ module.exports = {
   category: 'Dota 2',
   description: 'Last results of competitive games',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
+  customOptions: {
+    defer: true
+  },
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (interaction, client, command){
     return client.components.Opendota.competitive()
       .then(results => {

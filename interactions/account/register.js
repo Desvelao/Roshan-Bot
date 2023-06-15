@@ -16,6 +16,10 @@ module.exports = {
   requirements : [
     'account.not.registered'
   ],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (interaction, client, command){
     const dotaID = interaction.data.options.find(option => option.name === 'dota_id').value
     return client.components.Account.createProcess(interaction.user.id, dotaID, interaction)

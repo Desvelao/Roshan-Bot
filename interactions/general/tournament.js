@@ -41,6 +41,10 @@ module.exports = {
 			required: true,
 		}
 	],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (interaction, client, command){
     const mode = interaction.data.options.find(option => option.name === 'mode').value
     const configuration = interaction.data.options.find(option => option.name === 'configuration').value

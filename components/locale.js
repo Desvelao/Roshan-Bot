@@ -56,7 +56,7 @@ module.exports = class Locale extends Component {
             return self.replaceContent(content, replacements, msg.author.account.lang)
         }
         Eris.User.prototype.locale = function (content, replacements) {
-            return self._replaceContent(content, replacements, this.account.lang)
+            return self._replaceContent(content, this.account.lang, replacements)
         }
         Eris.Guild.prototype.locale = function (content, replacements) {
             return self.replaceContent(content, replacements, this.account.lang)
@@ -242,7 +242,7 @@ module.exports = class Locale extends Component {
             ...this.enhanceReplacements,
         }
         const message = this._replaceContent(content, interaction.user.account.lang, enhancedReplacements)
-        return interaction.createMessage(message)
+        return interaction.acknowledged ? interaction.createFollowup(message) : interaction.createMessage(message)
     }
     _replaceContent(content, language, replacements){
         if (typeof content === 'string') {

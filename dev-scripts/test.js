@@ -277,7 +277,6 @@ const ITEMS = {
 Object.keys(ITEMS).map(k => ({ id: k, old: ITEMS[k], new: item_ids[k]}))
   .filter(i => i.old !== item_ids[i.id])
   .forEach((item, index) => {
-    console.log(item)
     console.log(`${process.cwd()}/img/items/${item.old}.jpg`, `${process.cwd()}/img/items/${item.new}.jpg`)
     try{
       fs.rename(`${process.cwd()}/img/items/${item.old}.jpg`, `${process.cwd()}/img/items/${item.new}.jpg`,function(err){

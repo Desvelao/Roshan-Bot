@@ -1655,10 +1655,10 @@ dot-prop@^4.2.1:
   dependencies:
     is-obj "^1.0.0"
 
-dotaconstants@7.13.0:
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/dotaconstants/-/dotaconstants-7.13.0.tgz#0928096efcb0a4ad181532e2dd450edb90d1d40a"
-  integrity sha512-fQAyAXkPr/HHfFVf+we4Sm2XleIpdKPlIJ9HYmyBXle5KpLwo14miHFWKdj0Zs+y6fbxU9z3Lo2AtEFCJSuuSA==
+dotaconstants@^7.16.0:
+  version "7.16.0"
+  resolved "https://registry.yarnpkg.com/dotaconstants/-/dotaconstants-7.16.0.tgz#b1e37e26bef972f4ba5754473f523f0f2de07d5e"
+  integrity sha512-lO/bkR/Hi77txYD9/iCuZ7Ta9sMKYWd2d5Etd2cGEzEetqxjq6Z/uQZeRZgtxj3h4sgdXXnfHOxHr/sjNYlZug==
 
 dotenv@^8.2.0:
   version "8.6.0"

@@ -18,12 +18,18 @@ module.exports = {
 			required: true
 		}
 	],
+  customOptions: {
+    defer: true
+  },
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function(interaction, client, command){
     return client.components.Opendota.match(interaction.data.options.find(option => option.name === 'match_id').value)
       .then(results => {
         if (results[0].error) { return client.components.Locale.replyInteraction(interaction, 'error') }
         if (results[0].game_mode === 19) { return client.components.Locale.replyInteraction(interaction, 'match.eventgame') }
-        console.log({results})
         const spacesBoard = ['17f', '8f', '8f', '6f', '5f', '4f', '15f']
         const headers = [
           'dota2.hero',
@@ -31,7 +37,7 @@ module.exports = {
           'dota2.gpmxpm',
           'dota2.lhd',
           'dota2.hdmg',
-          'tdmg',
+          'dota2.tdmg',
           'dota2.player'
         ].map(str => client.components.Locale._replaceContent(str, interaction.user.account.lang))
 
@@ -59,7 +65,7 @@ module.exports = {
               player.name ? client.components.Bot.parseText(player.name, 'nf') : client.components.Bot.parseText(player.personaname || client.components.Locale._replaceContent('unknown', interaction.user.account.lang), 'nf')]);
           }  
         })
-        return interaction.createMessage(JSON.stringify(results).slice(0,1000))
+        // return interaction.createMessage(JSON.stringify(results).slice(0,1000))
         return client.components.Locale.replyInteraction(interaction, {
           embed: {
             title: 'match.title',
@@ -82,6 +88,6 @@ module.exports = {
           match_field1_name: (results[0].dire_team ? results[0].dire_team.name : client.components.Locale._replaceContent('dota2.dire', interaction.user.account.lang)) + ' - ' + results[0].dire_score,
           match_field1_value: dire.render()
         })
-      }).catch(err => { console.log(err);return client.components.Locale.replyInteraction(interaction, 'error.opendotarequest') })
+      }).catch(err => { return client.components.Locale.replyInteraction(interaction, 'error.opendotarequest') })
   }
 }

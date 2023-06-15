@@ -6,6 +6,10 @@ module.exports = {
   category : 'Dota 2',
   description : 'Random pick a hero',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+},
   run: async function (interaction, client, command){
     let hero
     do {

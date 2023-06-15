@@ -9,7 +9,7 @@ class Square{
   }
   place(ref,mode,options){
     if(!ref){
-      // console.log('Warning: Reference not found! => Ref = Self');
+      // Warning: Reference not found! => Ref = Self
       ref = {x : this.x, y : this.y, w : this.w, h : this.h}
     }
     options = options || {x : 0, y : 0}

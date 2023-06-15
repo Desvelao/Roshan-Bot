@@ -11,6 +11,10 @@ module.exports = {
   requirements: [
     'guild.only'
   ],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (msg, args, client, command){
     const guild = msg.channel.guild
     const re = /<@&([\d^>]+)>/g

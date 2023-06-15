@@ -127,7 +127,6 @@ class CommandRepl{
         }else{
             this.commands.push(new CommandRepl(name, fn))
         }
-        // console.log('Added command:', name, ' - ', this.name)
         return this
     }
     run(ctx, client, response){

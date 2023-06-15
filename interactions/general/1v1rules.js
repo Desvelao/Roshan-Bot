@@ -23,6 +23,10 @@ module.exports = {
       ]
 		}
 	],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (interaction, client, command){
     const mode = interaction.data.options.find(option => option.name === 'mode').value
     return client.components.Locale.replyInteraction(interaction, `1v1rules.${mode}.message`)

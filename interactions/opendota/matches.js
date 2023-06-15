@@ -17,7 +17,7 @@ module.exports = {
 			required: false
 		},
     {
-			name: 'user_id',
+			name: 'dota_player_id',
 			description: 'User ID',
 			type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
 			required: false
@@ -26,6 +26,13 @@ module.exports = {
   requirements: [
     'is.dota.player'
   ],
+  customOptions: {
+    defer: true
+  },
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function(interaction, client, command){
     const [player, results] = await Promise.all([
       interaction.ctx.profile,
@@ -43,7 +50,7 @@ module.exports = {
       if (!match) { return };
       table += util.Classes.Table.renderRow([
         odutil.winOrLose(match.radiant_win, match.player_slot).slice(0, 1),
-        enumHeroes.getValue(match.hero_id).localized_name,
+        (enumHeroes.getValue(match.hero_id) || {}).localized_name || 'none',
         match.kills + '/' + match.deaths + '/' + match.assists,
         odutil.durationTime(match.duration)
       ], spacesBoard, '\u2002')

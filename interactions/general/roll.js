@@ -19,6 +19,10 @@ module.exports = {
 			required: false,
 		}
 	],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (interaction, client, command){
     let min, max, random;
     const minimum = interaction.data.options ? interaction.data.options.find(option => option.name === 'minimum') : null
@@ -28,7 +32,6 @@ module.exports = {
       max = 6;
       random = Math.floor((Math.random() * max) + 1);
     }else if(maximum && minimum){
-      console.log({maximum, minimum})
       min = parseInt(minimum.value);
       max = parseInt(maximum.value);
       if(typeof min !== 'number' || isNaN(min)){return}

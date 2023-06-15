@@ -29,14 +29,14 @@ module.exports = class Opendota extends Component {
                         context.ctx.message = client.components.Locale._replaceContent('bot.needregistermentioned', context.user.account.lang, { username: user.username })
                         return false
                     }
-                } else if (context.data.options && context.data.options.find(option => option.name === 'user_id')) {
-                    const userID = context.data.options.find(option => option.name === 'user_id').value
+                } else if (context.data.options && context.data.options.find(option => option.name === 'dota_player_id')) {
+                    const userID = context.data.options.find(option => option.name === 'dota_player_id').value
                     const userIDAsNumber = parseInt(userID)
                     if (!isNaN(userIDAsNumber)) {
-                        context.ctx.profile = this.baseProfile(undefined, userIDAsNumber)
+                        context.ctx.profile = this.baseProfile(undefined, userID)
                     } else {
                         try{
-                            context.ctx.profile = await this.getProPlayerID(userID).then(player => this.baseProfile(undefined, player.account_id))
+                            context.ctx.profile = await this.getProPlayerID(userID).then(player => this.baseProfile(undefined, String(player.account_id)))
                         }catch(err){
                             context.ctx.message = client.components.Locale._replaceContent('error.pronotfound', context.user.account.lang, { pro: userID})
                             return false
@@ -52,7 +52,7 @@ module.exports = class Opendota extends Component {
                 return true
             },
             response: (context, client, command, req) => {
-                return context.ctx.message
+                return context.createMessage(context.ctx.message)
             }
         })
     }

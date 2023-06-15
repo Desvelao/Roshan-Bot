@@ -15,9 +15,13 @@ module.exports = {
 			required: false, 
 		}
 	],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function(interaction, client, command){
     const tournament = interaction.data.options ? interaction.data.options.find(option => option.name === 'tournament').value : null
-    console.log({tournament})
+
     if(!tournament){
       let tourneys_playing = client.cache.tourneys.getPlaying()
       let tourneys_next = client.cache.tourneys.getNext()
@@ -32,7 +36,7 @@ module.exports = {
         fields.push({name: interaction.user.locale('tourneys.next',{events : tourneys_next.length}), value : tourneys_next.map(t => `**${t._id}**${t.until ? ' \`' + util.Date.custom(parseInt(t.until)*1000,'D/M',true) + '\`' : ''}`).join(', '), inline : false})
       }
       fields.push({name : interaction.user.locale('tourneys.suggestion'), value : client.config.links.web_addtourney, inline : false})
-      console.log({fields, tourneys_playing, tourneys_next})
+
       return client.components.Locale.replyInteraction(interaction, {
         embed : {
           title : 'tourneys.title',

@@ -26,6 +26,10 @@ module.exports = {
   requirements: [
     'account.exist',
   ],
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function (interaction, client, command){
     const language = interaction.data.options.find(option => option.name === 'language').value
     await client.components.Account.modify(interaction.user.account._id, { lang: language })

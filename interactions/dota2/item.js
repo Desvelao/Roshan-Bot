@@ -14,6 +14,13 @@ module.exports = {
 			required: true
 		}
 	],
+    customOptions: {
+        defer: true
+    },
+    scope: {
+        type: 'guild',
+        guildIDs: [process.env.DEV_SERVER_ID]
+    },
     run: async function (interaction, client, command) {
         const item = enumItems.getValueByName(interaction.data.options.find(option => option.name === 'item').value)
         // FIXME: when search sange we get sange and yasha. See enumItems.getValueByName method

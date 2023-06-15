@@ -7,7 +7,6 @@ module.exports = new Event('diretide_new_server','guildCreate',{}, function(guil
     return teams
   },{blue : 0, green : 0, red : 0, yellow : 0})
   const teamsOrder = Object.keys(teams).map(key => ({_id : key, size : teams[key]})).sort((a,b) => a.size - b.size)
-  console.log(teamsOrder);
   Promise.all(guild.members.filter(member => {
     return !member.bot && !game.cache.users.has(member.id)
   }).map((member,index) => game.actions.resetUser(member.id,teamsOrder[index%4]._id).then(user =>

@@ -12,8 +12,8 @@ module.exports = {
 			required: false
 		},
     {
-			name: 'user_id',
-			description: 'User ID',
+			name: 'dota_player_id',
+			description: 'Dota player ID',
 			type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
 			required: false
 		}
@@ -21,17 +21,24 @@ module.exports = {
   requirements: [
     'is.dota.player'
   ],
+  customOptions: {
+    defer: true
+  },
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DEV_SERVER_ID]
+  },
   run: async function(interaction, client, command){
     const [ player, results ] = await Promise.all([
       interaction.ctx.profile,
       client.components.Opendota.player_lastmatch(interaction.ctx.profile.data.dota)
     ])
     const commandMatch = client.interactionCommands.find(command => command.name === 'match')
-    console.log({commandMatch}, interaction.data.options)
+
     if (!commandMatch) { return }
     !interaction.data.options && (interaction.data.options = [])
     interaction.data.options.push({value: results[0][0].match_id, name: 'match_id'})
-    // TODO: fix when uses a player name. Interaction doesn't reply
+
     return await commandMatch.run(interaction, client, commandMatch)
   }
 }
