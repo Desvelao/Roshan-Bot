@@ -7,7 +7,7 @@ module.exports = {
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   customOptions: {
     'dev.forceUpdate': false

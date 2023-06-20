@@ -33,7 +33,7 @@ module.exports = {
 	],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command){
     const division = interaction.data.options.find(option => option.name === 'division').value
@@ -45,7 +45,7 @@ module.exports = {
         embed: {
           title : 'worldranking.title',
           description: 'worldranking.description',
-          footer: {text : Datee.custom(r.time_posted * 1000, 'h:m D/M/Y', true), icon_url : client.config.images.dota2}
+          footer: {text : Datee.custom(r.time_posted * 1000, 'h:m D/M/Y', true)}
         }
       }, {division, divisions: client.components.WorldRankingApi.divisions.sort().join(', '), results: table.render()})
     }).catch(err => {

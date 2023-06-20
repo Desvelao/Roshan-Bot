@@ -19,7 +19,7 @@ module.exports = {
     },
     scope: {
         type: 'guild',
-        guildIDs: [process.env.DEV_SERVER_ID]
+        guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
     },
     run: async function (interaction, client, command) {
         const hero = enumHeroes.getValueByAlias(interaction.data.options.find(option => option.name === 'hero').value)

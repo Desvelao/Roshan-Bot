@@ -8,7 +8,7 @@ module.exports = {
   requirements: ['account.exist'],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_IDERVER_ID]
   },
   run: async function (interaction, client, command){
     return client.components.Account.deleteProcess(interaction.user.account._id, interaction)

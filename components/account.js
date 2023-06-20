@@ -151,7 +151,7 @@ module.exports = class Account extends CustomComponent() {
 		const guildID = context.channel.guild ? context.channel.guild.id : context.channel.id
 		const [data] = await this.client.components.Opendota.account(dotaID)
 		if(!data.profile){throw new Error('Profile not found')}
-		const messageNotificationServer = await this.client.createMessage(this.client.config.guild.accounts,{
+		const messageNotificationServer = await this.client.createMessage(process.env.DISCORD_PIT_SERVER_CHANNEL_ACCOUNTS_ID,{
 			embed :{
 				title: this.client.components.Locale._replaceContent('registerAccountTitle', 'en', { user_account_id: context.user.id }),
 				description: this.client.components.Locale._replaceContent('registerAccountDesc', 'en', { guild_name: guildName, guild_id: guildID, user_account_dotaID: dotaID, user_account_steam: data.profile.steamid}),
@@ -176,7 +176,7 @@ module.exports = class Account extends CustomComponent() {
 	async deleteProcess(discordID, context){
 		const guildName = context.channel.guild ? context.channel.guild.name : 'DM'
 		const guildID = context.channel.guild ? context.channel.guild.id : context.channel.id
-		const messageNotificationServer =  await this.client.createMessage(this.client.config.guild.accounts, {
+		const messageNotificationServer =  await this.client.createMessage(process.env.DISCORD_PIT_SERVER_CHANNEL_ACCOUNTS_ID, {
 			embed: {
 				title: this.client.components.Locale._replaceContent('unregisterAccountTitle', 'en', { user_account_id: context.user.id }),
 				description: this.client.components.Locale._replaceContent('unregisterAccountDesc', 'en', { guildName, guildID }),

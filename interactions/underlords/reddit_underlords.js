@@ -35,7 +35,7 @@ module.exports = {
 	],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command){
     // TODO: request is failing to get the data
@@ -56,7 +56,7 @@ module.exports = {
       return client.components.RedditApi.post(postID.value).then(result => {
         return interaction.createMessage({
           embed: {
-            author: { name: result.title.slice(0, 255), url: result.link, icon_url: client.config.images.reddit },
+            author: { name: result.title.slice(0, 255), url: result.link },
             description: result.text,
             footer: { text: result.subreddit }
           }

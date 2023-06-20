@@ -1,65 +1,15 @@
 {
-  "setup" : {
-    "prefix" : "r!",
-    "helpMessage" : ":information_source: __**Ayuda de Roshan**__",
-    "helpDM" : true,
-    "helpMessageAfterCategories" : "**Nota**: Usa `r!help <categoría>` para los comandos de esa categoría.\n\n:information_source: Cualquier duda o problema puedes pasarte por el **servidor de Roshan**: https://discord.gg/SxsYkgX",
-    "devLogs" : false,
-    "disableHelp" : true
-  },
-  "logger" : {
-    "dmMessage" : true,
-    "events" : [
-      {"tag" : "memberin", "icon" : "📥", "level" : 1, "color" : "magenta"},
-      {"tag" : "memberout", "icon" : "📤", "level" : 1, "color" : "magenta"},
-      {"tag" : "bot", "icon" : "🤖", "level" : 1, "color" : "magenta"},
-      {"tag" : "accountnew", "icon" : "🤖📥", "level" : 1, "color" : "magenta"},
-      {"tag" : "accountmodify", "icon" : "🤖📝", "level" : 1, "color" : "magenta"},
-      {"tag" : "accountremove", "icon" : "🤖📤", "level" : 1, "color" : "magenta"},
-      {"tag" : "guildnew", "icon" : "👥📥", "level" : 1, "color" : "magenta"},
-      {"tag" : "guildremove", "icon" : "👥📤", "level" : 1, "color" : "magenta"},
-      {"tag" : "oderror", "icon" : "🎮❌", "level" : 1, "color" : "magenta"},
-      {"tag" : "feed", "icon" : "📰", "level" : 1, "color" : "magenta"},
-      {"tag" : "notifications", "icon" : "🔔", "level" : 1, "color" : "magenta"},
-      {"tag" : "shout", "icon" : "📢", "level" : 1, "color" : "magenta"},
-      {"tag" : "game", "icon" : "🎮", "level" : 1, "color" : "magenta"},
-      {"tag" : "error", "icon" : "❌", "level" : 1, "color" : "magenta"}
-    ]
-  },
-  "notifier" : {
-    "channel" : "331547028826095617",
-    "ignore" : ["dev"],
-    "events" : {
-      "memberin" : "📥", "memberout" : "📤", "bot" : "🤖",
-      "accountnew" : "🤖📥", "accountmodify" : "🤖📝", "accountremove" : "🤖📤",
-      "guildnew" : "👥📥", "guildremove" : "👥📤",
-      "feed" : "📰", "notifications" : "🔔", "shout" : "📢",
-      "game" : "🎮", "error" : "❌", "dev" : "DEV"
-    }
-  },
-  "console" : {
-    "channel" : "509559847436419103"
-  },
-  "update" : "08/05/2020",
-  "server" : "https://discord.gg/SxsYkgX",
-  "invite" : "https://discordapp.com/oauth2/authorize?client_id=324833828302749697&scope=bot&permissions=519232",
-  "color" : "#9862E9",
-  "colors" : {"account" : {"register" : "#41ad49", "modify" : "#800080", "delete" : "#ff4723"}, "nextLvl" : "#ffbf00", "sendMsg" : {"owner" : "#003333", "server" : "#915300"}},
-  "_othercolors" : {"lightblue" : "#2BC6CC", "darkred" : "#840000", "greenti8" : "#007a00"},
+  "colors" : {"account" : {"register" : "#41ad49", "modify" : "#800080", "delete" : "#ff4723"}},
   "playing" : "r!help",
-  "roles" : {"admin" : "admin", "aegis" : "aegis" , "roshan" : "roshan", "betatester" : "Betatester", "supporter" : "Supporter", "dev_errors": "<@&698554515825229890>", "pit_updates": "Pit's updates"},
-  "switches" : {"welcome" : true, "wrongCmd" : true, "msgGuilds" : false, "feeds" : false, "leaderboardUpdate" : false, "backupdb" : false},
-  "constants" : {"playersMMRTable" : 20, "descriptionChars" : 1000, "msgdel" : 10, "worldBoardTop" : 10, "heroes" : 120, "hoursLeaderboardUpdate" : 168},
+  "roles" : {"aegis" : "aegis", "betatester" : "Betatester", "supporter" : "Supporter"},
+  "switches" : {"leaderboardUpdate" : false, "backupdb" : false},
+  "constants" : {"descriptionChars" : 1000, "worldBoardTop" : 10, "heroes" : 120, "hoursLeaderboardUpdate" : 168},
   "links" : {
     "profile" : {
       "dotabuff" : "https://www.dotabuff.com/players/",
-      "steamProfiles" : "http://steamcommunity.com/profiles/",
-      "steamID" : "http://steamcommunity.com/id/",
-      "twitter" : "https://twitter.com/",
-      "twitch" : "https://www.twitch.tv/"
+      "steamID" : "http://steamcommunity.com/id/"
     },
-    "leaderboard" : "https://desvelao.github.io/roshan-leaderboard/",
-    "patreon" : "https://www.patreon.com/desvelao",
+    "twitch" : "https://www.twitch.tv/",
     "kofi" : "https://www.ko-fi.com/desvelao",
     "web" : "https://desvelao.github.io/roshanapp/#/",
     "web_leaderboard" : "https://desvelao.github.io/roshanapp/#/leaderboard",
@@ -72,34 +22,15 @@
     "default" : {
       "accept" : "✅", "error" : "❌", "pin" : "📌", "notification" : "🔔", "loudspeaker" : "📢",
       "upvote" : "⬆", "star" : "⭐", "exclamation" : "❗", "envelopeIncoming" : "📨", "noentry" : "🚫",
-      "feeds" : "📰", "trophy" : "🏆",
-      "Dnotification" : ":bell:", "Drobot" : ":robot: ", "Dfix" : ":tools: "
+      "feeds" : "📰", "trophy" : "🏆"
     },
-    "raw" : {"cooldown" : "<:cooldown:469273616681533462>"},
-    "bot" : {},
     "supporter" : "<cheesed2>",
     "betatester" : "<roshan>"
   },
-  "guild" : {"id" : "327603106257043456", "changelog": "327603215325462539", "feeds" : "342031271679098880", "feedsHidden" : "491295737251102733", "biblioteca" : "335100706975514635", "sendmessages" : "330646027965300736", "botadmin": "338316246686892032", "accounts" : "330949705389441024", "notifications" : "331547028826095617", "console" : "509559847436419103", "bugs" : "327605187663364098", "alphatest" : "327603261085581312", "backup" : "398485131003822080", "generated" : "441307771510456331", "commands": "539844893863051289"},
-  "webhooks" : {"feedsNotification" : "342031720155054080", "feeds" : "342055276536659969", "feedsHidden" : "491296306619482114", "feedsfromapp" : "446306133984935937", "fromapp" : "446303544245747732"},
-  "guildID" : "327603106257043456",
-  "communityTips" : {
-    "template" : "**__Categoría:__**(.*)\\n**__Título:__**(.*)\\n**__Consejo:__**(.*)",
-    "waitTimeError" : 300,
-    "delayDeleteMsg" : 5
-  },
   "others" : {
-    "betatesters" : ["Breo","Shinigami","^Maik^"],
-    "complements" : [
-      {"tag" : "Artwork stickers", "author" : "Chroneco"}
-    ]
+    "betatesters" : ["Breo","Shinigami","^Maik^"]
   },
   "images" : {
-    "reddit" : "https://icon-icons.com/icons2/1195/PNG/512/1490889653-reddit_82537.png",
-    "reddit_dota2" : "https://b.thumbs.redditmedia.com/F82n9T2HtoYxNmxbe1CL0RKxBdeUEw-HVyd-F-Lb91o.png",
-    "reddit_artifact" : "https://b.thumbs.redditmedia.com/Y6ghcGFvvQjNAufIfckzmWEqwmhIsD7fqTC0sVvTMcc.png",
-    "reddit_underlords" : "https://styles.redditmedia.com/t5_117kpk/styles/communityIcon_87bnogkb67431.png",
-    "dota2" : "https://seeklogo.com/images/D/dota-2-logo-A8CAC9B4C9-seeklogo.com.png",
     "mmrmaik" : "https://cdn.discordapp.com/attachments/327621996089180162/331619601639014400/mmr.png"
   }
 }

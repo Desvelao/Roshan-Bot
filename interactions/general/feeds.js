@@ -8,7 +8,7 @@ module.exports = {
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command){
     const feeds = client.cache.feeds.order().slice(0,8)

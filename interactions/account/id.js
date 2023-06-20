@@ -22,7 +22,7 @@ module.exports = {
   requirements: ['account.existany'],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function(interaction, client, command){
     return client.components.Locale.replyInteraction(interaction, {

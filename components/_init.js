@@ -5,7 +5,6 @@ module.exports = class Init extends Component {
     constructor(client, options) {
         super(client)
         let CONFIG = require('../config.json')
-        CONFIG.color = Color.convert(CONFIG.color, 'hex-int');
         for (let cat in CONFIG.colors) {
             if (typeof CONFIG.colors[cat] == 'string') {
                 CONFIG.colors[cat] = Color.convert(CONFIG.colors[cat], 'hex-int')
@@ -36,6 +35,6 @@ module.exports = class Init extends Component {
         }
     }
     ready() {
-        this.client.server = this.client.guilds.get(this.client.config.guild.id)
+        this.client.server = this.client.guilds.get(process.env.DISCORD_PIT_SERVER_ID)
     }
 }

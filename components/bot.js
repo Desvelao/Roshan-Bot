@@ -1,8 +1,5 @@
-const { Component } = require('aghanim')
 const CustomComponent = require('../classes/custom-component')
 const util = require('erisjs-utils')
-const { Message, Guild } = require('erisjs-utils')
-const enumFeeds = require('../enums/feeds')
 const packageInfo = require('../package.json')
 const odutil = require('../helpers/opendota-utils')
 
@@ -37,7 +34,7 @@ module.exports = class Bot extends CustomComponent() {
                 this.setStatus(this.client.config.status_act, this.client.config.status, this.client.config.status_msg, this.client.config.status_url, false).then(() => this.client.logger.ready('Status set'))
 
                 if (this.client.config.switches.backupdb) { //config.switches.backupdb
-                    util.Firebase.backupDBfile(this.client.db, this.client, this.client.config.guild.backup, { filenameprefix: 'roshan_db_', messageprefix: '**Roshan Backup DB**' }).then(snap => {
+                    util.Firebase.backupDBfile(this.client.db, this.client, process.env.DISCORD_PIT_SERVER_CHANNEL_BACKUP_ID, { filenameprefix: 'roshan_db_', messageprefix: '**Roshan Backup DB**' }).then(snap => {
                         this.client.logger.info('Backup', 'Done!')
 
                         //Update leaderboard (Firebase) each this.client.config.hoursLeaderboardUpdate at least
@@ -48,20 +45,13 @@ module.exports = class Bot extends CustomComponent() {
 
                         //Update public (Firebase)
                         const data_public = {
-                            discord_invite: this.client.config.invite,
-                            discord_server: this.client.config.server,
+                            discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
+                            discord_server: process.env.DISCORD_PIT_SERVER_URL,
                             users: Object.keys(snap.profiles).length,
                             servers: Object.keys(snap.servers).length,
                             version: packageInfo.version
                         }
                         this.client.db.child('public').update(data_public).then(() => this.client.logger.info('Publicinfo updated'))
-
-                        // Check guilds config setted
-                        this.client.guilds.forEach(g => {
-                            if (!this.client.cache.servers.get(g.id)) {
-                                this.components.Guild.createProcess(g).then(() => this.client.logger.info(`${g.name} encontrado. Registrado en el bot.`))
-                            }
-                        })
                     })
                 }
             })

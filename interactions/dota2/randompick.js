@@ -8,12 +8,12 @@ module.exports = {
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
 },
   run: async function (interaction, client, command){
     let hero
     do {
-      const heroRandom = Math.floor(Math.random()*client.config.constants.heroes)
+      const heroRandom = Math.floor(Math.random()*client.config.constants.heroes) // TODO: replace by greater value of hero ID
       hero = enumHeroes.getValue(heroRandom)
     } while (!hero || hero.name.length < 1);
     return client.components.Locale.replyInteraction(interaction, `randompick.message`, {hero_name: hero.localized_name})

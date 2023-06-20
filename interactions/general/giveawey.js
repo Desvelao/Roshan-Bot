@@ -13,7 +13,7 @@ module.exports = {
   ],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (msg, args, client, command){
     const guild = msg.channel.guild
@@ -49,8 +49,7 @@ function fn(msg,args,members,guild,roles,bot){
     embed : {
       title : `${title}`,
       description: msg.author.locale('giveaway.winner',{winner : winner.username}),
-      thumbnail : {url : winner.avatarURL},
-      color : bot.config.color
+      thumbnail : {url : winner.avatarURL}
     }
   }
   if(roles.length){embed.embed.fields = [{name : msg.author.locale('giveaway.roles'), value : roles.join(', '), inline : false}]}

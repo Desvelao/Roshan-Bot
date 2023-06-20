@@ -4,7 +4,7 @@ module.exports = {
 	name: 'Logger',
 	constructor: (client, options) => {
         // do something when create component instance
-        this.channelID = client.config.console.channel
+        this.channelID = process.env.DISCORD_PIT_SERVER_CONSOLE_CHANNEL_ID
         this.client = client
         this.colors = {
             red: 16711680
@@ -18,7 +18,6 @@ module.exports = {
                 dev: { style: 'magenta' },
                 eval: { style: 'cyan' }
             },
-            // ignoredLevels: [this.devLogs ? '' : 'dev']
         })
         this.client.logger = this.logger
         this.client.on('aghanim:command:prereq', (msg, args, client, command) => {
@@ -34,7 +33,7 @@ module.exports = {
         this.client.on('aghanim:command:error', (error, msg, args, client, command) => {
             this.logger.error(`cmd: ${command.name} - ${msg.author.username} (${msg.author.id})\n${error.message || error}`)
             client.createMessage(this.channelID, {
-                content: client.config.roles.dev_errors,
+                content: process.env.DISCORD_PIT_SERVER_ROLE_MENTION_DEV_ERRORS,
                 embed: {
                     title: `cmd: ${command.name}`,
                     author: { name: `${msg.author.username} - ${msg.author.id}`, icon_url: msg.author.avatarURL },
@@ -49,9 +48,9 @@ module.exports = {
             msg.reply('error.unknown')
         })
         this.client.on('aghanim:component:error', (error, event, client, component) => {
-            this.logger.error(`component: ${component.name} - ${msg.author.username} (${msg.author.id})\n${error.message || error}`)
+            this.logger.error(`component: ${component.name}\n${error.message || error}`)
             client.createMessage(this.channelID, {
-                content: client.config.roles.dev_errors,
+                content: process.env.DISCORD_PIT_SERVER_ROLE_MENTION_DEV_ERRORS,
                 embed: {
                     title: `component: ${component.constructor.name}`,
                     fields: [
@@ -65,7 +64,7 @@ module.exports = {
         this.client.on('aghanim:error', (error, client) => {
             this.logger.error(`error: ${error.message || error}`)
             client.createMessage(this.channelID, {
-                content: client.config.roles.dev_errors,
+                content: process.env.DISCORD_PIT_SERVER_ROLE_MENTION_DEV_ERRORS,
                 embed: {
                     title: `:x: Bot Error: ${error.message}`,
                     fields: [

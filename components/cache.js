@@ -8,12 +8,13 @@ module.exports = class Cache extends Component {
     constructor(client, options) {
         super(client)
         this.client.cache = {}
+        this.channelChangelogID = process.env.DISCORD_PIT_SERVER_CHANNEL_CHANGELOG_ID
     }
     ready() {
         this.update().then(() => { this.client.emit('cache:init')})
     }
     messageCreate(msg){
-        if (msg.channel.id === this.client.config.guild.changelog) { // Update Bot Changelog
+        if (msg.channel.id === this.channelChangelogID) { // Update Bot Changelog
             return this.loadLastPatchNotes()
         }
     }
@@ -97,7 +98,7 @@ module.exports = class Cache extends Component {
         this.client.logger.ready('Cache: Tournaments and Feeds loaded')
     }
     loadLastPatchNotes(){
-        return this.client.getMessage(this.client.config.guild.changelog, this.client.server.channels.get(this.client.config.guild.changelog).lastMessageID).then(m => {
+        return this.client.getMessage(this.channelChangelogID, this.client.server.channels.get(this.channelChangelogID).lastMessageID).then(m => {
             this.client.cache.botPatchNotes = m.content
             this.client.logger.ready('Patch notes loaded')
         })

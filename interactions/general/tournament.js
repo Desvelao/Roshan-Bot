@@ -43,7 +43,7 @@ module.exports = {
 	],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command){
     const mode = interaction.data.options.find(option => option.name === 'mode').value
@@ -108,7 +108,7 @@ module.exports = {
       fields[0] = {name : 'tournament.list', value : results.join(', '), inline : false};
     }
     return client.components.Locale.replyInteraction(interaction, {
-      embed: { title: interaction.user.locale('tournament.tourney') + ' - (' + (interaction.user.nick || interaction.user.username) + ')', fields : fields, color : client.config.color}
+      embed: { title: interaction.user.locale('tournament.tourney') + ' - (' + (interaction.user.nick || interaction.user.username) + ')', fields : fields}
     })
   }
 }

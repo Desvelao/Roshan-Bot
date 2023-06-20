@@ -17,7 +17,7 @@ module.exports = {
 	],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DEV_SERVER_ID]
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function(interaction, client, command){
     const tournament = interaction.data.options ? interaction.data.options.find(option => option.name === 'tournament').value : null
@@ -40,8 +40,7 @@ module.exports = {
       return client.components.Locale.replyInteraction(interaction, {
         embed : {
           title : 'tourneys.title',
-          fields : fields,
-          color : client.config.color
+          fields : fields
         }
       })
     }else{
@@ -61,8 +60,7 @@ module.exports = {
           url : tourney.img,
           height : 40,
           width : 40
-        },
-        color : client.config.color
+        }
       }})
     }
   }

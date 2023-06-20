@@ -3,7 +3,7 @@ const path = require('path')
 require('dotenv').config()
 
 //Initialize Bot with Aghanim Command Client
-const bot = new Aghanim(process.env.BOT_TOKEN)
+const bot = new Aghanim(process.env.DISCORD_BOT_TOKEN)
 
 bot.isProduction = process.env.NODE_ENV === "production"
 
