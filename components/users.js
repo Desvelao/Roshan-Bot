@@ -1,21 +1,8 @@
-const { Component } = require('aghanim')
 const CustomComponent = require('../classes/custom-component')
-const util = require('erisjs-utils')
-const { Message, Guild } = require('erisjs-utils')
 
 module.exports = class Users extends CustomComponent() {
     constructor(client, options) {
         super(client)
-    }
-    isSupporterCheckMessageCreate(msg, args, client){
-        const result = this.isSupporter(msg.author.id)
-        if(!result){msg.reply('bot.onlysupporterfunction')}
-        return result
-    }
-    isBetatesterCheckMessageCreate(msg, args, client){
-        const result = this.isBetatester(msg.author.id)
-        if(!result){msg.reply('bot.onlybetatesterfunction')}
-        return result
     }
     isBetatester(id){
         return this.betatesters().includes(id)

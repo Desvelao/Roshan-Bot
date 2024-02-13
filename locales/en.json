@@ -513,5 +513,6 @@
 	"{{{_heroes}}}": "{{{_heroes}}}",
 	"{{{_position}}}": "{{{_position}}}",
 	"{{{_bg}}}": "{{{_bg}}}",
-	"<bot_avatar>": "<bot_avatar>"
+	"<bot_avatar>": "<bot_avatar>",
+	"{{{bot_icon}}}": "{{{bot_icon}}}"
 }

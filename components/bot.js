@@ -48,7 +48,7 @@ module.exports = class Bot extends CustomComponent() {
                             discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
                             discord_server: process.env.DISCORD_PIT_SERVER_URL,
                             users: Object.keys(snap.profiles).length,
-                            servers: Object.keys(snap.servers).length,
+                            servers: Object.keys(snap.servers).length, // TODO: replace by server count
                             version: packageInfo.version
                         }
                         this.client.db.child('public').update(data_public).then(() => this.client.logger.info('Publicinfo updated'))
@@ -140,29 +140,5 @@ module.exports = class Bot extends CustomComponent() {
             newText = text.replace(new RegExp('`', 'g'), '\'')
         }
         return newText
-    }
-    isSupporterCheckMessageCreate(msg, args, client){
-        const result = this.isSupporter(msg.author.id)
-        if(!result){msg.reply('bot.onlysupporterfunction')}
-        return result
-    }
-    isBetatesterCheckMessageCreate(msg, args, client){
-        const result = this.isBetatester(msg.author.id)
-        if(!result){msg.reply('bot.onlybetatesterfunction')}
-        return result
-    }
-    isBetatester(id){
-        return this.betatesters().includes(id)
-    }
-    isSupporter(id){
-        return this.supporters().includes(id)
-    }
-    betatesters(){
-        const set = new Set([this.client.owner.id,...Array.from(this.client.cache.betatesters),...this.client.server.membersWithRole(this.client.config.roles.betatester).map(m => m.id)])
-        return Array.from(set)
-    }
-    supporters(){
-        const set = new Set([this.client.owner.id,...Array.from(this.client.cache.supporters),...this.client.server.membersWithRole(this.client.config.roles.supporter).map(m => m.id)])
-        return Array.from(set)
     }
 }

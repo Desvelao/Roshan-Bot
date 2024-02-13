@@ -20,12 +20,3 @@ module.exports.SimpleEnums = class SimpleEnums extends Map{
   }
 }
 
-module.exports.ComplexEnums = class ComplexEnums extends Map{
-  constructor(dictionary){
-    super(Object.keys(dictionary).map(key => [key,Object.assign({},dictionary[key],{_key : key})]))
-  }
-  getProp(id,prop){
-    let element = this.get(id)
-    return element && element[prop] !== undefined ? element[prop] : undefined
-  }
-}
