@@ -20,7 +20,9 @@
     "update-assets-all": "node dev-scripts/od-assets.js img -all",
     "combine-medals-web": "node dev-scripts/combine-medals.js medal_",
     "combine-medals": "node dev-scripts/combine-medals.js",
-    "update-locale": "node dev-scripts/generate-locale.js"
+    "update-locale": "node dev-scripts/generate-locale.js",
+    "prettier:check": "prettier src --check",
+    "prettier:fix": "prettier src --write"
   },
   "keywords": [
     "Roshan",
@@ -50,7 +52,8 @@
     "eslint-plugin-import": "^2.20.0",
     "firebase-mock": "^2.3.2",
     "jest": "^23.6.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "prettier": "2.3.2"
   },
   "jest": {
     "testRegex": "__tests__/.*\\.(js|jsx)$"
