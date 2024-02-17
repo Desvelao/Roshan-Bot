@@ -1,6 +1,6 @@
 const CustomComponent = require('../classes/custom-component')
 const util = require('erisjs-utils')
-const packageInfo = require('../package.json')
+const packageInfo = require('../../package.json')
 const odutil = require('../helpers/opendota-utils')
 
 module.exports = class Bot extends CustomComponent() {

@@ -2,7 +2,7 @@ const { Component, Eris } = require('aghanim')
 const path = require('path')
 const util = require('erisjs-utils')
 const xlsx = require('xlsx')
-const packageInfo = require('../package.json')
+const packageInfo = require('../../package.json')
 const { I18n } = require('i18n')
 
 module.exports = class Locale extends Component {

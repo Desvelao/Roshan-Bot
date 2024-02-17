@@ -3,7 +3,7 @@
   "version": "0.3.8",
   "version_date": "17/09/22",
   "description": "Dota 2 and Artifact Discord bot written in ErisJS using Aghanim Command Client",
-  "main": "bot.js",
+  "main": "src/bot.js",
   "engines": {
     "node": "=10.16.3",
     "npm": "=6.10.2"
