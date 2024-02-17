@@ -25,11 +25,11 @@
 
     // Save localtes to files
     languages.forEach(language => {
-        fs.writeFile(path.join(__dirname,'../locales', `${language}.json`), JSON.stringify(locales[language], null, 4), function(err) {
+        fs.writeFile(path.join(__dirname,'../locale/languages', `${language}.json`), JSON.stringify(locales[language], null, 4), function(err) {
             if(err) {
               console.log(err);
             } else {
-              console.log("JSON saved to " + path.join(__dirname,'../locales', `${language}.json`));
+              console.log("JSON saved to " + path.join(__dirname,'../locale/languages', `${language}.json`));
             }
         }); 
     })

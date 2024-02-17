@@ -14,7 +14,7 @@ module.exports = class Locale extends Component {
         this.i18n = new I18n({
             locales: ['en', 'es'],
             defaultLocale: 'en',
-            directory: path.join(__dirname, '..', 'locales')
+            directory: path.join(__dirname, '..', 'locale/languages')
         })
         this.enhanceReplacements = {};
         this.defaultLanguage = 'en'
