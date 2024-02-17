@@ -1,4 +1,4 @@
-const { SimpleEnums } = require('../classes/enums')
+const { SimpleEnums } = require('../classes/enums');
 
 //TODO Mirar name_id en idcardconfig
 // const HEROES = {
@@ -138,157 +138,166 @@ const { SimpleEnums } = require('../classes/enums')
 // }
 
 const HEROES_ALIAS = {
-  "1": ["antimage","am"],
-  "2": ["axe"],
-  "3": ["bane"],
-  "4": ["bloodseeker","bs"],
-  "5": ["crystalmaiden","cm"],
-  "6": ["drow","dr"],
-  "7": ["earthshaker","shaker"],
-  "8": ["juggernaut", "yurnero"],
-  "9": ["mirana","potm"],
-  "10": ["morphling","morph"],
-  "11": ["shadowfiend","sf"],
-  "12": ["phantomlancer","pl"],
-  "13": ["puck"],
-  "14": ["pudge"],
-  "15": ["razor"],
-  "16": ["sandking","sk"],
-  "17": ["stormspirit","storm"],
-  "18": ["sven"],
-  "19": ["tiny"],
-  "20": ["vengeful","vg"],
-  "21": ["windranger","wr"],
-  "22": ["zeus"],
-  "23": ["kunkka"],
-  "25": ["lina"],
-  "26": ["lion"],
-  "27": ["shadowshaman","ss"],
-  "28": ["slardar"],
-  "29": ["tidehunter","tide"],
-  "30": ["witchdoctor","wd"],
-  "31": ["lich"],
-  "32": ["riki"],
-  "33": ["enigma"],
-  "34": ["tinker"],
-  "35": ["sniper"],
-  "36": ["necrophos","necro"],
-  "37": ["warlock"],
-  "38": ["beastmaster"],
-  "39": ["queenofpain","queen"],
-  "40": ["venomancer"],
-  "41": ["void"],
-  "42": ["wk"],
-  "43": ["deathprophet","dp"],
-  "44": ["phantomassasin","pa"],
-  "45": ["pugna"],
-  "46": ["templar","ta"],
-  "47": ["viper"],
-  "48": ["luna"],
-  "49": ["dragonknight","dk"],
-  "50": ["dazzle"],
-  "51": ["clockwerk","clock"],
-  "52": ["leshrac","lesh"],
-  "53": ["nature","np"],
-  "54": ["lifestealer","ls"],
-  "55": ["darkseer","ds"],
-  "56": ["clinz"],
-  "57": ["omni"],
-  "58": ["enchantress","bambi"],
-  "59": ["huskar"],
-  "60": ["stalker","ns"],
-  "61": ["brood"],
-  "62": ["bh"],
-  "63": ["weaver"],
-  "64": ["jakiro"],
-  "65": ["bat"],
-  "66": ["chen"],
-  "67": ["spectre"],
-  "68": ["aa"],
-  "69": ["doom"],
-  "70": ["ursa"],
-  "71": ["bara"],
-  "72": ["gyro"],
-  "73": ["alche"],
-  "74": ["invoker","invo"],
-  "75": ["silencer"],
-  "76": ["od"],
-  "77": ["lycan"],
-  "78": ["brew"],
-  "79": ["sd"],
-  "80": ["lone","druid"],
-  "81": ["ck"],
-  "82": ["meepo"],
-  "83": ["treant"],
-  "84": ["ogre"],
-  "85": ["undying"],
-  "86": ["rubick"],
-  "87": ["disruptor"],
-  "88": ["nyx"],
-  "89": ["naga","siren"],
-  "90": ["kotl","keeper"],
-  "91": ["io","wisp"],
-  "92": ["visage"],
-  "93": ["slark"],
-  "94": ["medusa"],
-  "95": ["troll"],
-  "96": ["centaur","cw"],
-  "97": ["magnus"],
-  "98": ["timber"],
-  "99": ["bristle"],
-  "100": ["tusk"],
-  "101": ["sky"],
-  "102": ["abaddon","aba"],
-  "103": ["elder","titan","et"],
-  "104": ["legion","lc"],
-  "105": ["techies"],
-  "106": ["ember"],
-  "107": ["earth"],
-  "108": ["underlord"],
-  "109": ["terrorblade","terror"],
-  "110": ["phoenix"],
-  "111": ["oracle"],
-  "112": ["winter","wyvern","ww"],
-  "113": ["arc","warden","aw"],
-  "114": ["monkey","mk"],
-  "119": ["willow","dw"],
-  "120": ["pango"],
-  "121": ["gs"],
-  "123": ["hw"],
-  "128": ["snapfire"],
-  "129": ["mars"],
-  "135": ["dawn"],
-  "137": ["primal", "beast"],
-  "138": ["muerta"],
-}
+  1: ['antimage', 'am'],
+  2: ['axe'],
+  3: ['bane'],
+  4: ['bloodseeker', 'bs'],
+  5: ['crystalmaiden', 'cm'],
+  6: ['drow', 'dr'],
+  7: ['earthshaker', 'shaker'],
+  8: ['juggernaut', 'yurnero'],
+  9: ['mirana', 'potm'],
+  10: ['morphling', 'morph'],
+  11: ['shadowfiend', 'sf'],
+  12: ['phantomlancer', 'pl'],
+  13: ['puck'],
+  14: ['pudge'],
+  15: ['razor'],
+  16: ['sandking', 'sk'],
+  17: ['stormspirit', 'storm'],
+  18: ['sven'],
+  19: ['tiny'],
+  20: ['vengeful', 'vg'],
+  21: ['windranger', 'wr'],
+  22: ['zeus'],
+  23: ['kunkka'],
+  25: ['lina'],
+  26: ['lion'],
+  27: ['shadowshaman', 'ss'],
+  28: ['slardar'],
+  29: ['tidehunter', 'tide'],
+  30: ['witchdoctor', 'wd'],
+  31: ['lich'],
+  32: ['riki'],
+  33: ['enigma'],
+  34: ['tinker'],
+  35: ['sniper'],
+  36: ['necrophos', 'necro'],
+  37: ['warlock'],
+  38: ['beastmaster'],
+  39: ['queenofpain', 'queen'],
+  40: ['venomancer'],
+  41: ['void'],
+  42: ['wk'],
+  43: ['deathprophet', 'dp'],
+  44: ['phantomassasin', 'pa'],
+  45: ['pugna'],
+  46: ['templar', 'ta'],
+  47: ['viper'],
+  48: ['luna'],
+  49: ['dragonknight', 'dk'],
+  50: ['dazzle'],
+  51: ['clockwerk', 'clock'],
+  52: ['leshrac', 'lesh'],
+  53: ['nature', 'np'],
+  54: ['lifestealer', 'ls'],
+  55: ['darkseer', 'ds'],
+  56: ['clinz'],
+  57: ['omni'],
+  58: ['enchantress', 'bambi'],
+  59: ['huskar'],
+  60: ['stalker', 'ns'],
+  61: ['brood'],
+  62: ['bh'],
+  63: ['weaver'],
+  64: ['jakiro'],
+  65: ['bat'],
+  66: ['chen'],
+  67: ['spectre'],
+  68: ['aa'],
+  69: ['doom'],
+  70: ['ursa'],
+  71: ['bara'],
+  72: ['gyro'],
+  73: ['alche'],
+  74: ['invoker', 'invo'],
+  75: ['silencer'],
+  76: ['od'],
+  77: ['lycan'],
+  78: ['brew'],
+  79: ['sd'],
+  80: ['lone', 'druid'],
+  81: ['ck'],
+  82: ['meepo'],
+  83: ['treant'],
+  84: ['ogre'],
+  85: ['undying'],
+  86: ['rubick'],
+  87: ['disruptor'],
+  88: ['nyx'],
+  89: ['naga', 'siren'],
+  90: ['kotl', 'keeper'],
+  91: ['io', 'wisp'],
+  92: ['visage'],
+  93: ['slark'],
+  94: ['medusa'],
+  95: ['troll'],
+  96: ['centaur', 'cw'],
+  97: ['magnus'],
+  98: ['timber'],
+  99: ['bristle'],
+  100: ['tusk'],
+  101: ['sky'],
+  102: ['abaddon', 'aba'],
+  103: ['elder', 'titan', 'et'],
+  104: ['legion', 'lc'],
+  105: ['techies'],
+  106: ['ember'],
+  107: ['earth'],
+  108: ['underlord'],
+  109: ['terrorblade', 'terror'],
+  110: ['phoenix'],
+  111: ['oracle'],
+  112: ['winter', 'wyvern', 'ww'],
+  113: ['arc', 'warden', 'aw'],
+  114: ['monkey', 'mk'],
+  119: ['willow', 'dw'],
+  120: ['pango'],
+  121: ['gs'],
+  123: ['hw'],
+  128: ['snapfire'],
+  129: ['mars'],
+  135: ['dawn'],
+  137: ['primal', 'beast'],
+  138: ['muerta']
+};
 
-const { heroes, hero_abilities, abilities } = require('dotaconstants')
+const { heroes, hero_abilities, abilities } = require('dotaconstants');
 
 for (const key in heroes) {
-  heroes[key].name_id = heroes[key].name.replace('npc_dota_hero_', '')
-  heroes[key].alias = HEROES_ALIAS[key] ? HEROES_ALIAS[key] : []
-  heroes[key].abilities = hero_abilities[heroes[key].name].abilities.filter(ability => ability !== 'generic_hidden').map(ability => abilities[ability].dname)
+  heroes[key].name_id = heroes[key].name.replace('npc_dota_hero_', '');
+  heroes[key].alias = HEROES_ALIAS[key] ? HEROES_ALIAS[key] : [];
+  heroes[key].abilities = hero_abilities[heroes[key].name].abilities
+    .filter((ability) => ability !== 'generic_hidden')
+    .map((ability) => abilities[ability].dname);
 }
 
-const enumHeroes = new SimpleEnums(heroes)
+const enumHeroes = new SimpleEnums(heroes);
 
 enumHeroes.getKeyByAlias = function (tag) {
   for (let [key, val] of this) {
-    if (val.alias.includes(tag)) { return key }
+    if (val.alias.includes(tag)) {
+      return key;
+    }
   }
-  return undefined
-}
+  return undefined;
+};
 
 enumHeroes.getValueByAlias = function (tag) {
   for (let [key, val] of this) {
-    if ([val.localized_name,...val.alias].map(v => v.toLowerCase()).includes(tag.toLowerCase())) { return val }
+    if (
+      [val.localized_name, ...val.alias]
+        .map((v) => v.toLowerCase())
+        .includes(tag.toLowerCase())
+    ) {
+      return val;
+    }
   }
-  return undefined
-}
+  return undefined;
+};
 
-enumHeroes.apiURL = 'https://api.opendota.com'
-enumHeroes.dotaCdnURL = 'http://cdn.dota2.com'
-enumHeroes.dotaWikiURL = 'http://dota2.gamepedia.com/'
+enumHeroes.apiURL = 'https://api.opendota.com';
+enumHeroes.dotaCdnURL = 'http://cdn.dota2.com';
+enumHeroes.dotaWikiURL = 'http://dota2.gamepedia.com/';
 
-module.exports = enumHeroes
-
+module.exports = enumHeroes;

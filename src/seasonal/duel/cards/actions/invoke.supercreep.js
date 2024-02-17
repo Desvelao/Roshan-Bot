@@ -1,11 +1,10 @@
-const { ActionCard }= require('../../core/card')
+const { ActionCard } = require('../../core/card');
 
-module.exports = () => ActionCard({
+module.exports = () =>
+  ActionCard({
     name: 'SuperCreep',
     description: 'Invoke 1 Super Creep 3/0/4',
-    mana : 5,
+    mana: 5,
     invoke: ['supercreep'],
-    run(sourcePlayer, targetPlayer, board) {
-        
-    }
-})
+    run(sourcePlayer, targetPlayer, board) {}
+  });

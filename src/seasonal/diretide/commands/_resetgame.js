@@ -1,13 +1,20 @@
-const { Command } = require('aghanim')
+const { Command } = require('aghanim');
 
-module.exports = new Command('direresetgame',{
-  category : 'Diretide',
-  help : '',
-  args : '',
-  ownerOnly : true},
-  function(msg, args, command){
-    const game = command.game
-    return game.actions.resetGame(this).then(() => msg.addReactionSuccess()).catch(err => console.log(err.stack))
+module.exports = new Command(
+  'direresetgame',
+  {
+    category: 'Diretide',
+    help: '',
+    args: '',
+    ownerOnly: true
+  },
+  function (msg, args, command) {
+    const game = command.game;
+    return game.actions
+      .resetGame(this)
+      .then(() => msg.addReactionSuccess())
+      .catch((err) => console.log(err.stack));
     // const rewards = game.actions.getUserRewards(game.config.setup.steal.rewards)
     // game.actions.intervalRandomNumberLimited(game.config.setup.steal.random,team.candies)
-  })
+  }
+);

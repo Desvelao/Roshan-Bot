@@ -1,14 +1,14 @@
-const Aghanim = require('aghanim')
+const Aghanim = require('aghanim');
 
 module.exports = {
-	name: 'patch',
-	description: 'Current Dota 2 patch',
-	type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
-	scope: {
-        type: 'guild',
-        guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
-    },
-	run(interaction, client){
-		return interaction.createMessage(client.cache.dota2Patch)
-	}
-}
+  name: 'patch',
+  description: 'Current Dota 2 patch',
+  type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
+  scope: {
+    type: 'guild',
+    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
+  },
+  run(interaction, client) {
+    return interaction.createMessage(client.cache.dota2Patch);
+  }
+};

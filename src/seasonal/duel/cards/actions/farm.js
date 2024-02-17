@@ -1,12 +1,13 @@
-const { ActionCard } = require('../../core/card')
+const { ActionCard } = require('../../core/card');
 
-const goldBonus = 3
+const goldBonus = 3;
 
-module.exports = () => ActionCard({
+module.exports = () =>
+  ActionCard({
     name: 'Farm',
     description: `Gets +${goldBonus} <emoji_gold>`,
     mana: 0,
     run(sourcePlayer, targetPlayer, board) {
-        sourcePlayer.producedGold(goldBonus, this)
+      sourcePlayer.producedGold(goldBonus, this);
     }
-})
+  });

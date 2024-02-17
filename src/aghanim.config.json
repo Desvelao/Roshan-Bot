@@ -1,8 +1,8 @@
 {
-    "prefix": "r!",
-    "helpDM": true,
-    "helpMessage": "",
-    "helpMessageAfterCategories": "",
-    "devLogs": false,
-    "disableHelp": true
+  "prefix": "r!",
+  "helpDM": true,
+  "helpMessage": "",
+  "helpMessageAfterCategories": "",
+  "devLogs": false,
+  "disableHelp": true
 }

@@ -1,11 +1,10 @@
-const { ActionCard } = require('../../core/card')
+const { ActionCard } = require('../../core/card');
 
-module.exports = () => ActionCard({
+module.exports = () =>
+  ActionCard({
     name: 'War Leader',
     description: 'Invoke 1 War Leader 2/0/2',
-    mana : 4,
+    mana: 4,
     invoke: ['warleader'],
-    run(sourcePlayer, targetPlayer, board) {
-        
-    }
-})
+    run(sourcePlayer, targetPlayer, board) {}
+  });

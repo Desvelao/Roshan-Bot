@@ -1,36 +1,60 @@
 {
-  "colors" : {"account" : {"register" : "#41ad49", "modify" : "#800080", "delete" : "#ff4723"}},
-  "playing" : "r!help",
-  "roles" : {"aegis" : "aegis", "betatester" : "Betatester", "supporter" : "Supporter"},
-  "switches" : {"leaderboardUpdate" : false, "backupdb" : false},
-  "constants" : {"descriptionChars" : 1000, "worldBoardTop" : 10, "heroes" : 120, "hoursLeaderboardUpdate" : 168},
-  "links" : {
-    "profile" : {
-      "dotabuff" : "https://www.dotabuff.com/players/",
-      "steamID" : "http://steamcommunity.com/id/"
+  "colors": {
+    "account": {
+      "register": "#41ad49",
+      "modify": "#800080",
+      "delete": "#ff4723"
+    }
+  },
+  "playing": "r!help",
+  "roles": {
+    "aegis": "aegis",
+    "betatester": "Betatester",
+    "supporter": "Supporter"
+  },
+  "switches": { "leaderboardUpdate": false, "backupdb": false },
+  "constants": {
+    "descriptionChars": 1000,
+    "worldBoardTop": 10,
+    "heroes": 120,
+    "hoursLeaderboardUpdate": 168
+  },
+  "links": {
+    "profile": {
+      "dotabuff": "https://www.dotabuff.com/players/",
+      "steamID": "http://steamcommunity.com/id/"
     },
-    "twitch" : "https://www.twitch.tv/",
-    "kofi" : "https://www.ko-fi.com/desvelao",
-    "web" : "https://desvelao.github.io/roshanapp/#/",
-    "web_leaderboard" : "https://desvelao.github.io/roshanapp/#/leaderboard",
-    "web_addtourney" : "https://desvelao.github.io/roshanapp/#/addtourney",
-    "web_feeds" : "https://desvelao.github.io/roshanapp/#/feeds",
-    "web_playercard_bg_gallery" : "https://desvelao.github.io/roshanapp/#/playercardbg",
+    "twitch": "https://www.twitch.tv/",
+    "kofi": "https://www.ko-fi.com/desvelao",
+    "web": "https://desvelao.github.io/roshanapp/#/",
+    "web_leaderboard": "https://desvelao.github.io/roshanapp/#/leaderboard",
+    "web_addtourney": "https://desvelao.github.io/roshanapp/#/addtourney",
+    "web_feeds": "https://desvelao.github.io/roshanapp/#/feeds",
+    "web_playercard_bg_gallery": "https://desvelao.github.io/roshanapp/#/playercardbg",
     "web_features": "https://desvelao.github.io/roshanapp/#/features"
   },
-  "emojis" : {
-    "default" : {
-      "accept" : "✅", "error" : "❌", "pin" : "📌", "notification" : "🔔", "loudspeaker" : "📢",
-      "upvote" : "⬆", "star" : "⭐", "exclamation" : "❗", "envelopeIncoming" : "📨", "noentry" : "🚫",
-      "feeds" : "📰", "trophy" : "🏆"
+  "emojis": {
+    "default": {
+      "accept": "✅",
+      "error": "❌",
+      "pin": "📌",
+      "notification": "🔔",
+      "loudspeaker": "📢",
+      "upvote": "⬆",
+      "star": "⭐",
+      "exclamation": "❗",
+      "envelopeIncoming": "📨",
+      "noentry": "🚫",
+      "feeds": "📰",
+      "trophy": "🏆"
     },
-    "supporter" : "<cheesed2>",
-    "betatester" : "<roshan>"
+    "supporter": "<cheesed2>",
+    "betatester": "<roshan>"
   },
-  "others" : {
-    "betatesters" : ["Breo","Shinigami","^Maik^"]
+  "others": {
+    "betatesters": ["Breo", "Shinigami", "^Maik^"]
   },
-  "images" : {
-    "mmrmaik" : "https://cdn.discordapp.com/attachments/327621996089180162/331619601639014400/mmr.png"
+  "images": {
+    "mmrmaik": "https://cdn.discordapp.com/attachments/327621996089180162/331619601639014400/mmr.png"
   }
 }
