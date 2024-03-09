@@ -52,9 +52,9 @@ module.exports = function ({ rank, leaderboard }) {
     : result.medal;
   // result.emoji = '<medal_' + result.compose + '>'
   result.emoji =
-    '<medal_' +
+    '{{{emoji_medal_' +
     result.medal +
-    '>' +
+    '}}}' +
     (result.range ? ' ' + result.range : '') +
     (result.leaderboard ? ' #' + result.leaderboard : '');
   return result;

@@ -22,8 +22,8 @@ module.exports = {
         // 	value: "Artifact"
         // },
         {
-          name: 'dota2',
-          value: 'Dota 2'
+          name: 'Dota 2',
+          value: 'dota2'
         }
       ]
     }
@@ -31,8 +31,8 @@ module.exports = {
   run: async function (interaction, client, command) {
     const game_name = interaction.data.options.find(
       (option) => option.name === 'game_name'
-    ).name;
-    if (game_name === 'artifact') {
+    ).value;
+    if (game_name === 'Artifact') {
       const info = await client.components.Artifact.gameInfo();
       return client.components.Locale.replyInteraction(
         interaction,

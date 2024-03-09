@@ -80,7 +80,10 @@ module.exports = {
       }
       var fields = [];
       fields[0] = {
-        name: interaction.user.locale('tournament.matches'),
+        name: client.components.Locale.translateAsScopedUser(
+          interaction.user,
+          'tournament.matches'
+        ),
         value: '',
         inline: false
       };
@@ -139,7 +142,13 @@ module.exports = {
       var fields = [];
       for (var i = 0; i < groups.length; i++) {
         fields[i] = {
-          name: interaction.user.locale('tournament.group') + ' ' + (i + 1),
+          name:
+            client.components.Locale.translateAsScopedUser(
+              interaction.user,
+              'tournament.group'
+            ) +
+            ' ' +
+            (i + 1), // TODO: use profiles manager
           value: '',
           inline: true
         };
@@ -171,7 +180,10 @@ module.exports = {
     return client.components.Locale.replyInteraction(interaction, {
       embed: {
         title:
-          interaction.user.locale('tournament.tourney') +
+          client.components.Locale.translateAsScopedUser(
+            interaction.user,
+            'tournament.tourney'
+          ) +
           ' - (' +
           (interaction.user.nick || interaction.user.username) +
           ')',

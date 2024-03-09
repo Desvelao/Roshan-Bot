@@ -5,7 +5,6 @@ const { encode, decode } = require('artifact-api');
 const Canvas = require('../classes/paintjimp/canvas');
 const jimp = require('jimp');
 const steamprice = require('steam-price-api');
-const { default: axios } = require('axios');
 
 //PRICEAPI https://steamcommunity.com/market/search/render/?appid=583950&norender=1&count=500
 
@@ -927,9 +926,11 @@ class Artifact extends Component {
     });
   }
   gameInfo() {
-    return axios.get(this.gameInfoUrl).then(({ data }) => ({
-      currentplayers: data.response.player_count
-    }));
+    return this.client.httpClient
+      .fetch('get', this.gameInfoUrl)
+      .then((data) => ({
+        currentplayers: data.response.player_count
+      }));
   }
 }
 

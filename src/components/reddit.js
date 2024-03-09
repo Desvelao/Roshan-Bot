@@ -1,6 +1,5 @@
 const { Component } = require('aghanim');
 const { Markdown } = require('erisjs-utils');
-const axios = require('axios');
 
 module.exports = class RedditApi extends Component {
   constructor(client, options) {
@@ -8,12 +7,16 @@ module.exports = class RedditApi extends Component {
   }
   posts(mode, limit, subreddit) {
     const url = toJSONURL(subreddits[subreddit] + mode);
-    return axios.get(url).then(({ data }) => postsToList(data, limit));
+    return this.client.httpClient
+      .fetch('get', url)
+      .then((data) => postsToList(data, limit));
   }
   post(id) {
     //https://www.reddit.com/by_id/t3_33hw9x.json
     const url = toJSONURL(BY_ID_URL + 't3_' + id);
-    return axios.get(url).then(({ data }) => postInfo(data));
+    return this.client.httpClient
+      .fetch('get', url)
+      .then((data) => postInfo(data));
   }
 };
 

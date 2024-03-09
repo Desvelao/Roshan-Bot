@@ -8,7 +8,7 @@ module.exports = {
     type: 'guild',
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
-  run(interaction, client) {
-    return interaction.createMessage(client.cache.dota2Patch);
+  async run(interaction, client) {
+    return interaction.createMessage(client.cacheManager.get('dota2Patch'));
   }
 };

@@ -30,7 +30,7 @@ module.exports = {
     const [player, results] = await Promise.all([
       interaction.ctx.profile,
       client.components.Opendota.player_lastmatch(
-        interaction.ctx.profile.data.dota
+        interaction.ctx.profile.dotaID
       )
     ]);
     const commandMatch = client.interactionCommands.find(

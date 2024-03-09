@@ -31,32 +31,29 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    const [player, results] = await Promise.all([
+    const [profile, results] = await Promise.all([
       interaction.ctx.profile,
-      client.components.Opendota.player_friends(
-        interaction.ctx.profile.data.dota
-      )
+      client.components.Opendota.player_friends(interaction.ctx.profile.dotaID)
     ]);
-    const profile = player.data;
     results[1] = results[1].filter((friend) => friend.with_games > 0);
     const spacesBoard = ['25f', '3cf', '6cf'];
     let table =
       Classes.Table.renderRow(
         [
           client.components.Bot.parseText(
-            client.components.Locale._replaceContent(
-              'player',
-              interaction.user.account.lang
+            client.components.Locale.translateAsScopedUser(
+              interaction.user,
+              'player'
             ),
             'nf'
           ),
-          client.components.Locale._replaceContent(
-            'games',
-            interaction.user.account.lang
+          client.components.Locale.translateAsScopedUser(
+            interaction.user,
+            'games'
           ).slice(0, 1),
-          client.components.Locale._replaceContent(
-            'gamesWR',
-            interaction.user.account.lang
+          client.components.Locale.translateAsScopedUser(
+            interaction.user,
+            'gamesWR'
           )
         ],
         spacesBoard,
@@ -102,16 +99,22 @@ module.exports = {
           typeof results[0].profile.loccountrycode == 'string'
             ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
             : '',
-        player_medal: client.components.Locale.replacer(medal.emoji),
-        player_supporter: client.components.Locale.replacer(
-          player.profile.supporter ? client.config.emojis.supporter : ''
+        player_medal: client.components.Locale.translateAsScopedUser(
+          interaction.user,
+          medal.emoji
         ),
+        player_supporter: profile.supporter
+          ? client.components.Locale.translateAsScopedUser(
+              interaction.user,
+              '{{{emoji_cheesed2}}}'
+            )
+          : '',
         results:
           results[1].length > 0
             ? table
-            : client.components.Locale._replaceContent(
-                'withfriends.withno',
-                interaction.user.account.lang
+            : client.components.Locale.translateAsScopedUser(
+                interaction.user,
+                'withfriends.withno'
               ),
         player_avatar: results[0].profile.avatarmedium,
         count: results[1].length > 0 ? results[1].length : '0'

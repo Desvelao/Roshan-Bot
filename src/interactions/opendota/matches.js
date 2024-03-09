@@ -32,13 +32,11 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    const [player, results] = await Promise.all([
+    console.log({ ctx: interaction.ctx });
+    const [profile, results] = await Promise.all([
       interaction.ctx.profile,
-      client.components.Opendota.player_matches(
-        interaction.ctx.profile.data.dota
-      )
+      client.components.Opendota.player_matches(interaction.ctx.profile.dotaID)
     ]);
-    const profile = player.data;
     const spacesBoard = ['1f', '19f', '8f', '8f', '12f'];
     let table =
       util.Classes.Table.renderRow(
@@ -49,10 +47,7 @@ module.exports = {
           'dota2.duration',
           'dota2.matchid'
         ].map((str) =>
-          client.components.Locale._replaceContent(
-            str,
-            interaction.user.account.lang
-          )
+          client.components.Locale.translateAsScopedUser(interaction.user, str)
         ),
         spacesBoard,
         '\u2002'
@@ -101,10 +96,16 @@ module.exports = {
           typeof results[0].profile.loccountrycode == 'string'
             ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
             : '',
-        player_medal: client.components.Locale.replacer(medal.emoji),
-        player_supporter: client.components.Locale.replacer(
-          player.profile.supporter ? client.config.emojis.supporter : ''
+        player_medal: client.components.Locale.translateAsScopedUser(
+          interaction.user,
+          medal.emoji
         ),
+        player_supporter: profile.supporter
+          ? client.components.Locale.translateAsScopedUser(
+              interaction.user,
+              '{{{emoji_cheesed2}}}'
+            )
+          : '',
         social_links: client.components.Account.socialLinks(profile),
         match_date: util.Date.custom(
           results[1][0].start_time * 1000,

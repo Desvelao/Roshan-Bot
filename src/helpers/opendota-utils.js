@@ -1,6 +1,4 @@
 const util = require('erisjs-utils');
-const enumMedal = require('../enums/medals');
-
 const VICTORY = 'Victory';
 const DEFEAT = 'Defeat';
 const RADIANT = 'Radiant';
@@ -126,35 +124,6 @@ module.exports.getMedal = function (rank, mode, replace) {
     };
   }
   // Herald, Guardian, Crusader, Archon, Legend, Ancient, and Divine
-};
-
-module.exports.titlePlayer = function (results, title, client, profile) {
-  const medal = enumMedal({
-    rank: results[0].rank_tier,
-    leaderboard: results[0].leaderboard_rank
-  });
-
-  // return typeof results[0].profile.loccountrycode == 'string' ?
-  //     replace.replacer(title, { user: module.exports.nameAndNick(results[0].profile), flag: results[0].profile.loccountrycode.toLowerCase(), medal: replace.replacer(medal.emoji), supporter : replacer.replacer('<cheese>') })
-  //     : util.String.replace(title, { '<user>': module.exports.nameAndNick(results[0].profile), ':flag_<flag>:': ' ', '<medal>': replace.replacer(medal.emoji), supporter : supporter ? replacer.replacer('<cheese>') : '' }, false)
-  const result = client.components.Locale.replacer(title, {
-    supporter: profile.supporter ? client.config.emojis.supporter : ''
-  });
-  return typeof results[0].profile.loccountrycode == 'string'
-    ? client.components.Locale.replacer(result, {
-        user: module.exports.nameAndNick(results[0].profile),
-        flag: results[0].profile.loccountrycode.toLowerCase(),
-        medal: client.components.Locale.replacer(medal.emoji)
-      })
-    : util.String.replace(
-        result,
-        {
-          '<user>': module.exports.nameAndNick(results[0].profile),
-          ':flag_<flag>:': ' ',
-          '<medal>': client.components.Locale.replacer(medal.emoji)
-        },
-        false
-      );
 };
 
 module.exports.durationTime = function (time) {

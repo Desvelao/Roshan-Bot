@@ -1,24 +1,15 @@
 const { Component } = require('aghanim');
-const axios = require('axios');
 
 module.exports = class Opendota extends Component {
   constructor(client, options) {
     super(client);
     this.baseURL = baseURL;
     this._calls = 0;
-    this.db = this.client.db.child('botstats');
     Object.keys(urls).forEach((key) => {
       this[key] = decorator(
         this.request.bind(this),
         urls[key].map((url) => this.baseURL + url)
       );
-    });
-    this.db.once('value').then((snap) => {
-      this._calls = snap.exists() ? snap.val().odcalls : 0;
-      const date = new Date();
-      if (date.getDate() === 1) {
-        this.save(0);
-      }
     });
     this.client.addCommandRequirement({
       type: 'is.dota.player',
@@ -30,13 +21,14 @@ module.exports = class Opendota extends Component {
         ) {
           const [userID] = context.data.resolved.users.keys();
           const user = context.data.resolved.users.get(userID);
-          context.ctx.profile = this.baseProfile(user.id);
+          context.ctx.profile = this.getProfile(user.id);
           if (this.needRegister(context.ctx.profile)) {
-            context.ctx.message = client.components.Locale._replaceContent(
-              'bot.needregistermentioned',
-              context.user.account.lang,
-              { username: user.username }
-            );
+            context.ctx.message =
+              client.components.Locale.translateAsScopedUser(
+                context.user,
+                'bot.needregistermentioned',
+                { username: user.username }
+              );
             return false;
           }
         } else if (
@@ -50,29 +42,31 @@ module.exports = class Opendota extends Component {
           ).value;
           const userIDAsNumber = parseInt(userID);
           if (!isNaN(userIDAsNumber)) {
-            context.ctx.profile = this.baseProfile(undefined, userID);
+            context.ctx.profile = this.getProfile(undefined, userID);
           } else {
             try {
               context.ctx.profile = await this.getProPlayerID(userID).then(
                 (player) =>
-                  this.baseProfile(undefined, String(player.account_id))
+                  this.getProfile(undefined, String(player.account_id))
               );
             } catch (err) {
-              context.ctx.message = client.components.Locale._replaceContent(
-                'error.pronotfound',
-                context.user.account.lang,
-                { pro: userID }
-              );
+              context.ctx.message =
+                client.components.Locale.translateAsScopedUser(
+                  context.user,
+                  'error.pronotfound',
+                  { pro: userID }
+                );
               return false;
             }
           }
         } else {
-          context.ctx.profile = this.baseProfile(context.user.id);
+          context.ctx.profile = this.getProfile(context.user.id);
           if (this.needRegister(context.ctx.profile)) {
-            context.ctx.message = client.components.Locale._replaceContent(
-              'needRegister',
-              context.user.account.lang
-            );
+            context.ctx.message =
+              client.components.Locale.translateAsScopedUser(
+                context.user,
+                'needRegister'
+              );
             return false;
           }
         }
@@ -82,15 +76,24 @@ module.exports = class Opendota extends Component {
         return context.createMessage(context.ctx.message);
       }
     });
+    this.client.once('database:init', () => {
+      this.db = this.client.database.getBucket('botstats');
+      this.db
+        .get()
+        .then((data) => {
+          this._calls = data.odcalls;
+        })
+        .catch(() => {
+          this._calls = 0;
+        });
+    });
   }
   request(urls, id) {
     return Promise.all(
-      urls.map((url) => axios.get(url.replace('<id>', id)))
-    ).then((results) => {
-      return this.incremental(results.length).then(() =>
-        results.map(({ data }) => data)
-      );
-    });
+      urls.map((url) =>
+        this.client.httpClient.fetch('get', url.replace('<id>', id))
+      )
+    );
   }
   get calls() {
     return this._calls;
@@ -99,27 +102,27 @@ module.exports = class Opendota extends Component {
     return this.save(value);
   }
   save(value) {
-    const update = { odcalls: value === undefined ? this._calls : value };
-    this._calls = update.odcalls;
-    return process.env.NODE_ENV === 'production'
-      ? this.db.update(update)
+    this._calls = value === undefined ? this._calls : value;
+    return this.client.isProduction
+      ? this.db.update('odcalls', this._calls)
       : Promise.resolve();
   }
   incremental(add) {
     this._calls += add || 0;
     return this.save(this._calls);
   }
-  needRegister(account) {
-    return !account.data.dota ? true : false;
+  needRegister(profile) {
+    return !profile.account.dota;
   }
-  baseProfile(discordID, dotaID) {
-    const cache = this.client.cache.profiles.get(discordID);
-    const data = cache || this.client.components.Account.schema();
-    const profile = this.client.components.Users.getProfile(discordID);
+  getProfile(discordID, dotaID) {
+    const profile = discordID
+      ? this.client.profilesManager.getUserProfile(discordID)
+      : {};
     if (dotaID) {
-      data.dota = dotaID;
+      profile.account = this.client.profilesManager.getAccountSchema();
+      profile.account.dota = dotaID;
     }
-    return { discordID, cached: cache ? true : false, data, profile };
+    return { discordID, ...profile, dotaID: profile.account.dota };
   }
   getProPlayerID(name) {
     return new Promise((resolve, reject) => {

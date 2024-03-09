@@ -1,23 +1,15 @@
-const { Component, Eris } = require('aghanim');
+const { Component, Eris, Logger } = require('aghanim');
 const { Color } = require('erisjs-utils');
+const { Database } = require('../repositories/database/database');
+const firebase = require('firebase-admin');
+const { ProfilesManager } = require('../domain/profiles-manager');
+const { HttpClient } = require('../repositories/http');
 
 module.exports = class Init extends Component {
   constructor(client, options) {
     super(client);
-    let CONFIG = require('../config.json');
-    // transform the hex colors to number
-    for (let cat in CONFIG.colors) {
-      if (typeof CONFIG.colors[cat] == 'string') {
-        CONFIG.colors[cat] = Color.convert(CONFIG.colors[cat], 'hex-int');
-        continue;
-      }
-      for (let c in CONFIG.colors[cat]) {
-        CONFIG.colors[cat][c] = Color.convert(CONFIG.colors[cat][c], 'hex-int');
-      }
-    }
 
-    // store the configuration in the client
-    this.client.config = CONFIG;
+    this._loadConfiguration();
 
     /**
      * get the guild members with the role
@@ -36,6 +28,89 @@ module.exports = class Init extends Component {
     Eris.Message.prototype.addReactionSuccess = function () {
       return this.addReaction(this._client.config.emojis.default.accept);
     };
+
+    this._initDatabase();
+  }
+  _loadConfiguration() {
+    let CONFIG = require('../config.json');
+    // transform the hex colors to number
+    for (let cat in CONFIG.colors) {
+      if (typeof CONFIG.colors[cat] == 'string') {
+        CONFIG.colors[cat] = Color.convert(CONFIG.colors[cat], 'hex-int');
+        continue;
+      }
+      for (let c in CONFIG.colors[cat]) {
+        CONFIG.colors[cat][c] = Color.convert(CONFIG.colors[cat][c], 'hex-int');
+      }
+    }
+
+    // store the configuration in the client
+    this.client.config = CONFIG;
+  }
+  _initDatabase() {
+    // Start database
+    function getLogger(label = '') {
+      const logger = new Logger({
+        label: `Database [${label}]`,
+        timestamps: true
+      });
+      return {
+        ...logger,
+        getLogger(childLoggerLabel) {
+          return getLogger(`${label}/${childLoggerLabel}`);
+        }
+      };
+    }
+
+    const database = new Database(getLogger());
+    database.connect().then(() => {
+      this.client.firebase = firebase;
+      this.client.storage = firebase.storage().bucket();
+      this.client.db = firebase.database().ref();
+
+      // database.createBucket('leaderboards');
+      database.createBucket('bot');
+      database.createBucket('botstats');
+      database.createBucket('public');
+      Promise.all(
+        [
+          database.createCollection('servers'),
+          database.createCollection('test-profiles', function (params, _id) {
+            // TODO: create the object database model with default values
+            return {
+              dota: params.dota,
+              lang: params.lang || 'en',
+              steam: params.steam || '',
+              card: params.card || {
+                bg: '0',
+                heroes: 'all',
+                pos: ''
+              },
+              _id
+            };
+          })
+        ].map((databaseCollection) => databaseCollection.init().catch(() => {}))
+      ).then(() => {
+        this.client.emit('database:init');
+        // Init the profiles manager
+        this.client.profilesManager = new ProfilesManager(
+          new Logger({
+            label: 'ProfilesManager',
+            timestamps: true
+          }),
+          database.getCollection('test-profiles')
+        );
+      });
+    });
+
+    this.client.database = database;
+    this.client.httpClient = new HttpClient(
+      new Logger({
+        label: 'HTTP-Client',
+        timestamps: true
+      }),
+      { cache: { ttl: 60000 } } // TTL 60 seconds
+    );
   }
   ready() {
     // store the Pit server in the client instance

@@ -1,5 +1,4 @@
 const { Component } = require('aghanim');
-const axios = require('axios');
 
 module.exports = class Dota extends Component {
   constructor(client, options) {
@@ -8,8 +7,10 @@ module.exports = class Dota extends Component {
     this.gameInfoUrl = `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=${this.appID}`;
   }
   gameInfo() {
-    return axios.get(this.gameInfoUrl).then((data) => ({
-      currentplayers: data.data.response.player_count
-    }));
+    return this.client.httpClient
+      .fetch('get', this.gameInfoUrl)
+      .then((data) => ({
+        currentplayers: data.response.player_count
+      }));
   }
 };

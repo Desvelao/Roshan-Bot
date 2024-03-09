@@ -33,7 +33,7 @@ module.exports = {
     const language = interaction.data.options.find(
       (option) => option.name === 'language'
     ).value;
-    await client.components.Account.modify(interaction.user.account._id, {
+    await client.profilesManager.updateUserAccount(interaction.user.id, {
       lang: language
     });
     return await client.components.Locale.replyInteraction(

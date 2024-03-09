@@ -81,7 +81,6 @@ module.exports = {
             }
           })
           .catch(this.logger.error);
-        msg.reply('error.unknown');
       }
     );
     this.client.on(

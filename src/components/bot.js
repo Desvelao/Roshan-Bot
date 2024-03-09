@@ -1,16 +1,29 @@
-const CustomComponent = require('../classes/custom-component');
 const util = require('erisjs-utils');
 const packageInfo = require('../../package.json');
 const odutil = require('../helpers/opendota-utils');
+const { Cache } = require('../repositories/cache');
+const { Logger, Component } = require('aghanim');
 
-module.exports = class Bot extends CustomComponent() {
+module.exports = class Bot extends Component {
   constructor(client, options) {
     super(client);
+    this.client.cacheManager = new Cache(
+      new Logger({
+        label: 'Cache',
+        timestamps: true
+      })
+    );
+    this.client.once('database:init', () => {
+      this._ready();
+    });
   }
-  ready() {
-    this.waitOnce('cache:init', () => {
-      this.dbOnce('bot').then((snap) => {
-        this.client.config.switches = snap.switches;
+  _ready() {
+    this.client.database
+      .getBucket('bot')
+      .get()
+      .then((data) => {
+        this.client.cacheManager.set('dota2Patch', data.patch);
+        this.client.config.switches = data.switches;
         if (!this.client.isProduction) {
           this.client.config.switches.leaderboardUpdate = false;
           this.client.config.switches.backupdb = false;
@@ -25,11 +38,11 @@ module.exports = class Bot extends CustomComponent() {
           this.client.logger.dev('DB active - UPDATE Leaderboard');
         }
 
-        this.client.config.playing = snap.playing;
-        this.client.config.status = snap.status;
-        this.client.config.status_act = snap.status_act;
-        this.client.config.status_url = snap.status_url;
-        this.client.config.status_msg = snap.status_msg;
+        this.client.config.playing = data.playing;
+        this.client.config.status = data.status;
+        this.client.config.status_act = data.status_act;
+        this.client.config.status_url = data.status_url;
+        this.client.config.status_msg = data.status_msg;
 
         this.setStatus(
           this.client.config.status_act,
@@ -49,47 +62,33 @@ module.exports = class Bot extends CustomComponent() {
               filenameprefix: 'roshan_db_',
               messageprefix: '**Roshan Backup DB**'
             }
-          ).then((snap) => {
+          ).then((data) => {
             this.client.logger.info('Backup', 'Done!');
 
             //Update leaderboard (Firebase) each this.client.config.hoursLeaderboardUpdate at least
             if (
               this.client.config.switches.leaderboardUpdate &&
               this.client.config.constants.hoursLeaderboardUpdate * 3600 +
-                snap.leaderboard.updated <
+                data.leaderboard.updated <
                 new Date().getTime() / 1000
             ) {
               this.updateLeaderboard(snap.profiles);
             }
 
-            //Update public (Firebase)
-            const data_public = {
-              discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
-              discord_server: process.env.DISCORD_PIT_SERVER_URL,
-              users: Object.keys(snap.profiles).length,
-              servers: Object.keys(snap.servers).length, // TODO: replace by server count
-              version: packageInfo.version
-            };
-            this.client.db
-              .child('public')
-              .update(data_public)
+            // Update public data
+            this.client.database
+              .getBucket('public')
+              .update({
+                discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
+                discord_server: process.env.DISCORD_PIT_SERVER_URL,
+                users: Object.keys(data.profiles).length,
+                servers: Object.keys(data.servers).length,
+                version: packageInfo.version
+              })
               .then(() => this.client.logger.info('Publicinfo updated'));
           });
         }
       });
-    });
-  }
-  dbOnce(path) {
-    return new Promise((res, rej) => {
-      this.client.db
-        .child(path)
-        .once('value')
-        .then((snap) => {
-          if (snap.exists()) {
-            res(snap.val());
-          }
-        });
-    });
   }
   setStatus(type, status, msg, url, update) {
     this.client.config.status =
@@ -103,14 +102,12 @@ module.exports = class Bot extends CustomComponent() {
     let promises = [];
     if (update) {
       promises.push(
-        this.client.db
-          .child('bot')
-          .update({
-            status: this.client.config.status,
-            status_act: this.client.config.status_act,
-            status_msg: this.client.config.status_msg,
-            status_url: this.client.config.status_url
-          })
+        this.client.database.getBucket('bot').update({
+          status: this.client.config.status,
+          status_act: this.client.config.status_act,
+          status_msg: this.client.config.status_msg,
+          status_url: this.client.config.status_url
+        })
       );
     }
     promises.push(
@@ -176,37 +173,10 @@ module.exports = class Bot extends CustomComponent() {
             },
             { updated: util.Date.now(), ranking: {} }
           );
-          return this.client.db
-            .child('leaderboard')
-            .set(update)
+          return this.client.database
+            .set('leaderboard', update)
             .then(() => this.client.logger.info('Ranking Updated'));
         });
-    } else {
-      this.db
-        .child('profiles')
-        .once('value')
-        .then((snap) => {
-          if (!snap.exists()) {
-            return this.logger.info('Not exists');
-          }
-          this.updateLeaderboard(snap.val());
-        });
-    }
-  }
-  sendImageStructure(msg, query, links, cmd) {
-    if (!links[query]) {
-      return msg.reply('cmd.wrongarg', {
-        options: Object.keys(links).join(', '),
-        cmd
-      });
-    } // TODO wrongCmd
-    const match = links[query];
-    if (typeof match === 'object') {
-      return util.Message.sendImage(match.file).then((buffer) => {
-        return msg.reply(match.msg, null, { file: buffer, name: match.name });
-      });
-    } else if (typeof query === 'string') {
-      return msg.reply(match);
     }
   }
   parseText(text, mode) {

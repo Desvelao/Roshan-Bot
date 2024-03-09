@@ -25,7 +25,6 @@ module.exports = {
     const ability = enumAbilities.getValueByName(
       interaction.data.options.find((option) => option.name === 'ability').value
     );
-    console.log({ ability, url: enumAbilities.apiURL + ability.img });
     if (!ability) {
       return client.components.Locale.replyInteraction(
         interaction,

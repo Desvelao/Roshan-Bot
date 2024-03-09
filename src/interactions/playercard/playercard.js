@@ -14,10 +14,15 @@ module.exports = {
       time: 10,
       // response: (interaction, client, command, req) => client.components.Locale.replyInteraction(interaction, 'cmd.incooldown', {cd : interaction.ctx.reqUserCooldown.cooldown, username: interaction.ctx.reqUserCooldown.user})
       response: (interaction, client, command, req) =>
-        interaction.user.locale('cmd.incooldown', {
-          cd: interaction.ctx.reqUserCooldown.cooldown,
-          username: interaction.ctx.reqUserCooldown.user
-        })
+        client.components.Locale.replyInteraction(
+          interaction,
+          'cmd.incooldown',
+          {
+            // TODO: use profiles manager
+            cd: interaction.ctx.reqUserCooldown.cooldown,
+            username: interaction.ctx.reqUserCooldown.user
+          }
+        )
     }
   ],
   customOptions: {

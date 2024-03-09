@@ -21,7 +21,6 @@ module.exports = class StatusFirebase {
       this.status = Object.assign(this.status, update);
       res(this.status);
     });
-    // return this.db.update(update).then(() => {this.status = Object.assign(this.status,update);return new Promise((res,rej) => {res(this.status)})})
   }
   getStatus() {
     return this.status;

@@ -31,9 +31,9 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    const [player, results] = await Promise.all([
+    const [profile, results] = await Promise.all([
       interaction.ctx.profile,
-      client.components.Opendota.player_steam(interaction.ctx.profile.data.dota)
+      client.components.Opendota.player_steam(interaction.ctx.profile.dotaID)
     ]);
     const medal = enumMedal({
       rank: results[0].rank_tier,
@@ -54,16 +54,22 @@ module.exports = {
           typeof results[0].profile.loccountrycode == 'string'
             ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
             : '',
-        player_medal: client.components.Locale.replacer(medal.emoji),
-        player_supporter: client.components.Locale.replacer(
-          player.profile.supporter ? client.config.emojis.supporter : ''
+        player_medal: client.components.Locale.translateAsScopedUser(
+          interaction.user,
+          medal.emoji
         ),
+        player_supporter: profile.supporter
+          ? client.components.Locale.translateAsScopedUser(
+              interaction.user,
+              '{{{emoji_cheesed2}}}'
+            )
+          : '',
         profile: odutil.nameAndNick(results[0].profile),
         link: Markdown.link(
           results[0].profile.profileurl,
-          client.components.Locale._replaceContent(
-            'global.steam',
-            interaction.user.account.lang
+          client.components.Locale.translateAsScopedUser(
+            interaction.user,
+            'global.steam'
           )
         ),
         url: results[0].profile.profileurl

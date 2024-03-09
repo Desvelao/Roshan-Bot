@@ -26,9 +26,9 @@ module.exports = {
               'dota2.league',
               'dota2.matchid'
             ].map((str) =>
-              client.components.Locale._replaceContent(
-                str,
-                interaction.user.account.lang
+              client.components.Locale.translateAsScopedUser(
+                interaction.user,
+                str
               )
             ),
             spacesBoard,

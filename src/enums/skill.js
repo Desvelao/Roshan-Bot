@@ -1,9 +1,5 @@
 const { SimpleEnums } = require('../classes/enums');
 
-const card_bg = {
-  0: 'roshan'
-};
-
 const SKILL = {
   0: 'Any',
   1: 'Normal',

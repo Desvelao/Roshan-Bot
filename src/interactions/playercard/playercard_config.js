@@ -99,7 +99,9 @@ module.exports = {
 
     // Save new data
     if (Object.keys(data).length) {
-      await client.cache.profiles.save(interaction.user.id, { card: data });
+      await client.profilesManager.updateUserAccount(interaction.user.id, {
+        card: data
+      });
     }
 
     return client.components.Locale.replyInteraction(

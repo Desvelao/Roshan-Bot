@@ -1,5 +1,4 @@
 const { Component } = require('aghanim');
-const axios = require('axios');
 
 module.exports = class WorldRankingApi extends Component {
   constructor(client, options) {
@@ -18,7 +17,7 @@ module.exports = class WorldRankingApi extends Component {
     return this.urls.base + this.urls[division] + '&leaderboard=0';
   }
   get(division) {
-    return axios.get(this.url(division)).then(({ data }) => data);
+    return this.client.httpClient.fetch('get', this.url(division));
   }
   searchPlayerInWorld(query) {
     return new Promise((resolve, reject) => {

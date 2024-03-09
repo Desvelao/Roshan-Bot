@@ -91,10 +91,10 @@ module.exports = class Repl extends Component {
       }
     });
     user.register('profile', ([id], client, response) => {
-      return response.js(client.cache.profiles.get(id));
+      return response.js(client.profilesManager.getUserAccountData(id));
     });
     user.register('opendota', async ([dotaID], client, response) => {
-      const account = await this.client.components.Account.get(dotaID);
+      const account = await this.client.components.Account.get(dotaID); // FIX: use profile manager
       if (account) {
         return this.client.components.Opendota.request(
           ['https://api.opendota.com/api/players/<id>'],

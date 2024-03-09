@@ -53,10 +53,7 @@ module.exports = {
           'dota2.tdmg',
           'dota2.player'
         ].map((str) =>
-          client.components.Locale._replaceContent(
-            str,
-            interaction.user.account.lang
-          )
+          client.components.Locale.translateAsScopedUser(interaction.user, str)
         );
 
         let radiant = new util.Classes.Table(headers, null, spacesBoard, {
@@ -74,22 +71,22 @@ module.exports = {
               player.gold_per_min + '/' + player.xp_per_min,
               player.last_hits + '/' + player.denies,
               util.Number.tok(player.hero_damage) +
-                client.components.Locale._replaceContent(
-                  'number.k',
-                  interaction.user.account.lang
+                client.components.Locale.translateAsScopedUser(
+                  interaction.user,
+                  'number.k'
                 ),
               util.Number.tok(player.tower_damage) +
-                client.components.Locale._replaceContent(
-                  'number.k',
-                  interaction.user.account.lang
+                client.components.Locale.translateAsScopedUser(
+                  interaction.user,
+                  'number.k'
                 ),
               player.name
                 ? client.components.Bot.parseText(player.name, 'nf')
                 : client.components.Bot.parseText(
                     player.personaname ||
-                      client.components.Locale._replaceContent(
-                        'unknown',
-                        interaction.user.account.lang
+                      client.components.Locale.translateAsScopedUser(
+                        interaction.user,
+                        'unknown'
                       ),
                     'nf'
                   )
@@ -101,22 +98,22 @@ module.exports = {
               player.gold_per_min + '/' + player.xp_per_min,
               player.last_hits + '/' + player.denies,
               util.Number.tok(player.hero_damage) +
-                client.components.Locale._replaceContent(
-                  'number.k',
-                  interaction.user.account.lang
+                client.components.Locale.translateAsScopedUser(
+                  interaction.user,
+                  'number.k'
                 ),
               util.Number.tok(player.tower_damage) +
-                client.components.Locale._replaceContent(
-                  'number.k',
-                  interaction.user.account.lang
+                client.components.Locale.translateAsScopedUser(
+                  interaction.user,
+                  'number.k'
                 ),
               player.name
                 ? client.components.Bot.parseText(player.name, 'nf')
                 : client.components.Bot.parseText(
                     player.personaname ||
-                      client.components.Locale._replaceContent(
-                        'unknown',
-                        interaction.user.account.lang
+                      client.components.Locale.translateAsScopedUser(
+                        interaction.user,
+                        'unknown'
                       ),
                     'nf'
                   )
@@ -164,9 +161,9 @@ module.exports = {
             match_field0_name:
               (results[0].radiant_team
                 ? results[0].radiant_team.name
-                : client.components.Locale._replaceContent(
-                    'dota2.radiant',
-                    interaction.user.account.lang
+                : client.components.Locale.translateAsScopedUser(
+                    interaction.user,
+                    'dota2.radiant'
                   )) +
               ' - ' +
               results[0].radiant_score,
@@ -174,9 +171,9 @@ module.exports = {
             match_field1_name:
               (results[0].dire_team
                 ? results[0].dire_team.name
-                : client.components.Locale._replaceContent(
-                    'dota2.dire',
-                    interaction.user.account.lang
+                : client.components.Locale.translateAsScopedUser(
+                    interaction.user,
+                    'dota2.dire'
                   )) +
               ' - ' +
               results[0].dire_score,

@@ -45,35 +45,50 @@ function fn(msg, args, members, guild, roles, bot) {
   const winner = guild.members.get(
     members[Math.floor(Math.random() * members.length)]
   );
-  const title = msg.author.locale('giveaway.title', {
-    members: members.length
-  });
+  const title = client.components.Locale.translateAsScopedUser(
+    msg.author,
+    'giveaway.title',
+    {
+      members: members.length
+    }
+  );
   const waittime = 2 * 1000;
   roles = roles.map((r) => guild.roles.get(r).name);
   const embed = {
     content: '',
     embed: {
       title: `${title}`,
-      description: msg.author.locale('giveaway.winner', {
-        winner: winner.username
-      }),
+      description: client.components.Locale.translateAsScopedUser(
+        msg.author,
+        'giveaway.winner',
+        {
+          winner: winner.username
+        }
+      ),
       thumbnail: { url: winner.avatarURL }
     }
   };
   if (roles.length) {
     embed.embed.fields = [
       {
-        name: msg.author.locale('giveaway.roles'),
+        name: client.components.Locale.translateAsScopedUser(
+          msg.author,
+          'giveaway.roles'
+        ),
         value: roles.join(', '),
         inline: false
       }
     ];
   }
-  return msg
-    .reply(
-      `${title}...${
-        roles.length ? `\n%%giveaway.roles%%: ${roles.join(', ')}` : ''
-      }`
+  return client.components.Locale.replyInteraction(
+    interaction,
+    `${title}...${
+      roles.length ? `\n%%giveaway.roles%%: ${roles.join(', ')}` : ''
+    }`
+  ).then((m) =>
+    setTimeout(
+      () => client.components.Locale.replyInteraction(interaction, embed),
+      waittime
     )
-    .then((m) => setTimeout(() => m.edit(embed), waittime));
+  );
 }

@@ -25,6 +25,9 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
+    const isSupporter = client.profilesManager.getUserProfile(
+      interaction.ctx.user.id
+    ).supporter;
     return client.components.Locale.replyInteraction(
       interaction,
       {
@@ -35,9 +38,7 @@ module.exports = {
         }
       },
       {
-        supporter: interaction.ctx.user.supporter
-          ? `\n${client.config.emojis.bot.cheesed2}`
-          : '',
+        supporter: isSupporter ? `\n${client.config.emojis.bot.cheesed2}` : '',
         user_id: interaction.ctx.account._id,
         user_name: interaction.ctx.user.username,
         user_account_dota: interaction.ctx.account.dota,

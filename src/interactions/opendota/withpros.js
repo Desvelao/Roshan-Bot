@@ -30,11 +30,10 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    const [player, results] = await Promise.all([
+    const [profile, results] = await Promise.all([
       interaction.ctx.profile,
-      client.components.Opendota.player_pros(interaction.ctx.profile.data.dota)
+      client.components.Opendota.player_pros(interaction.ctx.profile.dotaID)
     ]);
-    const profile = player.data;
     const resultsTotal = results[1].length;
     results[1].sort(function () {
       return 0.5 - Math.random();
@@ -61,9 +60,9 @@ module.exports = {
     description = description.slice(0, -2);
     description =
       description ||
-      client.components.Locale._replaceContent(
-        'withpros.withno',
-        interaction.user.account.lang
+      client.components.Locale.translateAsScopedUser(
+        interaction.user,
+        'withpros.withno'
       );
     const medal = enumMedal({
       rank: results[0].rank_tier,
@@ -85,10 +84,16 @@ module.exports = {
           typeof results[0].profile.loccountrycode == 'string'
             ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
             : '',
-        player_medal: client.components.Locale.replacer(medal.emoji),
-        player_supporter: client.components.Locale.replacer(
-          player.profile.supporter ? client.config.emojis.supporter : ''
+        player_medal: client.components.Locale.translateAsScopedUser(
+          interaction.user,
+          medal.emoji
         ),
+        player_supporter: profile.supporter
+          ? client.components.Locale.translateAsScopedUser(
+              interaction.user,
+              '{{{emoji_cheesed2}}}'
+            )
+          : '',
         results: description,
         player_avatar: results[0].profile.avatarmedium,
         count:

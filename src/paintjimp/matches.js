@@ -1,5 +1,4 @@
 const jimp = require('jimp');
-const util = require('erisjs-utils');
 const odutil = require('../helpers/opendota-utils');
 const enumHeroes = require('../enums/heroes');
 const enumPlayerPos = require('../enums/player_positions');
