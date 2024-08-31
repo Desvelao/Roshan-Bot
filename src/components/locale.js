@@ -1,6 +1,5 @@
 const { Component } = require('aghanim');
 const path = require('path');
-const util = require('erisjs-utils');
 const packageInfo = require('../../package.json');
 const { I18n } = require('i18n');
 
@@ -16,7 +15,15 @@ module.exports = class Locale extends Component {
     this.enhanceReplacements = {};
   }
   ready() {
-    this.client.config.emojis.bot = util.Guild.loadEmojis(this.client.server);
+    this.client.config.emojis.bot = (function (guild) {
+      let emojis = {};
+      guild.emojis.forEach((emoji) => {
+        emojis[emoji.name.toLowerCase()] =
+          '<:' + emoji.name + ':' + emoji.id + '>';
+      });
+      return emojis;
+    })(this.client.server);
+
     Object.entries(this.client.config.emojis.bot).forEach(([key, value]) =>
       this.registerReplacement(`emoji_${key}`, value)
     );

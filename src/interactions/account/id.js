@@ -38,7 +38,8 @@ module.exports = {
       },
       {
         social_links: client.components.Account.socialLinks(
-          interaction.ctx.account,
+          // TODO: fix links
+          { dotaID: interaction.ctx.account.dota },
           'vertical',
           'embed+link'
         ),

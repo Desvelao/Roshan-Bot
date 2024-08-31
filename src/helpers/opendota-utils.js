@@ -1,4 +1,4 @@
-const util = require('erisjs-utils');
+const { zerofication } = require('./format');
 const VICTORY = 'Victory';
 const DEFEAT = 'Defeat';
 const RADIANT = 'Radiant';
@@ -34,13 +34,6 @@ module.exports.winOrLose = function (state, slot) {
   } else {
     return DEFEAT; //lang.defeat
   }
-};
-
-module.exports.durationTime = function (time) {
-  time = parseInt(time);
-  var m = Math.floor(time / 60);
-  var s = time % 60;
-  return util.number.zerofication(m) + ':' + util.number.zerofication(s);
 };
 
 module.exports.nameOrNick = function (profile) {
@@ -130,5 +123,11 @@ module.exports.durationTime = function (time) {
   time = parseInt(time);
   let m = Math.floor(time / 60);
   let s = time % 60;
-  return util.Number.zerofication(m) + ':' + util.Number.zerofication(s);
+  return zerofication(m) + ':' + zerofication(s);
+};
+
+module.exports.numberToK = function (number, format, digits) {
+  digits = digits || 1;
+  format = format || 1000;
+  return (number / format).toFixed(digits);
 };

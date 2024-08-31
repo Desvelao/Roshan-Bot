@@ -1,9 +1,9 @@
 const { Component, Eris, Logger } = require('aghanim');
-const { Color } = require('erisjs-utils');
 const { Database } = require('../repositories/database/database');
 const firebase = require('firebase-admin');
 const { ProfilesManager } = require('../domain/profiles-manager');
 const { HttpClient } = require('../repositories/http');
+const { convertHexInt } = require('../helpers/colors');
 
 module.exports = class Init extends Component {
   constructor(client, options) {
@@ -36,11 +36,11 @@ module.exports = class Init extends Component {
     // transform the hex colors to number
     for (let cat in CONFIG.colors) {
       if (typeof CONFIG.colors[cat] == 'string') {
-        CONFIG.colors[cat] = Color.convert(CONFIG.colors[cat], 'hex-int');
+        CONFIG.colors[cat] = convertHexInt(CONFIG.colors[cat]);
         continue;
       }
       for (let c in CONFIG.colors[cat]) {
-        CONFIG.colors[cat][c] = Color.convert(CONFIG.colors[cat][c], 'hex-int');
+        CONFIG.colors[cat][c] = convertHexInt(CONFIG.colors[cat][c]);
       }
     }
 

@@ -127,9 +127,9 @@ module.exports = {
       },
       {
         username: interaction.user.username,
-        social_links: client.components.Account.socialLinks(
-          interaction.user.account
-        ),
+        social_links: client.components.Account.socialLinks({
+          dotaID: interaction.user.account.dota
+        }),
         _player_avatar: interaction.user.avatarURL,
         _heroes: `\`\`\`${
           interaction.user.account.card.heroes

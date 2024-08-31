@@ -3,6 +3,7 @@ const odutil = require('../../helpers/opendota-utils');
 const util = require('erisjs-utils');
 const enumHeroes = require('../../enums/heroes');
 const enumMedal = require('../../enums/medals');
+const { link } = require('../../helpers/markdown');
 
 module.exports = {
   name: 'matches',
@@ -68,7 +69,7 @@ module.exports = {
           '\u2002'
         ) +
         '    ' +
-        util.Markdown.link(
+        link(
           'https://www.dotabuff.com/matches/' + match.match_id,
           match.match_id
         ) +

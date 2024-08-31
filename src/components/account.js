@@ -1,6 +1,6 @@
-const { Eris, Component } = require('aghanim');
+const { Component } = require('aghanim');
 const odutil = require('../helpers/opendota-utils');
-const { Markdown } = require('erisjs-utils');
+const { link } = require('../helpers/markdown');
 
 module.exports = class Account extends Component {
   constructor(client, options) {
@@ -139,16 +139,16 @@ module.exports = class Account extends Component {
     });
   }
   socialLink(tag, id, show) {
-    let link;
+    let url;
     if (tag === 'dota') {
-      link = `https://www.dotabuff.com/players/${id}`;
+      url = `https://www.dotabuff.com/players/${id}`;
     } else {
-      link = `http://www.steamcommunity.com/profiles/${id}`;
+      url = `http://www.steamcommunity.com/profiles/${id}`;
     }
-    return Markdown.link(link, tag, show);
+    return link(url, tag);
   }
-  socialLinks(account, mode = 'inline', show = 'embed') {
-    const links = [this.socialLink('dota', account.dotaID, show)];
+  socialLinks(account, mode = 'inline') {
+    const links = [this.socialLink('dota', account.dotaID)];
     if (mode == 'inline') {
       return links.join(' / ');
     } else if (mode == 'vertical') {

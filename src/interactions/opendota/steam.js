@@ -1,7 +1,7 @@
 const Aghanim = require('aghanim');
-const { Markdown } = require('erisjs-utils');
 const odutil = require('../../helpers/opendota-utils');
 const enumMedal = require('../../enums/medals');
+const { link } = require('../../helpers/markdown');
 
 module.exports = {
   name: 'steam',
@@ -65,7 +65,7 @@ module.exports = {
             )
           : '',
         profile: odutil.nameAndNick(results[0].profile),
-        link: Markdown.link(
+        link: link(
           results[0].profile.profileurl,
           client.components.Locale.translateAsScopedUser(
             interaction.user,

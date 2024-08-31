@@ -1,5 +1,6 @@
 const Aghanim = require('aghanim');
-const { Classes, Markdown } = require('erisjs-utils');
+const { Classes } = require('erisjs-utils');
+const { link } = require('../../helpers/markdown');
 
 module.exports = {
   name: 'competitive',
@@ -48,7 +49,7 @@ module.exports = {
               '\u2002'
             ) +
             ' ' +
-            Markdown.link(
+            link(
               'https://www.dotabuff.com/matches/' + match.match_id,
               match.match_id
             ) +

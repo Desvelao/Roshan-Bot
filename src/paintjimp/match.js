@@ -1,9 +1,8 @@
 const jimp = require('jimp');
-const { Datee, Number } = require('erisjs-utils');
+const { Datee } = require('erisjs-utils');
 const odutil = require('../helpers/opendota-utils');
 const Canvas = require('../classes/paintjimp/canvas');
 const loader = require('./loader');
-
 const UNKNOWN = 'Unknown';
 
 module.exports = function (data_info) {
@@ -22,7 +21,9 @@ module.exports = function (data_info) {
         p.gold_per_min,
         p.xp_per_min,
         p.last_hits + ' / ' + p.denies,
-        Number.tok(p.hero_damage) + ' / ' + Number.tok(p.tower_damage),
+        odutil.numberToK(p.hero_damage) +
+          ' / ' +
+          odutil.numberToK(p.tower_damage),
         Promise.all([
           loader.item(p.item_0),
           loader.item(p.item_1),

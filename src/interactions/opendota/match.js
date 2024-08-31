@@ -62,7 +62,6 @@ module.exports = {
         let dire = new util.Classes.Table(headers, null, spacesBoard, {
           fill: '\u2002'
         });
-
         results[0].players.forEach((player, index) => {
           if (index < 5) {
             radiant.addRow([
@@ -70,12 +69,12 @@ module.exports = {
               player.kills + '/' + player.deaths + '/' + player.assists,
               player.gold_per_min + '/' + player.xp_per_min,
               player.last_hits + '/' + player.denies,
-              util.Number.tok(player.hero_damage) +
+              odutil.numberToK(player.hero_damage) +
                 client.components.Locale.translateAsScopedUser(
                   interaction.user,
                   'number.k'
                 ),
-              util.Number.tok(player.tower_damage) +
+              odutil.numberToK(player.tower_damage) +
                 client.components.Locale.translateAsScopedUser(
                   interaction.user,
                   'number.k'
@@ -97,12 +96,12 @@ module.exports = {
               player.kills + '/' + player.deaths + '/' + player.assists,
               player.gold_per_min + '/' + player.xp_per_min,
               player.last_hits + '/' + player.denies,
-              util.Number.tok(player.hero_damage) +
+              odutil.numberToK(player.hero_damage) +
                 client.components.Locale.translateAsScopedUser(
                   interaction.user,
                   'number.k'
                 ),
-              util.Number.tok(player.tower_damage) +
+              odutil.numberToK(player.tower_damage) +
                 client.components.Locale.translateAsScopedUser(
                   interaction.user,
                   'number.k'

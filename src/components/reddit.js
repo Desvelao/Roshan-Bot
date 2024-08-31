@@ -1,5 +1,5 @@
 const { Component } = require('aghanim');
-const { Markdown } = require('erisjs-utils');
+const { link } = require('../helpers/markdown');
 
 module.exports = class RedditApi extends Component {
   constructor(client, options) {
@@ -56,10 +56,9 @@ function postsToList(result, limit) {
   return getPosts(result, limit)
     .map((post) => {
       post = post.data;
-      return `- [${Markdown.link(redditlink(post.permalink), post.id)}] **${
+      return `- [${link(redditlink(post.permalink), post.id)}] **${
         post.title
       }** - ${post.author}`;
-      // return `- [${Markdown.link(redditlink(post.permalink),post.id)}] ${Markdown.link(post.url,post.title)} - **${post.author}**`
     })
     .join('\n');
 }
@@ -72,7 +71,7 @@ function postInfo(info) {
     text =
       limitChars(post.selftext, 1500) +
       '\n\n' +
-      Markdown.link(link, ':link: Link') +
+      link(link, ':link: Link') +
       ' - :page_facing_up: ' +
       id +
       ' - :100: ' +

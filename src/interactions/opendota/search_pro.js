@@ -1,6 +1,6 @@
 const Aghanim = require('aghanim');
-const { Markdown } = require('erisjs-utils');
 const odutil = require('../../helpers/opendota-utils');
+const { link } = require('../../helpers/markdown');
 
 module.exports = {
   name: 'search_pro',
@@ -34,10 +34,10 @@ module.exports = {
               `**${client.components.Bot.parseText(
                 odutil.nameOrNick(player),
                 'nf'
-              )}** ${Markdown.link(
+              )}** ${link(
                 client.config.links.profile.dotabuff + player.account_id,
                 'DB'
-              )}/${Markdown.link(player.profileurl, 'S')}`
+              )}/${link(player.profileurl, 'S')}`
           )
           .join(', ');
         return client.components.Locale.replyInteraction(

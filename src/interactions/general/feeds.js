@@ -1,5 +1,6 @@
 const Aghanim = require('aghanim');
-const { Datee, Markdown } = require('erisjs-utils');
+const { Datee } = require('erisjs-utils');
+const { link } = require('../../helpers/markdown');
 
 module.exports = {
   name: 'feeds',
@@ -32,7 +33,7 @@ module.exports = {
                 'Y/M/D h:m',
                 true
               )}\` **${feed.title}** ${feed.body}${
-                feed.link ? ' ' + Markdown.link(feed.link, ':link:') : ''
+                feed.link ? ' ' + link(feed.link, ':link:') : ''
               }`
           )
           .join('\n')

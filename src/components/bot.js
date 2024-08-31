@@ -171,7 +171,7 @@ module.exports = class Bot extends Component {
               };
               return update;
             },
-            { updated: util.Date.now(), ranking: {} }
+            { updated: Math.round(Date.now() / 1000), ranking: {} }
           );
           return this.client.database
             .set('leaderboard', update)
