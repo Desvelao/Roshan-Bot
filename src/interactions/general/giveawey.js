@@ -14,6 +14,7 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (msg, args, client, command) {
+    // TODO: disable
     const guild = msg.channel.guild;
     const re = /<@&([\d^>]+)>/g;
     let myArray;
@@ -41,7 +42,7 @@ module.exports = {
   }
 };
 
-function fn(msg, args, members, guild, roles, bot) {
+function fn(msg, args, members, guild, roles, client) {
   const winner = guild.members.get(
     members[Math.floor(Math.random() * members.length)]
   );

@@ -12,6 +12,7 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
+    // TODO: fix or unregister command
     const feeds = client.cache.feeds.order().slice(0, 8);
     return client.components.Locale.replyInteraction(
       interaction,
