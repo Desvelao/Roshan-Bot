@@ -8,8 +8,8 @@ module.exports.ProfilesManager = class ProfilesManager {
       lang: 'en',
       card: {
         bg: '0',
-        heroes: 'all',
-        pos: ''
+        heroes: '1,2,3',
+        pos: 'all'
       },
       dota: '',
       steam: ''

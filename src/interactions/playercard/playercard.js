@@ -69,12 +69,12 @@ module.exports = {
             }
           })
         )
-        .catch((err) =>
-          client.components.Locale.replyInteraction(
+        .catch((err) => {
+          return client.components.Locale.replyInteraction(
             interaction,
             'errorOpendotaRequest'
-          )
-        );
+          );
+        });
     }
   }
 };

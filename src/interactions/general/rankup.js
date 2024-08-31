@@ -15,7 +15,6 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    // TODO: broken, not send the message
     const fileData = await fs.promises.readFile(
       path.join(__dirname, '../..', '/img/rankup.png')
     );

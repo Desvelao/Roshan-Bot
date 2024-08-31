@@ -83,8 +83,8 @@ module.exports = class Init extends Component {
               steam: params.steam || '',
               card: params.card || {
                 bg: '0',
-                heroes: 'all',
-                pos: ''
+                heroes: '1,2,3',
+                pos: 'all'
               },
               _id
             };
