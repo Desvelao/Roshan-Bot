@@ -257,6 +257,7 @@ const HEROES_ALIAS = {
   123: ['hw'],
   128: ['snapfire'],
   129: ['mars'],
+  131: ['ringmaster', 'rm'],
   135: ['dawn'],
   137: ['primal', 'beast'],
   138: ['muerta']

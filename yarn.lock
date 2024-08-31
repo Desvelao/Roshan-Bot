@@ -1655,10 +1655,10 @@ dot-prop@^4.2.1:
   dependencies:
     is-obj "^1.0.0"
 
-dotaconstants@^7.16.0:
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/dotaconstants/-/dotaconstants-7.16.0.tgz#b1e37e26bef972f4ba5754473f523f0f2de07d5e"
-  integrity sha512-lO/bkR/Hi77txYD9/iCuZ7Ta9sMKYWd2d5Etd2cGEzEetqxjq6Z/uQZeRZgtxj3h4sgdXXnfHOxHr/sjNYlZug==
+dotaconstants@^8.11.0:
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/dotaconstants/-/dotaconstants-8.11.0.tgz#33e38b4e4a137091789b684a741b42a481235eef"
+  integrity sha512-uub03Zjwn4qaXGIv19cQRPSXkidawI7zbeLdcRzuxZl62GLFxbOHh8JaIy3oZnY5M/jBFrjlBRSoXhFkpDNnig==
 
 dotenv@^8.2.0:
   version "8.6.0"
@@ -5445,6 +5445,11 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   integrity sha512-s/46sYeylUfHNjI+sA/78FAHlmIuKqI9wNnzEOGehAlUUYeObv5C2mOinXBjyUyWmJ2SfcS2/ydApH4hTF4WXQ==
+
+prettier@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
 
 pretty-format@^23.6.0:
   version "23.6.0"
