@@ -1,4 +1,5 @@
 const jimp = require('jimp');
+const path = require('path');
 
 class AssetLoader {
   constructor(basePath, routes) {
@@ -21,9 +22,8 @@ class AssetLoader {
         if (!file) {
           return null;
         }
-        // return this.read(this._basePath+route.path+file+'.'+route.ext)
         return AssetLoader.loadFile(
-          this._basePath + route.path + file + '.' + route.ext
+          path.join(this._basePath, route.path, file + '.' + route.ext)
         );
       };
     });
