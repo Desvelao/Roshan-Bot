@@ -100,15 +100,13 @@ module.exports = class Locale extends Component {
     const account = this.client.profilesManager.getUserAccountData(user_id);
     const user_account_lang = (account && account.lang) || this.defaultLocale;
     const user_account_dota = (account && account.dota) || '';
-    const user_account_steam = (account && account.steam) || '';
     return this._replaceContent(content, user_account_lang, {
       ...replacements,
       user_name,
       user_id,
       user_avatar_url,
       user_account_lang,
-      user_account_dota,
-      user_account_steam
+      user_account_dota
     });
   }
   translateAsDefaultUser(content, replacements) {

@@ -138,17 +138,22 @@ module.exports = class Account extends Component {
       users: this.client.database.getBucket('test-profiles')._cache.size
     });
   }
-  socialLink(tag, id, show) {
+  socialLink(type, id, tag) {
     let url;
-    if (tag === 'dota') {
+    if (type === 'dotabuff') {
       url = `https://www.dotabuff.com/players/${id}`;
+    } else if (type === 'opendota') {
+      url = `https://www.opendota.com/players/${id}`;
     } else {
       url = `http://www.steamcommunity.com/profiles/${id}`;
     }
     return link(url, tag);
   }
   socialLinks(account, mode = 'inline') {
-    const links = [this.socialLink('dota', account.dotaID)];
+    const links = [
+      this.socialLink('opendota', account.dotaID, 'Opendota'),
+      this.socialLink('dotabuff', account.dotaID, 'Dotabuff')
+    ];
     if (mode == 'inline') {
       return links.join(' / ');
     } else if (mode == 'vertical') {

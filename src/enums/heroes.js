@@ -265,12 +265,19 @@ const HEROES_ALIAS = {
 
 const { heroes, hero_abilities, abilities } = require('dotaconstants');
 
+let maximumHeroId = -1;
+
 for (const key in heroes) {
   heroes[key].name_id = heroes[key].name.replace('npc_dota_hero_', '');
   heroes[key].alias = HEROES_ALIAS[key] ? HEROES_ALIAS[key] : [];
   heroes[key].abilities = hero_abilities[heroes[key].name].abilities
     .filter((ability) => ability !== 'generic_hidden')
     .map((ability) => abilities[ability].dname);
+
+  const keyAsNumber = parseInt(key);
+  if (maximumHeroId < keyAsNumber) {
+    maximumHeroId = keyAsNumber;
+  }
 }
 
 const enumHeroes = new SimpleEnums(heroes);
@@ -300,5 +307,6 @@ enumHeroes.getValueByAlias = function (tag) {
 enumHeroes.apiURL = 'https://api.opendota.com';
 enumHeroes.dotaCdnURL = 'http://cdn.dota2.com';
 enumHeroes.dotaWikiURL = 'http://dota2.gamepedia.com/';
+enumHeroes.maximumHeroId = maximumHeroId;
 
 module.exports = enumHeroes;

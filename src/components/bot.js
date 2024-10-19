@@ -10,7 +10,8 @@ module.exports = class Bot extends Component {
     this.client.cacheManager = new Cache(
       new Logger({
         label: 'Cache',
-        timestamps: true
+        timestamps: true,
+        ignoredLevels: [this.client.isProduction ? 'debug' : '']
       })
     );
     this.client.once('database:init', () => {

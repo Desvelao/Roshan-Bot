@@ -1,6 +1,25 @@
 const Aghanim = require('aghanim');
 const { Datee, Classes } = require('erisjs-utils');
 
+const choices = [
+  {
+    name: 'America',
+    value: 'americas'
+  },
+  {
+    name: 'China',
+    value: 'china'
+  },
+  {
+    name: 'Europe',
+    value: 'europe'
+  },
+  {
+    name: 'Asia',
+    value: 'seasia'
+  }
+];
+
 module.exports = {
   name: 'worldranking',
   category: 'Dota 2',
@@ -11,24 +30,7 @@ module.exports = {
       description: 'Division',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: true,
-      choices: [
-        {
-          name: 'europe',
-          value: 'europe'
-        },
-        {
-          name: 'americas',
-          value: 'americas'
-        },
-        {
-          name: 'china',
-          value: 'china'
-        },
-        {
-          name: 'seasia',
-          value: 'seasia'
-        }
-      ]
+      choices: choices
     }
   ],
   scope: {
@@ -36,9 +38,11 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    const division = interaction.data.options.find(
+    const option = interaction.data.options.find(
       (option) => option.name === 'division'
-    ).value;
+    );
+    const division = option.value;
+    const divisionName = choices.find((opt) => opt.value === option.value).name;
     return client.components.WorldRankingApi.get(division)
       .then((r) => {
         const top = r.leaderboard.slice(
@@ -64,7 +68,7 @@ module.exports = {
             }
           },
           {
-            division,
+            division: divisionName,
             divisions: client.components.WorldRankingApi.divisions
               .sort()
               .join(', '),

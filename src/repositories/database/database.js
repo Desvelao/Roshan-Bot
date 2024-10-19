@@ -53,7 +53,7 @@ module.exports.Database = class Database {
   }
   async connect() {
     try {
-      this.logger.info('Connecting database');
+      this.logger.debug('Connecting database');
 
       const firebase = require('firebase-admin');
       const firebaseConfig = {

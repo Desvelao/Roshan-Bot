@@ -12,16 +12,6 @@ module.exports = class Init extends Component {
     this._loadConfiguration();
 
     /**
-     * get the guild members with the role
-     * @param {string} roleName
-     * @returns
-     */
-    Eris.Guild.prototype.membersWithRole = function (roleName) {
-      const role = this.roles.find((r) => r.name === roleName);
-      return role ? this.members.filter((m) => m.roles.includes(role.id)) : [];
-    };
-
-    /**
      * add a success reaction to the message
      * @returns
      */
@@ -49,10 +39,12 @@ module.exports = class Init extends Component {
   }
   _initDatabase() {
     // Start database
+    const client = this.client;
     function getLogger(label = '') {
       const logger = new Logger({
         label: `Database [${label}]`,
-        timestamps: true
+        timestamps: true,
+        ignoredLevels: [client.isProduction ? 'debug' : '']
       });
       return {
         ...logger,
@@ -96,7 +88,8 @@ module.exports = class Init extends Component {
         this.client.profilesManager = new ProfilesManager(
           new Logger({
             label: 'ProfilesManager',
-            timestamps: true
+            timestamps: true,
+            ignoredLevels: [this.client.isProduction ? 'debug' : '']
           }),
           database.getCollection('test-profiles')
         );
@@ -107,7 +100,8 @@ module.exports = class Init extends Component {
     this.client.httpClient = new HttpClient(
       new Logger({
         label: 'HTTP-Client',
-        timestamps: true
+        timestamps: true,
+        ignoredLevels: [this.client.isProduction ? 'debug' : '']
       }),
       { cache: { ttl: 60000 } } // TTL 60 seconds
     );

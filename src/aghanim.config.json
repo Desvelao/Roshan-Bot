@@ -3,6 +3,8 @@
   "helpDM": true,
   "helpMessage": "",
   "helpMessageAfterCategories": "",
-  "devLogs": false,
-  "disableHelp": true
+  "disableHelp": true,
+  "logger": {
+    "ignoredLevels": ["debug"]
+  }
 }

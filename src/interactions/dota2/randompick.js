@@ -13,9 +13,7 @@ module.exports = {
   run: async function (interaction, client, command) {
     let hero;
     do {
-      const heroRandom = Math.floor(
-        Math.random() * client.config.constants.heroes
-      ); // TODO: replace by greater value of hero ID
+      const heroRandom = Math.floor(Math.random() * enumHeroes.maximumHeroId);
       hero = enumHeroes.getValue(heroRandom);
     } while (!hero || hero.name.length < 1);
     return client.components.Locale.replyInteraction(

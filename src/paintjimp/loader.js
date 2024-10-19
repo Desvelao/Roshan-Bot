@@ -5,8 +5,9 @@ const enumItems = require('../enums/items');
 const enumCardBG = require('../enums/card_bg');
 const enumMedals = require('../enums/medals');
 const AssetLoader = require('../classes/paintjimp/assetloader');
+const path = require('path');
 
-const loader = new AssetLoader('./img/', {
+const loader = new AssetLoader(path.resolve(__dirname, '../img/'), {
   hero: {
     path: 'heroes',
     ext: 'png',

@@ -3,7 +3,7 @@ const Aghanim = require('aghanim');
 module.exports = {
   name: 'roll',
   category: 'General',
-  description: 'Information about Dota 2 subreddit',
+  description: 'Roll a dice (6 sides by default)',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   options: [
     {
@@ -23,7 +23,7 @@ module.exports = {
     type: 'guild',
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
-  run: async function (interaction, client, command) {
+  run() {
     let min, max, random;
     const minimum = interaction.data.options
       ? interaction.data.options.find((option) => option.name === 'minimum')

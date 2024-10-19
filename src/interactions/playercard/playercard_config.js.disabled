@@ -128,22 +128,22 @@ module.exports = {
       {
         username: interaction.user.username,
         social_links: client.components.Account.socialLinks({
-          dotaID: interaction.user.account.dota
+          dotaID: interaction.ctx.account.dota
         }),
         _player_avatar: interaction.user.avatarURL,
         _heroes: `\`\`\`${
-          interaction.user.account.card.heroes
-            ? interaction.user.account.card.heroes
+          interaction.ctx.account.card.heroes
+            ? interaction.ctx.account.card.heroes
                 .split(',')
                 .map((h) => enumHeroes.getValue(h).localized_name)
                 .join(', ')
             : ''
         }\`\`\``,
         _position: `\`\`\`${enumPlayerPosition.getValue(
-          interaction.user.account.card.pos
+          interaction.ctx.account.card.pos
         )}\`\`\``,
         _bg: `\`\`\`${enumPlayerCardBg.getValue(
-          interaction.user.account.card.bg
+          interaction.ctx.account.card.bg
         )}\`\`\``
       }
     );

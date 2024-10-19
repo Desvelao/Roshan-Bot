@@ -16,7 +16,6 @@
   "constants": {
     "descriptionChars": 1000,
     "worldBoardTop": 10,
-    "heroes": 120,
     "hoursLeaderboardUpdate": 168
   },
   "links": {
@@ -24,7 +23,6 @@
       "dotabuff": "https://www.dotabuff.com/players/",
       "steamID": "http://steamcommunity.com/id/"
     },
-    "twitch": "https://www.twitch.tv/",
     "kofi": "https://www.ko-fi.com/desvelao",
     "web": "https://desvelao.github.io/roshanapp/#/",
     "web_leaderboard": "https://desvelao.github.io/roshanapp/#/leaderboard",

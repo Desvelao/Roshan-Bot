@@ -1,5 +1,4 @@
 const { Command } = require('aghanim');
-const { Datee } = require('erisjs-utils');
 
 module.exports = new Command(
   'direstatus',
@@ -41,10 +40,6 @@ module.exports = new Command(
     });
   }
 );
-
-function timeSugarRush(time, text) {
-  return time ? text + ': ' + Datee.custom(time, 'h:m:s D/M') : '';
-}
 
 function timeRemainingTimeout(timeout, name, func) {
   try {

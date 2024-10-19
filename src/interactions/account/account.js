@@ -42,7 +42,6 @@ module.exports = {
         user_id: interaction.ctx.account._id,
         user_name: interaction.ctx.user.username,
         user_account_dota: interaction.ctx.account.dota,
-        user_account_steam: interaction.ctx.account.steam,
         user_account_lang: interaction.ctx.account.lang,
         user_avatar_url: interaction.ctx.user.avatarURL
       }

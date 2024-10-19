@@ -17,7 +17,8 @@ module.exports = {
         cmd: { style: 'cyan' },
         dev: { style: 'magenta' },
         eval: { style: 'cyan' }
-      }
+      },
+      ignoredLevels: [this.client.isProduction ? 'debug' : '']
     });
     this.client.logger = this.logger;
     this.client.on('aghanim:command:prereq', (msg, args, client, command) => {
@@ -140,6 +141,15 @@ module.exports = {
         })
         .catch(this.logger.error);
     });
+
+    this.client.on(
+      'aghanim:command-interaction:triggered',
+      (interation, client, interactionCommand) => {
+        this.logger.debug(
+          `Interaction command [${interactionCommand.name}] triggered by ${interation.user.username} (${interation.user.id})`
+        );
+      }
+    );
   }
 };
 

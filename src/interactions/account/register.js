@@ -50,8 +50,7 @@ module.exports = {
             {
               guild_name: guildName,
               guild_id: guildID,
-              user_account_dotaID: dotaID,
-              user_account_steam: data.profile.steamid
+              user_account_dotaID: dotaID
             }
           ),
           footer: {
@@ -99,7 +98,7 @@ module.exports = {
           thumbnail: { url: interaction.user.avatarURL }
         }
       },
-      { user_account_dota: dotaID, user_account_steam: data.profile.steamid }
+      { user_account_dota: dotaID }
     );
   }
 };

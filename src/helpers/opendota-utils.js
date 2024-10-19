@@ -120,14 +120,14 @@ module.exports.getMedal = function (rank, mode, replace) {
 };
 
 module.exports.durationTime = function (time) {
-  time = parseInt(time);
-  let m = Math.floor(time / 60);
-  let s = time % 60;
+  const timeAsNumber = parseInt(time);
+  let m = Math.floor(timeAsNumber / 60);
+  let s = timeAsNumber % 60;
   return zerofication(m) + ':' + zerofication(s);
 };
 
 module.exports.numberToK = function (number, format, digits) {
-  digits = digits || 1;
-  format = format || 1000;
-  return (number / format).toFixed(digits);
+  const _digits = digits || 1;
+  const _format = format || 1000;
+  return (number / _format).toFixed(_digits);
 };

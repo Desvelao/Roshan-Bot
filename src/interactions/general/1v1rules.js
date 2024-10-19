@@ -14,11 +14,11 @@ module.exports = {
       choices: [
         //The possible choices for the options
         {
-          name: 'normal',
+          name: 'Normal',
           value: 'normal'
         },
         {
-          name: 'nr',
+          name: 'No Raindrop',
           value: 'nr'
         }
       ]
