@@ -112,8 +112,10 @@ module.exports = class Bot extends Component {
       );
     }
     promises.push(
+      // TODO: update to eris 0.18.0 to use custom status (type 4) https://abal.moe/Eris/docs/0.18.0/Client#method-editStatus
       this.client.editStatus(this.client.config.status, {
-        name: this.client.config.status_msg,
+        // name: this.client.config.status_msg,
+        name: 'Alpha',
         type: this.client.config.status_act,
         url: this.client.config.status_url
       })

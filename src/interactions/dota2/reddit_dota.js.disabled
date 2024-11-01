@@ -49,19 +49,25 @@ module.exports = {
     if (mode) {
       return client.components.RedditApi.posts(mode.value, 5, 'dota2')
         .then((result) => {
-          return interaction.createMessage({
-            embed: {
-              author: {
-                name: `r/Dota2 - ${mode.value}` /*icon_url: '<image_reddit_dota2>'*/
-              },
-              description: result
+          return interaction.createMessage(
+            {
+              embed: {
+                author: {
+                  name: 'interaction.reddit_dota.title'
+                },
+                description: 'interaction.reddit_dota.description'
+              }
+            },
+            {
+              mode: mode.value,
+              reddit_content: result
             }
-          });
+          );
         })
         .catch((err) => {
           return client.components.Locale.replyInteraction(
             interaction,
-            'reddit.error.postsrequest'
+            'interaction.reddit.error.postsrequest'
           );
         });
     } else if (postID) {
@@ -78,26 +84,33 @@ module.exports = {
         .catch((err) => {
           return client.components.Locale.replyInteraction(
             interaction,
-            'reddit.error.postrequest'
+            'interaction.reddit.error.postrequest'
           );
         });
     } else {
       const mode = 'top';
       return client.components.RedditApi.posts(mode, 5, 'dota2')
         .then((result) => {
-          return interaction.createMessage({
-            embed: {
-              author: {
-                name: `r/Dota2 - ${mode}` /*icon_url: '<image_reddit_dota2>'*/
-              },
-              description: result
+          return interaction.createMessage(
+            {
+              embed: {
+                author: {
+                  name: 'interaction.reddit_dota.title'
+                },
+                description: 'interaction.reddit_dota.description'
+              }
+            },
+            {
+              mode: mode.value,
+              reddit_content: result
             }
-          });
+          );
         })
         .catch((err) => {
+          console.log({ err });
           return client.components.Locale.replyInteraction(
             interaction,
-            'reddit.error.postsrequest'
+            'interaction.reddit.error.postsrequest'
           );
         });
     }

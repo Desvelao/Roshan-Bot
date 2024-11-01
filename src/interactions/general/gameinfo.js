@@ -36,14 +36,14 @@ module.exports = {
       const info = await client.components.Artifact.gameInfo();
       return client.components.Locale.replyInteraction(
         interaction,
-        'game.currentplayers',
+        'interaction.gameinfo.current_players',
         { count: info.currentplayers, game: 'Artifact' }
       );
     } else {
       const info = await client.components.Dota.gameInfo();
       return client.components.Locale.replyInteraction(
         interaction,
-        'game.currentplayers',
+        'interaction.gameinfo.current_players',
         { count: info.currentplayers, game: 'Dota 2' }
       );
     }

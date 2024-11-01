@@ -34,8 +34,8 @@ module.exports = {
           interaction,
           {
             embed: {
-              title: 'search_worldranking.searchplayer',
-              description: 'search_worldranking.resultssearchquery'
+              title: 'search_interaction.worldranking.searchplayer',
+              description: 'search_interaction.worldranking.resultssearchquery'
             }
           },
           {
@@ -47,7 +47,7 @@ module.exports = {
       .catch((err) => {
         return client.components.Locale.replyInteraction(
           interaction,
-          'search_worldranking.errorfind',
+          'search_interaction.worldranking.errorfind',
           { query }
         );
       });

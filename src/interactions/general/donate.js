@@ -12,7 +12,7 @@ module.exports = {
   run: async function (interaction, client, command) {
     return client.components.Locale.replyInteraction(
       interaction,
-      'donate.text'
+      'interaction.donate.text'
     );
   }
 };

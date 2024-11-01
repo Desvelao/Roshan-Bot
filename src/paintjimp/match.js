@@ -54,7 +54,7 @@ module.exports = function (data_info) {
           data_info.duration
         )}  -  ID: ${data_info.match_id}  -  Played: ${Datee.custom(
           data_info.start_time * 1000,
-          'h:m D/M/Y',
+          'Y/M/D h:m',
           true
         )}`;
         const infoMatch = canvas

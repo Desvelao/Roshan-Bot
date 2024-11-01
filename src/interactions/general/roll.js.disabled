@@ -23,7 +23,8 @@ module.exports = {
     type: 'guild',
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
-  run() {
+  run: async function (interaction, client, command) {
+    // TODO: review cases
     let min, max, random;
     const minimum = interaction.data.options
       ? interaction.data.options.find((option) => option.name === 'minimum')
@@ -60,11 +61,15 @@ module.exports = {
       }
       random = Math.floor(Math.random() * max + 1);
     }
-    return client.components.Locale.replyInteraction(interaction, 'roll.text', {
-      username: interaction.user.username,
-      min,
-      max,
-      random
-    });
+    return client.components.Locale.replyInteraction(
+      interaction,
+      'interaction.roll.text',
+      {
+        username: interaction.user.username,
+        min,
+        max,
+        random
+      }
+    );
   }
 };

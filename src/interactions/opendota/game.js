@@ -6,14 +6,14 @@ const enumLobbyType = require('../../enums/lobby');
 const enumSkill = require('../../enums/skill');
 
 module.exports = {
-  name: 'match',
+  name: 'game',
   category: 'Dota 2',
   description: 'Game stats',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   options: [
     {
-      name: 'match_id',
-      description: 'Match ID',
+      name: 'game_id',
+      description: 'Game ID',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: true
     }
@@ -27,8 +27,7 @@ module.exports = {
   },
   run: async function (interaction, client, command) {
     return client.components.Opendota.match(
-      interaction.data.options.find((option) => option.name === 'match_id')
-        .value
+      interaction.data.options.find((option) => option.name === 'game_id').value
     )
       .then((results) => {
         if (results[0].error) {
@@ -40,7 +39,7 @@ module.exports = {
         if (results[0].game_mode === 19) {
           return client.components.Locale.replyInteraction(
             interaction,
-            'match.eventgame'
+            'interaction.game.eventgame'
           );
         }
         const spacesBoard = ['17f', '8f', '8f', '6f', '5f', '4f', '15f'];
@@ -124,17 +123,17 @@ module.exports = {
           interaction,
           {
             embed: {
-              title: 'match.title',
-              description: 'match.description',
+              title: 'interaction.game.title',
+              description: 'interaction.game.description',
               fields: [
                 {
-                  name: '{{{match_field0_name}}}',
-                  value: '{{{match_field0_value}}}',
+                  name: 'interaction.game.team1.title',
+                  value: 'interaction.game.team1.description',
                   inline: false
                 },
                 {
-                  name: '{{{match_field1_name}}}',
-                  value: '{{{match_field1_value}}}',
+                  name: 'interaction.game.team2.title',
+                  value: 'interaction.game.team2.description',
                   inline: false
                 }
               ]
@@ -154,10 +153,10 @@ module.exports = {
             duration: odutil.durationTime(results[0].duration),
             time: util.Datee.custom(
               results[0].start_time * 1000,
-              'h:m D/M/Y',
+              'Y/M/D h:m',
               true
             ),
-            match_field0_name:
+            interaction_game_team1_title:
               (results[0].radiant_team
                 ? results[0].radiant_team.name
                 : client.components.Locale.translateAsScopedUser(
@@ -166,8 +165,8 @@ module.exports = {
                   )) +
               ' - ' +
               results[0].radiant_score,
-            match_field0_value: radiant.render(),
-            match_field1_name:
+            interaction_game_team1_description: radiant.render(),
+            interaction_game_team2_title:
               (results[0].dire_team
                 ? results[0].dire_team.name
                 : client.components.Locale.translateAsScopedUser(
@@ -176,7 +175,7 @@ module.exports = {
                   )) +
               ' - ' +
               results[0].dire_score,
-            match_field1_value: dire.render()
+            interaction_game_team2_description: dire.render()
           }
         );
       })

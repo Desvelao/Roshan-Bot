@@ -29,11 +29,15 @@ module.exports = {
       interaction,
       {
         embed: {
-          title: 'id.title',
+          title: 'interaction.id.title',
           fields: [
-            { name: 'id.info', value: '{{{social_links}}}', inline: true }
+            {
+              name: 'interaction.id.info',
+              value: 'player.social_links',
+              inline: true
+            }
           ],
-          thumbnail: { url: '{{{user_avatar}}}' }
+          thumbnail: { url: 'user.avatar.url' }
         }
       },
       {
@@ -44,7 +48,8 @@ module.exports = {
           'embed+link'
         ),
         user_id: interaction.ctx.account._id,
-        user_name: interaction.ctx.user.username
+        user_name: interaction.ctx.user.username,
+        user_avatar_url: interaction.ctx.user.avatarURL
       }
     );
   }

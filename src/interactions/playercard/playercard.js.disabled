@@ -12,11 +12,11 @@ module.exports = {
     {
       type: 'user.cooldown',
       time: 10,
-      // response: (interaction, client, command, req) => client.components.Locale.replyInteraction(interaction, 'cmd.incooldown', {cd : interaction.ctx.reqUserCooldown.cooldown, username: interaction.ctx.reqUserCooldown.user})
+      // response: (interaction, client, command, req) => client.components.Locale.replyInteraction(interaction, 'interaction.command.in_cooldown', {cd : interaction.ctx.reqUserCooldown.cooldown, username: interaction.ctx.reqUserCooldown.user})
       response: (interaction, client, command, req) =>
         client.components.Locale.replyInteraction(
           interaction,
-          'cmd.incooldown',
+          'interaction.command.in_cooldown',
           {
             // TODO: use profiles manager
             cd: interaction.ctx.reqUserCooldown.cooldown,

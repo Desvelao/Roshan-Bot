@@ -2,11 +2,10 @@ const Aghanim = require('aghanim');
 const odutil = require('../../helpers/opendota-utils');
 const util = require('erisjs-utils');
 const enumHeroes = require('../../enums/heroes');
-const enumMedal = require('../../enums/medals');
 const { link } = require('../../helpers/markdown');
 
 module.exports = {
-  name: 'matches',
+  name: 'games',
   category: 'Dota 2',
   description: 'Last played games',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
@@ -33,7 +32,6 @@ module.exports = {
     guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
-    console.log({ ctx: interaction.ctx });
     const [profile, results] = await Promise.all([
       interaction.ctx.profile,
       client.components.Opendota.player_matches(interaction.ctx.profile.dotaID)
@@ -75,44 +73,37 @@ module.exports = {
         ) +
         '\n';
     });
-    const medal = enumMedal({
-      rank: results[0].rank_tier,
-      leaderboard: results[0].leaderboard_rank
-    });
+
     return client.components.Locale.replyInteraction(
       interaction,
       {
         embed: {
-          title: 'matches.playerinfo',
-          description: '{{{social_links}}}',
+          title: 'interaction.games.player_info',
+          description: 'interaction.games.player_info.results',
           fields: [
-            { name: 'matches.last', value: '{{{matches}}}', inline: false }
+            {
+              name: 'interaction.games.last',
+              value: 'interaction.games.last.result',
+              inline: false
+            }
           ],
-          thumbnail: { url: '{{{player_avatar}}}' }
+          thumbnail: { url: 'user.avatar.url' }
         }
       },
       {
         player_username: odutil.nameAndNick(results[0].profile),
-        player_flag:
-          typeof results[0].profile.loccountrycode == 'string'
-            ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
-            : '',
-        player_medal: client.components.Locale.translateAsScopedUser(
+        player_flag: client.components.Dota.getPlayerFlagRender(results[0]),
+        player_medal: client.components.Dota.getPlayerMedalRender(
           interaction.user,
-          medal.emoji
+          results[0]
         ),
-        player_supporter: profile.supporter
-          ? client.components.Locale.translateAsScopedUser(
-              interaction.user,
-              '{{{emoji_cheesed2}}}'
-            )
-          : '',
+        player_supporter: client.components.Account.renderSupporter(profile),
         social_links: client.components.Account.socialLinks(profile),
         match_date: util.Date.custom(
           results[1][0].start_time * 1000,
           '[D/M/Y h:m:s]'
         ),
-        player_avatar: results[0].profile.avatarmedium,
+        user_avatar_url: results[0].profile.avatarmedium,
         matches: table
       }
     );

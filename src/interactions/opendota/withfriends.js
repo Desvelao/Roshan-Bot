@@ -1,7 +1,6 @@
 const Aghanim = require('aghanim');
 const { Classes } = require('erisjs-utils');
 const odutil = require('../../helpers/opendota-utils');
-const enumMedal = require('../../enums/medals');
 
 module.exports = {
   name: 'withfriends',
@@ -17,7 +16,7 @@ module.exports = {
     },
     {
       name: 'dota_player_id',
-      description: 'Dota player ID',
+      description: 'Dota player ID or PRO name',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: false
     }
@@ -53,7 +52,7 @@ module.exports = {
           ).slice(0, 1),
           client.components.Locale.translateAsScopedUser(
             interaction.user,
-            'gamesWR'
+            'game.win_ratio'
           )
         ],
         spacesBoard,
@@ -79,44 +78,34 @@ module.exports = {
           ) + '\n';
       });
     }
-    const medal = enumMedal({
-      rank: results[0].rank_tier,
-      leaderboard: results[0].leaderboard_rank
-    });
     return client.components.Locale.replyInteraction(
       interaction,
       {
         embed: {
-          title: 'withfriends.playerinfo',
-          description: '{{{results}}}',
-          thumbnail: { url: '{{{player_avatar}}}' },
-          footer: { text: 'withfriends.footer', icon_url: '{{{bot_avatar}}}' }
+          title: 'interaction.withfriends.playerinfo',
+          description: 'interaction.withfriends.results',
+          thumbnail: { url: 'user.avatar.url' },
+          footer: {
+            text: 'interaction.withfriends.footer'
+          }
         }
       },
       {
         player_username: odutil.nameAndNick(results[0].profile),
-        player_flag:
-          typeof results[0].profile.loccountrycode == 'string'
-            ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
-            : '',
-        player_medal: client.components.Locale.translateAsScopedUser(
+        player_flag: client.components.Dota.getPlayerFlagRender(results[0]),
+        player_medal: client.components.Dota.getPlayerMedalRender(
           interaction.user,
-          medal.emoji
+          results[0]
         ),
-        player_supporter: profile.supporter
-          ? client.components.Locale.translateAsScopedUser(
-              interaction.user,
-              '{{{emoji_cheesed2}}}'
-            )
-          : '',
-        results:
+        player_supporter: client.components.Account.renderSupporter(profile),
+        interaction_withfriends_results:
           results[1].length > 0
             ? table
             : client.components.Locale.translateAsScopedUser(
                 interaction.user,
-                'withfriends.withno'
+                'interaction.withfriends.withno'
               ),
-        player_avatar: results[0].profile.avatarmedium,
+        user_avatar_url: results[0].profile.avatarmedium,
         count: results[1].length > 0 ? results[1].length : '0'
       }
     );

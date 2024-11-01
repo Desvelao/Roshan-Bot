@@ -53,7 +53,7 @@ module.exports = class Opendota extends Component {
               context.ctx.message =
                 client.components.Locale.translateAsScopedUser(
                   context.user,
-                  'error.pronotfound',
+                  'error.dota2.pro_not_found',
                   { pro: userID }
                 );
               return false;
@@ -65,7 +65,7 @@ module.exports = class Opendota extends Component {
             context.ctx.message =
               client.components.Locale.translateAsScopedUser(
                 context.user,
-                'needRegister'
+                'account.need_register'
               );
             return false;
           }
@@ -73,7 +73,7 @@ module.exports = class Opendota extends Component {
         return true;
       },
       response: (context, client, command, req) => {
-        return context.createMessage(context.ctx.message);
+        return context.ctx.message;
       }
     });
     this.client.once('database:init', () => {
@@ -112,17 +112,21 @@ module.exports = class Opendota extends Component {
     return this.save(this._calls);
   }
   needRegister(profile) {
-    return !profile.account.dota;
+    return !profile.account || (profile.account && !profile.account.dota);
   }
   getProfile(discordID, dotaID) {
     const profile = discordID
       ? this.client.profilesManager.getUserProfile(discordID)
       : {};
+    let _dotaID;
     if (dotaID) {
       profile.account = this.client.profilesManager.getAccountSchema();
       profile.account.dota = dotaID;
     }
-    return { discordID, ...profile, dotaID: profile.account.dota };
+    if (profile.account && profile.account.dota) {
+      _dotaID = profile.account.dota;
+    }
+    return { discordID, ...profile, dotaID: _dotaID };
   }
   getProPlayerID(name) {
     return new Promise((resolve, reject) => {

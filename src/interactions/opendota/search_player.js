@@ -63,11 +63,11 @@ module.exports = {
             interaction,
             {
               embed: {
-                title: 'search_player.title',
-                description: 'search_player.description',
+                title: 'interaction.search_player.title',
+                description:
+                  'interaction.interaction.search_player.description',
                 footer: {
-                  text: 'search_player.footer',
-                  icon_url: '{{{bot_avatar}}}'
+                  text: 'interaction.interaction.search_player.footer'
                 }
               }
             },

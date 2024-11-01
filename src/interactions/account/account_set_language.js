@@ -38,7 +38,7 @@ module.exports = {
     });
     return await client.components.Locale.replyInteraction(
       interaction,
-      'account_set_language.language_changed'
+      'interaction.account_set_language.language_changed'
     );
   }
 };

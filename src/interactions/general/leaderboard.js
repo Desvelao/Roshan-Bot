@@ -12,7 +12,7 @@ module.exports = {
   run: async function (interaction, client, command) {
     return client.components.Locale.replyInteraction(
       interaction,
-      'leaderboard.text'
+      'interaction.leaderboard.text'
     );
   }
 };

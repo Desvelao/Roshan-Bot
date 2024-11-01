@@ -120,8 +120,7 @@ module.exports = {
             { name: 'playercard.bg', value: '{{{_bg}}}', inline: false }
           ],
           footer: {
-            text: 'playercard.roshancard',
-            icon_url: '{{{bot_avatar}}}'
+            text: 'playercard.roshancard'
           }
         }
       },

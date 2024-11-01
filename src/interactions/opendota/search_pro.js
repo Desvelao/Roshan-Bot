@@ -44,11 +44,10 @@ module.exports = {
           interaction,
           {
             embed: {
-              title: 'search_pro.title',
-              description: 'search_pro.description',
+              title: 'interaction.search_pro.title',
+              description: 'interaction.search_pro.description',
               footer: {
-                text: 'search_pro.footer',
-                icon_url: '{{{bot_avatar}}}'
+                text: 'interaction.search_pro.footer'
               }
             }
           },

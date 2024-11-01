@@ -44,6 +44,7 @@ module.exports = class Locale extends Component {
       link_web_addtourney: this.client.config.links.web_addtourney,
       link_web_feeds: this.client.config.links.web_feeds,
       link_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
+      link_dota_api: this.client.config.links.dota_api,
       link_devserver: process.env.DISCORD_PIT_SERVER_URL,
       link_web_playercard_bg_gallery:
         this.client.config.links.web_playercard_bg_gallery,

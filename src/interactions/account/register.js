@@ -8,7 +8,7 @@ module.exports = {
   options: [
     {
       name: 'dota_id',
-      description: 'User',
+      description: 'Dota ID',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: true
     }
@@ -41,12 +41,12 @@ module.exports = {
       {
         embed: {
           title: client.components.Locale.translateAsDefaultUser(
-            'registerAccountTitle',
+            'notify.account.new.title',
 
             { user_account_id: interaction.user.id }
           ),
           description: client.components.Locale.translateAsDefaultUser(
-            'registerAccountDesc',
+            'notify.account.new.data',
             {
               guild_name: guildName,
               guild_id: guildID,
@@ -82,23 +82,23 @@ module.exports = {
       {
         embed: {
           title: 'roshan.welcometo',
-          description: 'roshan.infoabout',
+          description: 'interaction.roshan.info_about',
           fields: [
             {
-              name: 'register.dataurregistry',
-              value: 'register.dataurregistryaccount',
+              name: 'interaction.register.your_data',
+              value: 'interaction.register.your_data_account',
               inline: false
             },
             {
-              name: 'register.tyforurregistry',
-              value: 'register.helpregistrydesc',
+              name: 'interaction.register.ty_for_your_registry',
+              value: 'interaction.register.help_description',
               inline: false
             }
           ],
-          thumbnail: { url: interaction.user.avatarURL }
+          thumbnail: { url: 'user.avatar.url' }
         }
       },
-      { user_account_dota: dotaID }
+      { user_account_dota: dotaID, user_avatar_url: interaction.user.avatarURL }
     );
   }
 };

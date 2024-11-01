@@ -55,12 +55,18 @@ module.exports = {
             ) +
             '\n';
         });
-        return client.components.Locale.replyInteraction(interaction, {
-          embed: {
-            title: 'competitive.title',
-            description: table
+        return client.components.Locale.replyInteraction(
+          interaction,
+          {
+            embed: {
+              title: 'interaction.competitive.title',
+              description: 'interaction.competitive.table'
+            }
+          },
+          {
+            results: table
           }
-        });
+        );
       })
       .catch((err) => {
         client.components.Locale.replyInteraction(

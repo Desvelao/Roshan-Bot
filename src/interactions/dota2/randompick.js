@@ -18,7 +18,7 @@ module.exports = {
     } while (!hero || hero.name.length < 1);
     return client.components.Locale.replyInteraction(
       interaction,
-      `randompick.message`,
+      'interaction.randompick.message',
       { hero_name: hero.localized_name }
     );
   }

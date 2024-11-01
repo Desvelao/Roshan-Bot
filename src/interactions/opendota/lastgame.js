@@ -1,7 +1,7 @@
 const Aghanim = require('aghanim');
 
 module.exports = {
-  name: 'lastmatch',
+  name: 'lastgame',
   category: 'Dota 2',
   description: 'Last played game',
   options: [
@@ -13,7 +13,7 @@ module.exports = {
     },
     {
       name: 'dota_player_id',
-      description: 'Dota player ID',
+      description: 'Dota player ID or PRO name',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: false
     }
@@ -34,16 +34,17 @@ module.exports = {
       )
     ]);
     const commandMatch = client.interactionCommands.find(
-      (command) => command.name === 'match'
+      (command) => command.name === 'game'
     );
 
+    // TODO: fix problem mentioneng user id
     if (!commandMatch) {
       return;
     }
     !interaction.data.options && (interaction.data.options = []);
     interaction.data.options.push({
       value: results[0][0].match_id,
-      name: 'match_id'
+      name: 'game_id'
     });
 
     return await commandMatch.run(interaction, client, commandMatch);

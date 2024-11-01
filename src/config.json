@@ -29,7 +29,8 @@
     "web_addtourney": "https://desvelao.github.io/roshanapp/#/addtourney",
     "web_feeds": "https://desvelao.github.io/roshanapp/#/feeds",
     "web_playercard_bg_gallery": "https://desvelao.github.io/roshanapp/#/playercardbg",
-    "web_features": "https://desvelao.github.io/roshanapp/#/features"
+    "web_features": "https://desvelao.github.io/roshanapp/#/features",
+    "dota_api": "https://opendota.com"
   },
   "emojis": {
     "default": {

@@ -61,7 +61,7 @@ module.exports = {
         .catch((err) => {
           return client.components.Locale.replyInteraction(
             interaction,
-            'reddit.error.postsrequest'
+            'interaction.reddit.error.postsrequest'
           );
         });
     } else if (postID) {
@@ -78,7 +78,7 @@ module.exports = {
         .catch((err) => {
           return client.components.Locale.replyInteraction(
             interaction,
-            'reddit.error.postrequest'
+            'interaction.reddit.error.postrequest'
           );
         });
     } else {
@@ -97,7 +97,7 @@ module.exports = {
         .catch((err) => {
           return client.components.Locale.replyInteraction(
             interaction,
-            'reddit.error.postsrequest'
+            'interaction.reddit.error.postsrequest'
           );
         });
     }

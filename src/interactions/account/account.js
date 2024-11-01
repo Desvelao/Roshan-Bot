@@ -8,13 +8,13 @@ module.exports = {
   options: [
     {
       name: 'user_id',
-      description: 'User',
+      description: 'User ID',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: false
     },
     {
       name: 'user_mention',
-      description: 'User',
+      description: 'User mention',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.USER,
       required: false
     }
@@ -32,9 +32,9 @@ module.exports = {
       interaction,
       {
         embed: {
-          title: 'account.title',
-          description: 'account.data',
-          thumbnail: { url: '{{{user_avatar_url}}}' }
+          title: 'interaction.account.title',
+          description: 'interaction.account.data',
+          thumbnail: { url: 'user.avatar.url' }
         }
       },
       {

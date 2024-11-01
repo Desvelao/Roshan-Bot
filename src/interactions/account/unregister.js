@@ -23,11 +23,11 @@ module.exports = {
       {
         embed: {
           title: client.components.Locale.translateAsDefaultUser(
-            'unregisterAccountTitle',
+            'interaction.unregister.account_title',
             { user_account_id: interaction.user.id }
           ),
           description: client.components.Locale.translateAsDefaultUser(
-            'unregisterAccountDesc',
+            'interaction.unregister.account_description',
             { guildName, guildID }
           ),
           footer: {
@@ -54,7 +54,7 @@ module.exports = {
     await messageNotificationServer.addReactionSuccess();
     return await client.components.Locale.replyInteraction(
       interaction,
-      'account.deleted'
+      'interaction.account.deleted'
     );
   }
 };

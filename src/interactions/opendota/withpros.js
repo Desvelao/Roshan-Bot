@@ -1,6 +1,5 @@
 const Aghanim = require('aghanim');
 const odutil = require('../../helpers/opendota-utils');
-const enumMedal = require('../../enums/medals');
 
 module.exports = {
   name: 'withpros',
@@ -16,7 +15,7 @@ module.exports = {
     },
     {
       name: 'dota_player_id',
-      description: 'Dota player ID',
+      description: 'Dota player ID or PRO name',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: false
     }
@@ -62,38 +61,28 @@ module.exports = {
       description ||
       client.components.Locale.translateAsScopedUser(
         interaction.user,
-        'withpros.withno'
+        'interaction.withpros.withno'
       );
-    const medal = enumMedal({
-      rank: results[0].rank_tier,
-      leaderboard: results[0].leaderboard_rank
-    });
     return client.components.Locale.replyInteraction(
       interaction,
       {
         embed: {
-          title: 'withpros.playerinfo',
+          title: 'interaction.withpros.playerinfo',
           description: '{{{results}}}',
           thumbnail: { url: '{{{player_avatar}}}' },
-          footer: { text: 'withpros.footer', icon_url: '{{{bot_avatar}}}' }
+          footer: {
+            text: 'interaction.withpros.footer'
+          }
         }
       },
       {
         player_username: odutil.nameAndNick(results[0].profile),
-        player_flag:
-          typeof results[0].profile.loccountrycode == 'string'
-            ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
-            : '',
-        player_medal: client.components.Locale.translateAsScopedUser(
+        player_flag: client.components.Dota.getPlayerFlagRender(results[0]),
+        player_medal: client.components.Dota.getPlayerMedalRender(
           interaction.user,
-          medal.emoji
+          results[0]
         ),
-        player_supporter: profile.supporter
-          ? client.components.Locale.translateAsScopedUser(
-              interaction.user,
-              '{{{emoji_cheesed2}}}'
-            )
-          : '',
+        player_supporter: client.components.Account.renderSupporter(profile),
         results: description,
         player_avatar: results[0].profile.avatarmedium,
         count:

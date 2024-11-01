@@ -12,7 +12,7 @@ module.exports = {
   run: async function (interaction, client, command) {
     return client.components.Locale.replyInteraction(
       interaction,
-      'discord.devserverinvite'
+      'interaction.discord.dev_server_invite'
     );
   }
 };

@@ -21,7 +21,10 @@ module.exports = class Account extends Component {
         return true;
       },
       response: (context, client, command, req) =>
-        client.components.Locale.replyInteraction(context, 'bot.needregister')
+        client.components.Locale.replyInteraction(
+          context,
+          'interaction.account.need_register'
+        )
     });
 
     this.client.addCommandRequirement({
@@ -47,18 +50,15 @@ module.exports = class Account extends Component {
         );
         context.ctx.user = client.users.get(userID);
         if (!context.ctx.account) {
-          if (userID === context.user.id) {
-            await client.components.Locale.replyInteraction(
-              context,
-              'bot.needregister'
-            );
-            return true;
-          }
           return false;
         }
         return true;
       },
-      response: "Your account doesn't exist"
+      response: async (context, client) =>
+        await client.components.Locale.replyInteraction(
+          context,
+          'interaction.account.need_register'
+        )
     });
 
     this.client.addCommandRequirement({
@@ -68,7 +68,10 @@ module.exports = class Account extends Component {
           .registered;
       },
       response: (context, client, command, req) =>
-        client.components.Locale.replyInteraction(context, 'bot.needregister')
+        client.components.Locale.replyInteraction(
+          context,
+          'interaction.account.need_register'
+        )
     });
 
     this.client.addCommandRequirement({
@@ -80,7 +83,7 @@ module.exports = class Account extends Component {
       response: (context, client, command, req) =>
         client.components.Locale.replyInteraction(
           context,
-          'register.alreadyregistered'
+          'interation.register.already_registered'
         )
     });
 
@@ -159,5 +162,13 @@ module.exports = class Account extends Component {
     } else if (mode == 'vertical') {
       return links.join('\n');
     }
+  }
+  renderSupporter(profile) {
+    return profile.supporter
+      ? this.client.components.Locale.translateAsScopedUser(
+          interaction.user,
+          '{{{emoji_cheesed2}}}'
+        )
+      : '';
   }
 };

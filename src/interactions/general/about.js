@@ -14,27 +14,30 @@ module.exports = {
       interaction,
       {
         embed: {
-          title: 'about.title',
-          description: 'about.description',
+          title: 'interaction.about.title',
+          description: 'interaction.about.description',
           fields: [
-            { name: 'Web', value: 'web.text', inline: false },
-            { name: 'about.invite', value: 'about.invitation', inline: false },
+            { name: 'keyword.web', value: 'web.text', inline: false },
             {
-              name: 'about.devserver',
-              value: 'about.invitedevserver',
+              name: 'interaction.about.bot.title',
+              value: 'interaction.about.bot.description',
               inline: false
             },
-            { name: 'global.donate', value: 'about.support', inline: false },
             {
-              name: 'thanks.fields0.name',
-              value: '{{{_betatesters}}}',
+              name: 'interaction.about.data.title',
+              value: 'interaction.about.data.description',
+              inline: false
+            },
+            {
+              name: 'interaction.about.fields0.name',
+              value: 'betatesters',
               inline: false
             }
           ],
-          footer: { text: 'about.footer', icon_url: '{{{bot_icon}}}' }
+          footer: { text: 'interaction.about.footer', icon_url: 'bot.icon' }
         }
       },
-      { _betatesters: client.config.others.betatesters.join(', ') }
+      { betatesters: client.config.others.betatesters.join(', ') }
     );
   }
 };

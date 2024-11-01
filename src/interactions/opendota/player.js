@@ -1,7 +1,6 @@
 const Aghanim = require('aghanim');
 const odutil = require('../../helpers/opendota-utils');
 const enumHeroes = require('../../enums/heroes');
-const enumMedal = require('../../enums/medals');
 
 module.exports = {
   name: ['player', 'p'],
@@ -17,7 +16,7 @@ module.exports = {
     },
     {
       name: 'dota_player_id',
-      description: 'Dota player ID',
+      description: 'Dota player ID or PRO name',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: false
     }
@@ -55,50 +54,46 @@ module.exports = {
       results[3][1].sum,
       results[3][2].sum
     );
-    const medal = enumMedal({
-      rank: results[0].rank_tier,
-      leaderboard: results[0].leaderboard_rank
-    });
+
     return client.components.Locale.replyInteraction(
       interaction,
       {
         embed: {
-          title: 'player.playerinfo',
-          description: '{{{social_links}}}',
+          title: 'interaction.player.player_info',
+          description: 'interaction.player.player_info.results',
           fields: [
-            { name: 'player.wlr', value: '{{{wlr}}}', inline: true },
-            { name: 'player.kda', value: '{{{kda}}}', inline: true },
             {
-              name: 'player.top5heroes',
-              value: '{{{top5heroes}}}',
+              name: 'interaction.player.wlr',
+              value: 'interaction.player.wlr.result',
+              inline: true
+            },
+            {
+              name: 'interaction.player.kda',
+              value: 'interaction.player.kda.result',
+              inline: true
+            },
+            {
+              name: 'interaction.player.top_5_heroes',
+              value: 'interaction.player.top_5_heroes.results',
               inline: false
             }
           ],
-          thumbnail: { url: '{{{player_avatar}}}' },
+          thumbnail: { url: 'user.avatar.url' },
           footer: {
-            text: 'opendota.notenoprivateinfo',
-            icon_url: '{{{bot_avatar}}}'
+            text: 'dota2.note_no_private_info'
           }
         }
       },
       {
         player_username: odutil.nameAndNick(results[0].profile),
-        player_flag:
-          typeof results[0].profile.loccountrycode == 'string'
-            ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
-            : '',
-        player_medal: client.components.Locale.translateAsScopedUser(
+        player_flag: client.components.Dota.getPlayerFlagRender(results[0]),
+        player_medal: client.components.Dota.getPlayerMedalRender(
           interaction.user,
-          medal.emoji
+          results[0]
         ),
-        player_supporter: profile.supporter
-          ? client.components.Locale.translateAsScopedUser(
-              interaction.user,
-              '{{{emoji_cheesed2}}}'
-            )
-          : '',
+        player_supporter: client.components.Account.renderSupporter(profile),
         social_links: client.components.Account.socialLinks(profile),
-        player_avatar: results[0].profile.avatarmedium,
+        user_avatar_url: results[0].profile.avatarmedium,
         wlr:
           results[1].win +
           '/' +

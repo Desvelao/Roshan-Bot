@@ -1,6 +1,5 @@
 const Aghanim = require('aghanim');
 const odutil = require('../../helpers/opendota-utils');
-const enumMedal = require('../../enums/medals');
 const { link } = require('../../helpers/markdown');
 
 module.exports = {
@@ -17,7 +16,7 @@ module.exports = {
     },
     {
       name: 'dota_player_id',
-      description: 'Dota player ID',
+      description: 'Dota player ID or PRO name',
       type: Aghanim.Eris.Constants.ApplicationCommandOptionTypes.STRING,
       required: false
     }
@@ -35,41 +34,30 @@ module.exports = {
       interaction.ctx.profile,
       client.components.Opendota.player_steam(interaction.ctx.profile.dotaID)
     ]);
-    const medal = enumMedal({
-      rank: results[0].rank_tier,
-      leaderboard: results[0].leaderboard_rank
-    });
     return client.components.Locale.replyInteraction(
       interaction,
       {
         embed: {
-          title: 'steam.playerinfo',
-          description: 'steam.description'
+          title: 'interaction.steam.player_info',
+          description: 'interaction.steam.description'
           // footer: { text: 'searchpro.footer', icon_url: '<bot_avatar>' }
         }
       },
       {
         player_username: odutil.nameAndNick(results[0].profile),
         player_flag:
-          typeof results[0].profile.loccountrycode == 'string'
-            ? ':flag_' + results[0].profile.loccountrycode.toLowerCase() + ':'
-            : '',
-        player_medal: client.components.Locale.translateAsScopedUser(
+          client.components.Dota.getPlayerFlagRender(results[0]),
+        player_medal: client.components.Dota.getPlayerMedalRender(
           interaction.user,
-          medal.emoji
+          results[0]
         ),
-        player_supporter: profile.supporter
-          ? client.components.Locale.translateAsScopedUser(
-              interaction.user,
-              '{{{emoji_cheesed2}}}'
-            )
-          : '',
+        player_supporter: client.components.Account.renderSupporter(profile),
         profile: odutil.nameAndNick(results[0].profile),
         link: link(
           results[0].profile.profileurl,
           client.components.Locale.translateAsScopedUser(
             interaction.user,
-            'global.steam'
+            'brand.steam'
           )
         ),
         url: results[0].profile.profileurl

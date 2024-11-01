@@ -60,24 +60,19 @@ module.exports = {
           interaction,
           {
             embed: {
-              title: 'worldranking.title',
-              description: 'worldranking.description',
-              footer: {
-                text: Datee.custom(r.time_posted * 1000, 'h:m D/M/Y', true)
-              }
+              title: 'interaction.worldranking.title',
+              description: 'interaction.worldranking.description'
             }
           },
           {
             division: divisionName,
-            divisions: client.components.WorldRankingApi.divisions
-              .sort()
-              .join(', '),
             results: table.render()
           }
         );
       })
       .catch((err) => {
         return interaction.createMessage(
+          // TODO: replace by translation
           ':x: It ocurred an error with a request to World Ranking'
         );
       });

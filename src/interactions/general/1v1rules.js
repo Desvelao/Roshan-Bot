@@ -34,7 +34,7 @@ module.exports = {
     ).value;
     return client.components.Locale.replyInteraction(
       interaction,
-      `1v1rules.${mode}.message`
+      `interaction.1v1rules.${mode}.message`
     );
   }
 };

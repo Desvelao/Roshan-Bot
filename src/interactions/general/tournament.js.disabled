@@ -67,7 +67,7 @@ module.exports = {
     ) {
       return client.components.Locale.replyInteraction(
         interaction,
-        'tournament.error.limitelements',
+        'interaction.tournament.error.limitelements',
         { limit }
       );
     }
@@ -82,7 +82,7 @@ module.exports = {
       fields[0] = {
         name: client.components.Locale.translateAsScopedUser(
           interaction.user,
-          'tournament.matches'
+          'interaction.tournament.matches'
         ),
         value: '',
         inline: false
@@ -104,14 +104,14 @@ module.exports = {
       if (typeof numberGroups !== 'number' || isNaN(numberGroups)) {
         return client.components.Locale.replyInteraction(
           interaction,
-          'tournament.error.groupsnum'
+          'interaction.tournament'
         );
       }
       const list = args.slice(3).join('').split(',');
       if (list.length < numberGroups * 2) {
         return client.components.Locale.replyInteraction(
           interaction,
-          'tournament.error.groupsnumhigh'
+          'interaction.tournamenthigh'
         );
       }
       var groups = [];
@@ -145,7 +145,7 @@ module.exports = {
           name:
             client.components.Locale.translateAsScopedUser(
               interaction.user,
-              'tournament.group'
+              'interaction.tournament.group'
             ) +
             ' ' +
             (i + 1), // TODO: use profiles manager
@@ -161,7 +161,7 @@ module.exports = {
       if (list.length < 2) {
         return client.components.Locale.replyInteraction(
           interaction,
-          'tournament.error.minelements'
+          'interaction.tournament.error.minelements'
         );
       }
       var result = [];
@@ -172,7 +172,7 @@ module.exports = {
       }
       var fields = [];
       fields[0] = {
-        name: 'tournament.list',
+        name: 'interaction.tournament.list',
         value: results.join(', '),
         inline: false
       };
@@ -182,7 +182,7 @@ module.exports = {
         title:
           client.components.Locale.translateAsScopedUser(
             interaction.user,
-            'tournament.tourney'
+            'interaction.tournament.tourney'
           ) +
           ' - (' +
           (interaction.user.nick || interaction.user.username) +

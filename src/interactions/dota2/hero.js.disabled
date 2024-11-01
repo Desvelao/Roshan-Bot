@@ -28,7 +28,7 @@ module.exports = {
     if (!hero) {
       return client.components.Locale.replyInteraction(
         interaction,
-        'hero.notfound'
+        'hero.not_found'
       );
     }
     const heroBaseHealth =
