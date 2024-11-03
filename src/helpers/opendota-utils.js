@@ -3,6 +3,7 @@ const VICTORY = 'Victory';
 const DEFEAT = 'Defeat';
 const RADIANT = 'Radiant';
 const DIRE = 'Dire';
+const unknown = 'Unknown';
 
 module.exports.kda = function (kills, deaths, assists) {
   return ((kills + assists) / deaths).toFixed(2);

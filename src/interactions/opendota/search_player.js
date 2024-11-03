@@ -50,7 +50,7 @@ module.exports = {
           const results = player_profiles
             .map(
               ({ profile }) =>
-                `**${client.components.Bot.parseText(
+                `**${odutil.parseText(
                   odutil.nameOrNick(profile),
                   'nf'
                 )}** ${link(

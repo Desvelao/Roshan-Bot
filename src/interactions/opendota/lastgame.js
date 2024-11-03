@@ -37,7 +37,7 @@ module.exports = {
       (command) => command.name === 'game'
     );
 
-    // TODO: fix problem mentioneng user id
+    // TODO: fix problem mentioning user id
     if (!commandMatch) {
       return;
     }

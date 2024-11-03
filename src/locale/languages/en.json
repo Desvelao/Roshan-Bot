@@ -163,6 +163,7 @@
   "interaction.worldranking.description": "{{{results}}}",
   "interaction.worldranking.error.request": ":x: It ocurred an error with request to World Ranking",
   "interaction.worldranking.title": "Worldranking - {{division}}",
+  "interaction.worldranking.error": ":x: It occured an unexpected error retrieving the world ranking data.",
   "interaction.worldranking_search.errorfind": ":x: It could find in World Ranking: `{{query}}`",
   "interaction.worldranking_search.resultssearchquery": "Search: `{{query}}`\n\n{{{results}}}",
   "interaction.worldranking_search.searchplayer": "Search player in World Ranking",

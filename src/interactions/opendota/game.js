@@ -79,8 +79,8 @@ module.exports = {
                   'number.k'
                 ),
               player.name
-                ? client.components.Bot.parseText(player.name, 'nf')
-                : client.components.Bot.parseText(
+                ? odutil.parseText(player.name, 'nf')
+                : odutil.parseText(
                     player.personaname ||
                       client.components.Locale.translateAsScopedUser(
                         interaction.user,
@@ -106,8 +106,8 @@ module.exports = {
                   'number.k'
                 ),
               player.name
-                ? client.components.Bot.parseText(player.name, 'nf')
-                : client.components.Bot.parseText(
+                ? odutil.parseText(player.name, 'nf')
+                : odutil.parseText(
                     player.personaname ||
                       client.components.Locale.translateAsScopedUser(
                         interaction.user,

@@ -60,14 +60,35 @@ module.exports = class Init extends Component {
       this.client.storage = firebase.storage().bucket();
       this.client.db = firebase.database().ref();
 
-      // database.createBucket('leaderboards');
       database.createBucket('bot');
       database.createBucket('botstats');
+      database.createBucket('leaderboard');
+
+      // {
+      // discord_invite: '', // URL
+      // discord_server: '', // URL
+      // servers: 0, // TODO: remove
+      // users: 0,
+      // version: 'v0.3.8' }
       database.createBucket('public');
       Promise.all(
         [
           database.createCollection('servers'),
           database.createCollection('test-profiles', function (params, _id) {
+            // TODO: create the object database model with default values
+            return {
+              dota: params.dota,
+              lang: params.lang || 'en',
+              steam: params.steam || '',
+              card: params.card || {
+                bg: '0',
+                heroes: '1,2,3',
+                pos: 'all'
+              },
+              _id
+            };
+          }),
+          database.createCollection('profiles', function (params, _id) {
             // TODO: create the object database model with default values
             return {
               dota: params.dota,

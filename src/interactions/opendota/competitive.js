@@ -1,6 +1,7 @@
 const Aghanim = require('aghanim');
 const { Classes } = require('erisjs-utils');
 const { link } = require('../../helpers/markdown');
+const { parseText } = require('../../helpers/opendota-utils');
 
 module.exports = {
   name: 'competitive',
@@ -40,10 +41,10 @@ module.exports = {
           table +=
             Classes.Table.renderRow(
               [
-                client.components.Bot.parseText(match.radiant_name, 'nf'),
+                parseText(match.radiant_name, 'nf'),
                 victory,
-                client.components.Bot.parseText(match.dire_name, 'nf'),
-                client.components.Bot.parseText(match.league_name, 'nf')
+                parseText(match.dire_name, 'nf'),
+                parseText(match.league_name, 'nf')
               ],
               spacesBoard,
               '\u2002'

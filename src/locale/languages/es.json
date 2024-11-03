@@ -163,6 +163,7 @@
   "interaction.worldranking.description": "{{{results}}}",
   "interaction.worldranking.error.request": ":x: Ha ocurrido un error con la petición a la Clasificiación Mundial",
   "interaction.worldranking.title": "Clasificación mundial - {{division}}",
+  "interaction.worldranking.error": ":x: It occured an unexpected error retrieving the world ranking data.",
   "interaction.worldranking_search.errorfind": ":x: No se ha podido encontrar en la clasificación mundial: `{{query}}`",
   "interaction.worldranking_search.resultssearchquery": "Buscar: `{{query}}`\n\n{{{results}}}",
   "interaction.worldranking_search.searchplayer": "Búsqueda jugador en clasificación mundial",

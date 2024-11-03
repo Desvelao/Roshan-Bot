@@ -71,9 +71,9 @@ module.exports = {
         );
       })
       .catch((err) => {
-        return interaction.createMessage(
-          // TODO: replace by translation
-          ':x: It ocurred an error with a request to World Ranking'
+        return client.components.Locale.replyInteraction(
+          interaction,
+          'interaction.worldranking.error'
         );
       });
   }

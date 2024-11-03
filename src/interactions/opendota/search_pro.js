@@ -31,10 +31,7 @@ module.exports = {
         const results = players
           .map(
             (player) =>
-              `**${client.components.Bot.parseText(
-                odutil.nameOrNick(player),
-                'nf'
-              )}** ${link(
+              `**${odutil.parseText(odutil.nameOrNick(player), 'nf')}** ${link(
                 client.config.links.profile.dotabuff + player.account_id,
                 'DB'
               )}/${link(player.profileurl, 'S')}`

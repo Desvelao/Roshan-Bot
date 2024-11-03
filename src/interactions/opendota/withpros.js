@@ -46,13 +46,12 @@ module.exports = {
       if (pro.team_tag != null) {
         description +=
           '**' +
-          client.components.Bot.parseText(pro.name, 'nf') +
+          odutil.parseText(pro.name, 'nf') +
           '** (' +
-          client.components.Bot.parseText(pro.team_tag, 'nf') +
+          odutil.parseText(pro.team_tag, 'nf') +
           '), ';
       } else {
-        description +=
-          '**' + client.components.Bot.parseText(pro.name, 'nf') + '**, ';
+        description += '**' + odutil.parseText(pro.name, 'nf') + '**, ';
       }
       resultsShow++;
     });

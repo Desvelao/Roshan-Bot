@@ -28,6 +28,7 @@ module.exports = class Bot extends Component {
         if (!this.client.isProduction) {
           this.client.config.switches.leaderboardUpdate = false;
           this.client.config.switches.backupdb = false;
+          this.client.config.switches.publicDataUpdate = false;
         }
         //flags DEVMODE
         if (!this.client.isProduction && process.argv.includes('-db')) {
@@ -52,43 +53,6 @@ module.exports = class Bot extends Component {
           this.client.config.status_url,
           false
         ).then(() => this.client.logger.ready('Status set'));
-
-        if (this.client.config.switches.backupdb) {
-          //config.switches.backupdb
-          util.Firebase.backupDBfile(
-            this.client.db,
-            this.client,
-            process.env.DISCORD_PIT_SERVER_CHANNEL_BACKUP_ID,
-            {
-              filenameprefix: 'roshan_db_',
-              messageprefix: '**Roshan Backup DB**'
-            }
-          ).then((data) => {
-            this.client.logger.info('Backup', 'Done!');
-
-            //Update leaderboard (Firebase) each this.client.config.hoursLeaderboardUpdate at least
-            if (
-              this.client.config.switches.leaderboardUpdate &&
-              this.client.config.constants.hoursLeaderboardUpdate * 3600 +
-                data.leaderboard.updated <
-                new Date().getTime() / 1000
-            ) {
-              this.updateLeaderboard(snap.profiles);
-            }
-
-            // Update public data
-            this.client.database
-              .getBucket('public')
-              .update({
-                discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
-                discord_server: process.env.DISCORD_PIT_SERVER_URL,
-                users: Object.keys(data.profiles).length,
-                servers: Object.keys(data.servers).length,
-                version: packageInfo.version
-              })
-              .then(() => this.client.logger.info('Publicinfo updated'));
-          });
-        }
       });
   }
   setStatus(type, status, msg, url, update) {
@@ -122,74 +86,116 @@ module.exports = class Bot extends Component {
     );
     return Promise.all(promises);
   }
-  updateLeaderboard(snap) {
-    if (snap) {
-      return Object.keys(snap)
-        .map((p) => ({ discord_id: p, dota_id: snap[p].dota }))
-        .filter((player) => player.dota_id)
-        .map((player) => {
-          const guild = this.client.guilds.find((g) =>
-            g.members.get(player.discord_id)
-          );
-          let member;
-          if (guild) {
-            member = guild.members.get(player.discord_id);
-          }
-          player.username = member ? member.username : false;
-          player.avatar = member ? member.avatarURL : false;
-          return player;
-        })
-        .reduce((promise, player) => {
-          return promise.then(
-            (results) =>
-              new Promise((res) => {
-                setTimeout(
-                  () =>
-                    this.client.components.Opendota.player_steam(
-                      player.dota_id
-                    ).then((dataArray) => {
+  async updateLeaderboard() {
+    try {
+      this.client.logger.debug('Updating leaderboard');
+      const profiles = await this.client.database.getBucket('profiles').get();
+      const data = await this._updateLeaderboardGetPlayersData(profiles);
+      this.client.logger.debug(`Leaderboard data: ${JSON.stringify(data)}`);
+      await this.client.database.getBucket('leaderboard').set(undefined, data);
+      this.client.logger.debug('Updated leaderboard');
+    } catch (error) {
+      this.client.logger.error(`Error updating leaderboard: ${error.message}`);
+    }
+  }
+  _updateLeaderboardGetPlayersData(snap) {
+    return Object.keys(snap)
+      .map((p) => ({ discord_id: p, dota_id: snap[p].dota }))
+      .filter((player) => player.dota_id)
+      .map((player) => {
+        const guild = this.client.guilds.find((g) =>
+          g.members.get(player.discord_id)
+        );
+        let member;
+        if (guild) {
+          member = guild.members.get(player.discord_id);
+        }
+        player.username = member ? member.username : false;
+        player.avatar = member ? member.avatarURL : false;
+        return player;
+      })
+      .reduce((promise, player) => {
+        return promise.then(
+          (results) =>
+            new Promise((res) => {
+              setTimeout(
+                () =>
+                  this.client.components.Opendota.player_steam(player.dota_id)
+                    .then((dataArray) => {
                       const [data] = dataArray;
                       player.data = data;
                       res([...results, player]);
+                    })
+                    .catch((e) => {
+                      this.client.logger.error(
+                        `Error getting data of player [${player.dota_id}]: ${e.message}`
+                      );
+                      res([...results, { data: null }]);
                     }),
-                  2000
-                );
-              })
-          );
-        }, Promise.resolve([]))
-        .then((players) => {
-          const update = players.reduce(
-            (update, player) => {
-              const { data } = player;
-              if (!data) {
-                return update;
-              }
-              const rank = odutil.getMedal(data, 'raw');
-              update.ranking[player.discord_id] = {
-                username: player.username || data.profile.personaname,
-                nick: data.profile.personaname || '',
-                avatar: player.avatar || data.profile.avatarmedium,
-                rank: rank.rank,
-                leaderboard: rank.leaderboard
-              };
+                2000
+              );
+            })
+        );
+      }, Promise.resolve([]))
+      .then((players) => {
+        const update = players.reduce(
+          (update, player) => {
+            const { data } = player;
+            if (!data) {
               return update;
-            },
-            { updated: Math.round(Date.now() / 1000), ranking: {} }
-          );
-          return this.client.database
-            .set('leaderboard', update)
-            .then(() => this.client.logger.info('Ranking Updated'));
-        });
+            }
+            const rank = odutil.getMedal(data, 'raw');
+            update.ranking[player.discord_id] = {
+              username: player.username || data.profile.personaname,
+              nick: data.profile.personaname || '',
+              avatar: player.avatar || data.profile.avatarmedium,
+              rank: rank.rank,
+              leaderboard: rank.leaderboard
+            };
+            return update;
+          },
+          { updated: Math.round(Date.now() / 1000), ranking: {} }
+        );
+        return update;
+      });
+  }
+  async updatePublicData() {
+    try {
+      this.client.logger.debug('Updating public data');
+      const profiles = await this.client.database.getBucket('profiles').get();
+      const publicData = {
+        discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
+        discord_server: process.env.DISCORD_PIT_SERVER_URL,
+        users: Object.keys(profiles).length,
+        servers: 0, // TODO: remove
+        version: packageInfo.version
+      };
+      this.client.logger.debug(`Public data: ${JSON.stringify(publicData)}`);
+      await this.client.database
+        .getBucket('public')
+        .update(undefined, publicData);
+      this.client.logger.info('Updated public data');
+    } catch (error) {
+      this.client.logger.error(`Error updating public data: ${error.message}`);
     }
   }
-  parseText(text, mode) {
-    if (typeof text != 'string') {
-      return 'Unknown';
+  async takeDatabaseBackup() {
+    try {
+      this.client.logger.debug('Taking database backup');
+      await util.Firebase.backupDBfile(
+        this.client.db,
+        this.client,
+        process.env.DISCORD_PIT_SERVER_CHANNEL_BACKUP_ID,
+        {
+          filenameprefix: 'roshan_db_',
+          messageprefix: '**Roshan Backup DB**'
+        }
+      );
+      this.client.logger.debug('Database backup finished');
+    } catch (error) {
+      this.client.logger.error(
+        `Error taking database backup: ${error.message}`
+      );
     }
-    let newText = text;
-    if (mode == 'nf') {
-      newText = text.replace(new RegExp('`', 'g'), "'");
-    }
-    return newText;
   }
 };

@@ -1,6 +1,6 @@
 const { SimpleEnums } = require('../classes/enums');
 
-//TODO Mirar name_id en idcardconfig
+//TODO See name_id in idcardconfig
 // const HEROES = {
 //   "1" : {"name" : "Anti-Mage", "name_id" : "antimage", alias : ["antimage","am"]},
 //   "2" : {"name" : "Axe", "name_id" : "axe", alias : ["axe"]},

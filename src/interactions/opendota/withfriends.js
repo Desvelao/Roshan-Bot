@@ -39,7 +39,7 @@ module.exports = {
     let table =
       Classes.Table.renderRow(
         [
-          client.components.Bot.parseText(
+          odutil.parseText(
             client.components.Locale.translateAsScopedUser(
               interaction.user,
               'player'

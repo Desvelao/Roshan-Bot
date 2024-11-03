@@ -57,7 +57,7 @@ module.exports.DatabaseBucket = class DatabaseBucket {
       // Validate the response data instead of return the input
       return update.data;
     } catch (error) {
-      tthis.logger.error(`Error updating data: ${error.message}`);
+      this.logger.error(`Error updating data: ${error.message}`);
       throw error;
     }
   }
