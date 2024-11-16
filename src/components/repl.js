@@ -1,12 +1,33 @@
 const { Component } = require('aghanim');
 const { inspect } = require('util');
+const { registerREPLCommands } = require('../repl-commands');
+
+function createReply(client, msg) {
+  function response(message) {
+    return client.createMessage(msg.channel.id, message);
+  }
+  response.table = (head, array) =>
+    response(
+      head.join(' | ') + '\n' + array.map((el) => el.join(' | ')).join('\n')
+    );
+  response.object = (obj) => response(`\`\`\`js\n${inspect(obj)}\`\`\``);
+  response.keyval = (obj) =>
+    response(
+      Object.keys(obj)
+        .map((key) => `${key}: ${obj[key]}`)
+        .join('\n')
+    );
+  response.js = (obj) => response(`\`\`\`js\n${inspect(obj)}\`\`\``);
+  return response;
+}
 
 module.exports = class Repl extends Component {
   constructor(client, options) {
     super(client, options);
     this.enable = true;
-    this.replChannel = '571165419977834506';
-    this.scriptsChannel = '470189277544841226';
+    this.replChannel = process.env.DISCORD_MANAGEMENT_SERVER_CHANNEL_ID_REPL;
+    this.scriptsChannel =
+      process.env.DISCORD_MANAGEMENT_SERVER_CHANNEL_ID_REPL_SCRIPTS;
   }
   ready(client) {
     this.update();
@@ -17,99 +38,42 @@ module.exports = class Repl extends Component {
       !msg.author.bot &&
       (msg.author.id === msg.author.id) !== this.client.owner.id
     ) {
-      const response = msg.reply.bind(msg);
-      response.table = (head, array) =>
-        response(
-          head.join(' | ') + '\n' + array.map((el) => el.join(' | ')).join('\n')
-        );
-      response.object = (obj) => response(`\`\`\`js\n${inspect(obj)}\`\`\``);
-      response.keyval = (obj) =>
-        response(
-          Object.keys(obj)
-            .map((key) => `${key}: ${obj[key]}`)
-            .join('\n')
-        );
-      response.js = (obj) => response(`\`\`\`js\n${inspect(obj)}\`\`\``);
+      this.client.logger.debug('Running REPL');
+      const response = createReply(this.client, msg);
 
-      let input = msg.content.split(' ');
+      const input = msg.content.split(' ');
       const { command, ctx } = parse(this.repl.commands, input);
       if (command) {
         return Promise.resolve(
           command.run(ctx, client, response, command)
-        ).catch(response);
+        ).catch(console.log);
       } else {
         const client = this.client;
-        let result = eval(msg.content);
-        Promise.resolve(result)
+        const evalMessage = `return ${msg.content}`;
+        const f = new Function('ctx', evalMessage);
+        Promise.resolve(f({ client, msg }))
           .then((res) => {
-            if (typeof result === 'object') {
-              result = inspect(result);
-            }
-            result = String(result).slice(0, 1000);
-            this.client.logger.eval('Eval Result: ' + result);
-            return msg.reply(
+            const result = String(
+              typeof res === 'object' ? inspect(res) : res
+            ).slice(0, 1000);
+            this.client.logger.eval(`Eval [${evalMessage}]: ${result}`);
+            return this.client.createMessage(
+              msg.channel.id,
               `**${this.client.config.emojis.default.accept} Result**\n\`\`\`js\n${result}\`\`\``
             );
-            // return msg.reply(`**Expresión**\n\`\`\`js\n${toEval}\`\`\`\n\n**${this.client.config.emojis.default.accept} Resultado**\n\`\`\`js\n${result}\`\`\``)
           })
           .catch((err) => {
-            this.client.logger.eval('Eval Error: ' + err);
-            return msg.reply(
+            this.client.logger.eval(`Eval error [${evalMessage}]: ${err}`);
+            return this.client.createMessage(
+              msg.channel.id,
               `**${this.client.config.emojis.default.error} Error**\`\`\`js\n${err}\`\`\``
             );
-            // return msg.reply(`**Expresión**\n\`\`\`js\n${toEval}\`\`\`\n\n**${this.client.config.emojis.default.error} Error**\`\`\`js\n${err}\`\`\``)
           });
       }
     }
   }
   update() {
-    const guild = new CommandRepl('guild', helpfunction);
-    guild.register('list', (_, client, response) =>
-      response.table(
-        ['Name', 'Members'],
-        client.guilds.map((g) => [g.name, g.memberCount])
-      )
-    );
-    guild.register('info', ([id], client, response) => {
-      const guild = client.guilds.find(
-        (g) => g.id === id || g.name.toLowerCase().includes(id)
-      );
-      if (guild) {
-        const { name, memberCount } = guild;
-        return response.keyval({ name, memberCount });
-      }
-    });
-
-    const user = new CommandRepl('user', helpfunction);
-    user.register('info', ([id], client, response) => {
-      const user = client.users.find(
-        (user) => user.id === id || user.username.toLowerCase().includes(id)
-      );
-      if (user) {
-        const { username, id, mention } = user;
-        return response.keyval({ username, id, mention });
-      }
-    });
-    user.register('profile', ([id], client, response) => {
-      return response.js(client.profilesManager.getUserAccountData(id));
-    });
-    user.register('opendota', async ([dotaID], client, response) => {
-      const account = await this.client.components.Account.get(dotaID); // FIX: use profile manager
-      if (account) {
-        return this.client.components.Opendota.request(
-          ['https://api.opendota.com/api/players/<id>'],
-          account.dota
-        ).then(response.object);
-      } else {
-        return this.client.components.Opendota.request(
-          ['https://api.opendota.com/api/players/<id>'],
-          dotaID
-        ).then(response.object);
-      }
-    });
     this.repl = new CommandRepl();
-    this.repl.register(guild);
-    this.repl.register(user);
     this.repl.register('refresh', (_, client, response) =>
       this.update().then(() => response('Done refresh'))
     );
@@ -119,6 +83,12 @@ module.exports = class Repl extends Component {
         this.repl.commands.map((cmd) => [cmd.name, ''])
       )
     );
+    registerREPLCommands({
+      register: this.repl.register.bind(this.repl),
+      CommandRepl,
+      helpfunction
+    });
+    // Load REPL commands from channel
     return this.client.getMessages(this.scriptsChannel).then((messages) => {
       const { exists, notExists } = messages
         .filter((m) => m.content.startsWith('🇷'))
