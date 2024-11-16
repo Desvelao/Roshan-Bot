@@ -34,8 +34,7 @@ module.exports = class Locale extends Component {
       bot_avatar: this.client.user.avatarURL,
       author_name: this.client.owner.username,
       author_id: this.client.owner.id,
-      channel_foso: '<#' + process.env.DISCORD_PIT_SERVER_ID + '>',
-      server: process.env.DISCORD_PIT_SERVER_URL,
+      server: process.env.DISCORD_MANAGEMENT_SERVER_URL,
       bot_version: packageInfo.version,
       bot_update: packageInfo.version_date,
       link_kofi: this.client.config.links.kofi,
@@ -43,9 +42,9 @@ module.exports = class Locale extends Component {
       link_web_leaderboard: this.client.config.links.web_leaderboard,
       link_web_addtourney: this.client.config.links.web_addtourney,
       link_web_feeds: this.client.config.links.web_feeds,
-      link_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
+      link_invite: process.env.DISCORD_MANAGEMENT_SERVER_INVITE_URL,
       link_dota_api: this.client.config.links.dota_api,
-      link_devserver: process.env.DISCORD_PIT_SERVER_URL,
+      link_devserver: process.env.DISCORD_MANAGEMENT_SERVER_URL,
       link_web_playercard_bg_gallery:
         this.client.config.links.web_playercard_bg_gallery,
       link_web_features: this.client.config.links.web_features

@@ -8,7 +8,7 @@ module.exports = {
   requirements: ['account.exist'],
   scope: {
     type: 'guild',
-    guildIDs: [process.env.DISCORD_PIT_SERVER_ID]
+    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
   },
   run: async function (interaction, client, command) {
     const discordID = interaction.user.id;
@@ -19,7 +19,7 @@ module.exports = {
       ? interaction.channel.guild.id
       : interaction.channel.id;
     const messageNotificationServer = await client.createMessage(
-      process.env.DISCORD_PIT_SERVER_CHANNEL_ACCOUNTS_ID,
+      process.env.DISCORD_MANAGEMENT_SERVER_CHANNEL_ACCOUNTS_ID,
       {
         embed: {
           title: client.components.Locale.translateAsDefaultUser(

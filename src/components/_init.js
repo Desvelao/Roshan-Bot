@@ -130,7 +130,7 @@ module.exports = class Init extends Component {
   ready() {
     // store the Pit server in the client instance
     this.client.server = this.client.guilds.get(
-      process.env.DISCORD_PIT_SERVER_ID
+      process.env.DISCORD_MANAGEMENT_SERVER_ID
     );
   }
 };

@@ -4,7 +4,7 @@ module.exports = {
   name: 'Logger',
   constructor: (client, options) => {
     // do something when create component instance
-    this.channelID = process.env.DISCORD_PIT_SERVER_CONSOLE_CHANNEL_ID;
+    this.channelID = process.env.DISCORD_MANAGEMENT_SERVER_CONSOLE_CHANNEL_ID;
     this.client = client;
     this.colors = {
       red: 16711680
@@ -54,7 +54,8 @@ module.exports = {
         );
         client
           .createMessage(this.channelID, {
-            content: process.env.DISCORD_PIT_SERVER_ROLE_MENTION_DEV_ERRORS,
+            content:
+              process.env.DISCORD_MANAGEMENT_SERVER_ROLE_MENTION_DEV_ERRORS,
             embed: {
               title: `cmd: ${command.name}`,
               author: {
@@ -92,7 +93,8 @@ module.exports = {
         );
         client
           .createMessage(this.channelID, {
-            content: process.env.DISCORD_PIT_SERVER_ROLE_MENTION_DEV_ERRORS,
+            content:
+              process.env.DISCORD_MANAGEMENT_SERVER_ROLE_MENTION_DEV_ERRORS,
             embed: {
               title: `component: ${component.constructor.name}`,
               fields: [
@@ -117,7 +119,8 @@ module.exports = {
       this.logger.error(`error: ${error.message || error}`);
       client
         .createMessage(this.channelID, {
-          content: process.env.DISCORD_PIT_SERVER_ROLE_MENTION_DEV_ERRORS,
+          content:
+            process.env.DISCORD_MANAGEMENT_SERVER_ROLE_MENTION_DEV_ERRORS,
           embed: {
             title: `:x: Bot Error: ${error.message}`,
             fields: [

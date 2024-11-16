@@ -164,8 +164,8 @@ module.exports = class Bot extends Component {
       this.client.logger.debug('Updating public data');
       const profiles = await this.client.database.getBucket('profiles').get();
       const publicData = {
-        discord_invite: process.env.DISCORD_PIT_SERVER_INVITE_URL,
-        discord_server: process.env.DISCORD_PIT_SERVER_URL,
+        discord_invite: process.env.DISCORD_MANAGEMENT_SERVER_INVITE_URL,
+        discord_server: process.env.DISCORD_MANAGEMENT_SERVER_URL,
         users: Object.keys(profiles).length,
         servers: 0, // TODO: remove
         version: packageInfo.version
@@ -185,7 +185,7 @@ module.exports = class Bot extends Component {
       await util.Firebase.backupDBfile(
         this.client.db,
         this.client,
-        process.env.DISCORD_PIT_SERVER_CHANNEL_BACKUP_ID,
+        process.env.DISCORD_MANAGEMENT_SERVER_CHANNEL_BACKUP_ID,
         {
           filenameprefix: 'roshan_db_',
           messageprefix: '**Roshan Backup DB**'
