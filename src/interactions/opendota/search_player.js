@@ -54,8 +54,8 @@ module.exports = {
                   odutil.nameOrNick(profile),
                   'nf'
                 )}** ${link(
-                  client.config.links.profile.dotabuff + profile.account_id,
-                  'DB'
+                  client.components.Opendota.getProfileURL(profile.account_id),
+                  'OD'
                 )}/${link(profile.profileurl, 'S')}`
             )
             .join(', ');

@@ -146,10 +146,9 @@ module.exports = {
               : enumLobbyType.getValue(results[0].lobby_type),
             match_skill: enumSkill.getValue(results[0].skill) || '',
             match_id: results[0].match_id,
-            match_link:
-              client.config.links.profile.dotabuff.slice(0, -8) +
-              'matches/' +
-              results[0].match_id,
+            match_link: client.components.Opendota.getGameURL(
+              results[0].match_id
+            ),
             duration: odutil.durationTime(results[0].duration),
             time: util.Datee.custom(
               results[0].start_time * 1000,

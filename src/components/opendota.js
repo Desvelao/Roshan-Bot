@@ -1,9 +1,50 @@
 const { Component } = require('aghanim');
 
+const baseAPIURL = 'https://api.opendota.com/api/';
+
+const basePublicURL = 'https://www.opendota.com/';
+
+const Endpoints = {
+  player: 'players/<id>',
+  player_wl: 'players/<id>/wl',
+  player_heroes: 'players/<id>/heroes',
+  player_totals: 'players/<id>/totals',
+  player_matches: 'players/<id>/matches?significant=0',
+  player_pros: 'players/<id>/pros',
+  player_friends: 'players/<id>/peers?date=30',
+  match: 'matches/<id>',
+  competitive: 'proMatches/',
+  proplayers: 'proPlayers/',
+  search_player: 'search?q=<id>&similarity=0.5',
+  search_pro: 'proPlayers/'
+};
+
+const urls = {
+  account: [Endpoints.player],
+  card: [Endpoints.player],
+  card_heroes: [Endpoints.player, Endpoints.player_heroes],
+  player: [
+    Endpoints.player,
+    Endpoints.player_wl,
+    Endpoints.player_heroes,
+    Endpoints.player_totals
+  ],
+  player_matches: [Endpoints.player, Endpoints.player_matches],
+  player_lastmatch: [Endpoints.player_matches],
+  player_friends: [Endpoints.player, Endpoints.player_friends],
+  player_pros: [Endpoints.player, Endpoints.player_pros],
+  player_steam: [Endpoints.player],
+  match: [Endpoints.match],
+  competitive: [Endpoints.competitive],
+  search_player: [Endpoints.search_player],
+  search_pro: [Endpoints.search_pro]
+};
+
+const decorator = (f, urls) => (id) => f(urls, id);
 module.exports = class Opendota extends Component {
   constructor(client, options) {
     super(client);
-    this.baseURL = baseURL;
+    this.baseURL = baseAPIURL;
     Object.keys(urls).forEach((key) => {
       this[key] = decorator(
         this.request.bind(this),
@@ -147,44 +188,10 @@ module.exports = class Opendota extends Component {
         .catch((err) => console.log(err));
     });
   }
+  getProfileURL(id) {
+    return (basePublicURL + 'players/<id>').replace('<id>', id);
+  }
+  getGameURL(id) {
+    return (basePublicURL + 'matches/<id>').replace('<id>', id);
+  }
 };
-
-const baseURL = 'https://api.opendota.com/api/';
-
-const Endpoints = {
-  player: 'players/<id>',
-  player_wl: 'players/<id>/wl',
-  player_heroes: 'players/<id>/heroes',
-  player_totals: 'players/<id>/totals',
-  player_matches: 'players/<id>/matches?significant=0',
-  player_pros: 'players/<id>/pros',
-  player_friends: 'players/<id>/peers?date=30',
-  match: 'matches/<id>',
-  competitive: 'proMatches/',
-  proplayers: 'proPlayers/',
-  search_player: 'search?q=<id>&similarity=0.5',
-  search_pro: 'proPlayers/'
-};
-
-const urls = {
-  account: [Endpoints.player],
-  card: [Endpoints.player],
-  card_heroes: [Endpoints.player, Endpoints.player_heroes],
-  player: [
-    Endpoints.player,
-    Endpoints.player_wl,
-    Endpoints.player_heroes,
-    Endpoints.player_totals
-  ],
-  player_matches: [Endpoints.player, Endpoints.player_matches],
-  player_lastmatch: [Endpoints.player_matches],
-  player_friends: [Endpoints.player, Endpoints.player_friends],
-  player_pros: [Endpoints.player, Endpoints.player_pros],
-  player_steam: [Endpoints.player],
-  match: [Endpoints.match],
-  competitive: [Endpoints.competitive],
-  search_player: [Endpoints.search_player],
-  search_pro: [Endpoints.search_pro]
-};
-
-const decorator = (f, urls) => (id) => f(urls, id);

@@ -32,8 +32,8 @@ module.exports = {
           .map(
             (player) =>
               `**${odutil.parseText(odutil.nameOrNick(player), 'nf')}** ${link(
-                client.config.links.profile.dotabuff + player.account_id,
-                'DB'
+                client.components.Opendota.getProfileURL(profile.account_id),
+                'OD'
               )}/${link(player.profileurl, 'S')}`
           )
           .join(', ');
