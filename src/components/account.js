@@ -138,7 +138,7 @@ module.exports = class Account extends Component {
   }
   updatePublicLeaderboardPlayers() {
     return this.client.database.getBucket('public').update({
-      users: this.client.database.getBucket('test-profiles')._cache.size
+      users: this.client.database.getCollection('profiles')._cache.size
     });
   }
   socialLink(type, id, tag) {

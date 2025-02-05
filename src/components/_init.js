@@ -112,7 +112,7 @@ module.exports = class Init extends Component {
             timestamps: true,
             ignoredLevels: [this.client.isProduction ? 'debug' : '']
           }),
-          database.getCollection('test-profiles')
+          database.getCollection('profiles')
         );
       });
     });
