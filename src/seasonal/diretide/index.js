@@ -48,7 +48,7 @@ const Diretide = new RoshanGame('Diretide', 'Diretide', {
       color: 0x2bb403
     }
   },
-  logChannel: '504825892099457037', //504825892099457037 alphatest => 327603261085581312
+  logChannel: '', // channel logs ID
   events: {
     active: {
       require: {

@@ -12,9 +12,9 @@ const gameconfig = require('./duel.config.js');
 module.exports = class DuelGame extends Component {
   constructor(client, options) {
     super(client);
-    this.categoryID = '623994429979492373';
-    this.channelLogID = '624002949609291816';
-    this.channelMatchmakingID = '624002949609291816';
+    this.categoryID = ''; // Channel category ID
+    this.channelLogID = ''; // Channel logs ID
+    this.channelMatchmakingID = ''; // Matchmaking channel ID
     this.awaitManager = new AwaitMessageManager(this.client);
     // this.client.addCategory('Duel', 'DuelGame')
     this.client.components.Locale.lang['en']['cmd_duel_args'] = '';
@@ -65,7 +65,7 @@ module.exports = class DuelGame extends Component {
     // this.testBoard()
   }
   testBoard() {
-    const user1 = this.client.users.get('189996884322942976');
+    const user1 = this.client.users.get('PLACEHOLDER');
     const player1 = {
       id: user1.id,
       name: user1.username,
@@ -73,7 +73,7 @@ module.exports = class DuelGame extends Component {
       rank: 0,
       color: 1000000
     };
-    const user2 = this.client.users.get('314083101129310208');
+    const user2 = this.client.users.get('PLACEHOLDER');
     const player2 = {
       id: user2.id,
       name: user2.username,
@@ -83,7 +83,7 @@ module.exports = class DuelGame extends Component {
     };
     const self = this;
     const board = new Board({
-      channel: self.client.server.channels.get('327603261085581312'),
+      channel: self.client.server.channels.get('PLACEHOLDER'),
       initialMessage: {
         content: {
           embed: {
