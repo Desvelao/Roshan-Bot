@@ -1,7 +1,7 @@
 {
   "name": "roshan-discord-bot",
-  "version": "0.3.8",
-  "version_date": "01/11/24",
+  "version": "0.4.0-alpha2",
+  "version_date": "25/02/05",
   "description": "Dota 2 Discord bot written in ErisJS using Aghanim Command Client",
   "main": "src/bot.js",
   "engines": {
@@ -9,13 +9,11 @@
     "npm": "=6.10.2"
   },
   "scripts": {
-    "start": "node bot.js",
+    "start": "NODE_ENV=production node src/bot.js",
     "test": "./node_modules/.bin/jest",
     "dev": "NODE_ENV=development ./node_modules/.bin/nodemon bot.js",
     "dev-prod": "NODE_ENV=production ./node_modules/.bin/nodemon bot.js",
     "eslint": "./node_modules/.bin/eslint bot.js",
-    "heroku-postbuild-test": "npm i Desvelao/aghanim#dev-tmp",
-    "test-heroku-postbuild": "npm install",
     "update-assets": "node dev-scripts/od-assets.js src/img",
     "update-assets-all": "node dev-scripts/od-assets.js src/img -all",
     "combine-medals-web": "node dev-scripts/combine-medals.js medal_",
@@ -33,7 +31,7 @@
   "author": "Desvelao^^ <iamdesvelao@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "aghanim": "github:Desvelao/aghanim#dev-tmp",
+    "aghanim": "github:Desvelao/aghanim#v0.3.0-beta1",
     "artifact-api": "github:openartifact/artifact-api",
     "axios": "^0.27.2",
     "dotaconstants": "^8.11.0",

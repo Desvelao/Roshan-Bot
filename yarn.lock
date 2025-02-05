@@ -425,9 +425,9 @@ agent-base@^4.3.0:
   dependencies:
     es6-promisify "^5.0.0"
 
-"aghanim@github:Desvelao/aghanim#dev-tmp":
-  version "0.2.0"
-  resolved "https://codeload.github.com/Desvelao/aghanim/tar.gz/1e37edbddb896ec306960f19e92acef0860033a3"
+"aghanim@github:Desvelao/aghanim#v0.3.0-beta1":
+  version "0.3.0"
+  resolved "https://codeload.github.com/Desvelao/aghanim/tar.gz/57b045259d22b9a9ca06bd3284eecf9b225d37df"
   dependencies:
     another-logger "^3.0.1"
     eris "^0.16.1"
@@ -1739,9 +1739,9 @@ ent@^2.2.0:
   integrity sha512-GHrMyVZQWvTIdDtpiEXdHZnFQKzeO09apj8Cbl4pKWy4i0Oprcq17usfDt5aO63swf0JOeMWjWQE/LzgSRuWpA==
 
 eris@^0.16.1:
-  version "0.16.1"
-  resolved "https://registry.yarnpkg.com/eris/-/eris-0.16.1.tgz#44b0a9220944fc73dd74538cd614826bfbfcde61"
-  integrity sha512-fqjgaddSvUlUjA7s85OvZimLrgCwX58Z6FXOIxdNFJdT6XReJ/LOWZKdew2CaalM8BvN2JKzn98HmKYb3zMhKg==
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/eris/-/eris-0.16.2.tgz#60da5e2d0bb410a2c61d2b9f500c508f0dace07f"
+  integrity sha512-9uiDk/XuFfm82k8REtUqHVzXss9VW6fTEandseXpTGtBN2c+DOZG7Rjkr7qiu+4nVhmP9cOxBX4i0NdFVHlZ9g==
   dependencies:
     ws "^8.2.3"
   optionalDependencies:
@@ -7016,9 +7016,9 @@ ws@^5.2.0:
     async-limiter "~1.0.0"
 
 ws@^8.2.3:
-  version "8.8.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.8.1.tgz#5dbad0feb7ade8ecc99b830c1d77c913d4955ff0"
-  integrity sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==
+  version "8.18.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.18.0.tgz#0d7505a6eafe2b0e712d232b42279f53bc289bbc"
+  integrity sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==
 
 xdg-basedir@^3.0.0:
   version "3.0.0"
