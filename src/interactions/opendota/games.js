@@ -101,7 +101,7 @@ module.exports = {
         social_links: client.components.Account.socialLinks(profile),
         match_date: util.Date.custom(
           results[1][0].start_time * 1000,
-          '[D/M/Y h:m:s]'
+          '[Y/M/D h:m:s]'
         ),
         user_avatar_url: results[0].profile.avatarmedium,
         matches: table
