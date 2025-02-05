@@ -1,0 +1,12 @@
+#docker run -itd --rm --name roshan -v "$(pwd):/home/node/app" -w "/home/node/app" -u node node:10.16.3-stretch-slim
+
+services:
+  roshan:
+    image: node:10.16.3-stretch-slim
+    user: node
+    working_dir: /home/node/app
+    container_name: roshan
+    restart: unless-stopped
+    volumes:
+      - ./:/home/node/app
+    command: sh -c 'cd /home/node/app && yarn start'
