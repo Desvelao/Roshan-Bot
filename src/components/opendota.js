@@ -4,7 +4,6 @@ module.exports = class Opendota extends Component {
   constructor(client, options) {
     super(client);
     this.baseURL = baseURL;
-    this._calls = 0;
     Object.keys(urls).forEach((key) => {
       this[key] = decorator(
         this.request.bind(this),
@@ -76,17 +75,6 @@ module.exports = class Opendota extends Component {
         return context.ctx.message;
       }
     });
-    this.client.once('database:init', () => {
-      this.db = this.client.database.getBucket('botstats');
-      this.db
-        .get()
-        .then((data) => {
-          this._calls = data.odcalls;
-        })
-        .catch(() => {
-          this._calls = 0;
-        });
-    });
   }
   request(urls, id) {
     return Promise.all(
@@ -94,22 +82,6 @@ module.exports = class Opendota extends Component {
         this.client.httpClient.fetch('get', url.replace('<id>', id))
       )
     );
-  }
-  get calls() {
-    return this._calls;
-  }
-  set calls(value) {
-    return this.save(value);
-  }
-  save(value) {
-    this._calls = value === undefined ? this._calls : value;
-    return this.client.isProduction
-      ? this.db.update('odcalls', this._calls)
-      : Promise.resolve();
-  }
-  incremental(add) {
-    this._calls += add || 0;
-    return this.save(this._calls);
   }
   needRegister(profile) {
     return !profile.account || (profile.account && !profile.account.dota);
