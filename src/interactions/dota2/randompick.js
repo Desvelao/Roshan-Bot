@@ -7,8 +7,7 @@ module.exports = {
   description: 'Random pick a hero',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     let hero;

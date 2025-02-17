@@ -7,8 +7,7 @@ module.exports = {
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   requirements: ['account.exist'],
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     const discordID = interaction.user.id;

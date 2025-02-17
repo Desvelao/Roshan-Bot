@@ -15,8 +15,7 @@ module.exports = {
   ],
   requirements: ['account.not.registered'],
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     const dotaID = interaction.data.options.find(

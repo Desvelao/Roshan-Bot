@@ -31,8 +31,7 @@ module.exports = {
     'dev.forceUpdate': false
   },
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     const heroesOption = interaction.data.options.find(

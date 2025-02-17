@@ -26,8 +26,7 @@ module.exports = {
   ],
   requirements: ['account.exist'],
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     const language = interaction.data.options.find(

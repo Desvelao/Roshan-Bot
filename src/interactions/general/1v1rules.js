@@ -25,8 +25,7 @@ module.exports = {
     }
   ],
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     const mode = interaction.data.options.find(

@@ -6,8 +6,7 @@ module.exports = {
   description: 'Leaderboard',
   type: Aghanim.Eris.Constants.ApplicationCommandTypes.CHAT_INPUT,
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     return client.components.Locale.replyInteraction(

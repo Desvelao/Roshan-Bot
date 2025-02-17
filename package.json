@@ -31,7 +31,7 @@
   "author": "Desvelao^^ <iamdesvelao@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "aghanim": "github:Desvelao/aghanim#v0.3.0-beta1",
+    "aghanim": "github:Desvelao/aghanim#v0.3.0-beta2",
     "artifact-api": "github:openartifact/artifact-api",
     "axios": "^0.27.2",
     "dotaconstants": "^8.11.0",

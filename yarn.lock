@@ -425,9 +425,9 @@ agent-base@^4.3.0:
   dependencies:
     es6-promisify "^5.0.0"
 
-"aghanim@github:Desvelao/aghanim#v0.3.0-beta1":
+"aghanim@github:Desvelao/aghanim#v0.3.0-beta2":
   version "0.3.0"
-  resolved "https://codeload.github.com/Desvelao/aghanim/tar.gz/57b045259d22b9a9ca06bd3284eecf9b225d37df"
+  resolved "https://codeload.github.com/Desvelao/aghanim/tar.gz/f71ace3ab079595f918981bfeaa48e70d0c60c80"
   dependencies:
     another-logger "^3.0.1"
     eris "^0.16.1"

@@ -19,8 +19,7 @@ module.exports = {
     defer: true
   },
   scope: {
-    type: 'guild',
-    guildIDs: [process.env.DISCORD_MANAGEMENT_SERVER_ID]
+    type: 'global'
   },
   run: async function (interaction, client, command) {
     const query = interaction.data.options.find(
