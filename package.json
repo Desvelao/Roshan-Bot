@@ -1,7 +1,7 @@
 {
   "name": "roshan-discord-bot",
   "version": "0.4.0-beta1",
-  "version_date": "25/02/05",
+  "version_date": "25/02/17",
   "description": "Dota 2 Discord bot written in ErisJS using Aghanim Command Client",
   "main": "src/bot.js",
   "engines": {
