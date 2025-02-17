@@ -1,5 +1,4 @@
 module.exports = function ({ register, CommandRepl, helpfunction }) {
-  console.log('HELLO');
   const user = new CommandRepl('user', helpfunction);
   user.register('info', ([id], client, response) => {
     const user = client.users.find(
